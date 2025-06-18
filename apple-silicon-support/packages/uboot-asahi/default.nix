@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, buildUBoot, m1n1, }:
+{
+  lib,
+  fetchFromGitHub,
+  buildUBoot,
+  m1n1,
+}:
 
 (buildUBoot rec {
   src = fetchFromGitHub {
@@ -12,7 +17,10 @@
 
   defconfig = "apple_m1_defconfig";
   extraMeta.platforms = [ "aarch64-linux" ];
-  filesToInstall = [ "u-boot-nodtb.bin.gz" "m1n1-u-boot.bin" ];
+  filesToInstall = [
+    "u-boot-nodtb.bin.gz"
+    "m1n1-u-boot.bin"
+  ];
   extraConfig = ''
     CONFIG_IDENT_STRING=" ${version}"
     CONFIG_VIDEO_FONT_4X6=n
@@ -21,17 +29,17 @@
     CONFIG_VIDEO_FONT_16X32=y
     CONFIG_CMD_BOOTMENU=y
   '';
-}).overrideAttrs (o: {
-  # nixos's downstream patches are not applicable
-  patches = [ ];
+}).overrideAttrs
+  (o: {
+    # nixos's downstream patches are not applicable
+    patches = [ ];
 
-  # DTC= flag somehow breaks DTC compilation so we remove it
-  makeFlags =
-    builtins.filter (s: (!(lib.strings.hasPrefix "DTC=" s))) o.makeFlags;
+    # DTC= flag somehow breaks DTC compilation so we remove it
+    makeFlags = builtins.filter (s: (!(lib.strings.hasPrefix "DTC=" s))) o.makeFlags;
 
-  preInstall = ''
-    # compress so that m1n1 knows U-Boot's size and can find things after it
-    gzip -n u-boot-nodtb.bin
-    cat ${m1n1}/build/m1n1.bin arch/arm/dts/t[68]*.dtb u-boot-nodtb.bin.gz > m1n1-u-boot.bin
-  '';
-})
+    preInstall = ''
+      # compress so that m1n1 knows U-Boot's size and can find things after it
+      gzip -n u-boot-nodtb.bin
+      cat ${m1n1}/build/m1n1.bin arch/arm/dts/t[68]*.dtb u-boot-nodtb.bin.gz > m1n1-u-boot.bin
+    '';
+  })

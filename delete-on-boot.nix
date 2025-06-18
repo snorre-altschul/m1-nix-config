@@ -1,5 +1,12 @@
-{ lib, persistExtraDirectories ? [ ], persistExtraFiles ? [ ], users
-, extraConfig ? { }, ... }: {
+{
+  lib,
+  persistExtraDirectories ? [ ],
+  persistExtraFiles ? [ ],
+  users,
+  extraConfig ? { },
+  ...
+}:
+{
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     # Prepare temporary folder
     mkdir /btrfs_tmp

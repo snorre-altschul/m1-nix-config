@@ -1,9 +1,15 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./apple-silicon-support
+    # ./apple-silicon-support
     (import ./delete-on-boot.nix {
       inherit lib;
       users = {
@@ -25,6 +31,7 @@
     })
 
     ./modules/nvim.nix
+    ./modules/niri.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -32,7 +39,12 @@
   boot.loader.efi.canTouchEfiVariables = false;
 
   # Specify path to peripheral firmware files.
-  hardware.asahi.peripheralFirmwareDirectory = ./firmware;
+  hardware.asahi = {
+    enable = true;
+    peripheralFirmwareDirectory = ./firmware;
+    useExperimentalGPUDriver = true;
+    withRust = true;
+  };
 
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -46,39 +58,6 @@
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  # services.pulseaudio.enable = true;
-  # OR
-  # services.pipewire = {
-  #   enable = true;
-  #   pulse.enable = true;
-  # };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nixos = {
     isNormalUser = true;
@@ -88,10 +67,27 @@
     shell = pkgs.fish;
   };
 
+  home-manager = {
+    extraSpecialArgs = { inherit inputs;};
+    users = {
+      "nixos" = import ./home.nix;
+    };
+  };
+
+  stylix = {
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-soft.yaml";
+    autoEnable = true;
+    polarity = "dark";
+
+    cursor.package = pkgs.bibata-cursors;
+    cursor.name = "Bibata-Modern-Ice";
+    cursor.size = 24;
+  };
+
   programs.fish = {
     enable = true;
     shellAbbrs = {
-      "nrb" = "nixos-rebuild --use-remote-sudo switch --flake /etc/nixos";
+      "nrb" = "nixos-rebuild --sudo switch --flake /etc/nixos";
     };
   };
   documentation.man.generateCaches = false;
@@ -102,18 +98,21 @@
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") inputs;
     settings = {
       nix-path = lib.mapAttrsToList (n: _: "${n}=flake:${n}") inputs;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
   };
 
   # FUCK NANO
   programs.nano.enable = false;
 
-  # programs.firefox.enable = true;
-
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
-  environment.systemPackages = with pkgs; [ neovim wget ];
+  environment.systemPackages = with pkgs; [
+    neovim
+    wget
+    git
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -127,15 +126,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

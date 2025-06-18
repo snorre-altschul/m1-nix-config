@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, lsp-plugins, bankstown-lv2, triforce-lv2, }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  lsp-plugins,
+  bankstown-lv2,
+  triforce-lv2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "asahi-audio";
@@ -32,5 +39,9 @@ stdenv.mkDerivation rec {
     mv $out/share/asahi-audio $out
   '';
 
-  passthru.requiredLv2Packages = [ lsp-plugins bankstown-lv2 triforce-lv2 ];
+  passthru.requiredLv2Packages = [
+    lsp-plugins
+    bankstown-lv2
+    triforce-lv2
+  ];
 }
