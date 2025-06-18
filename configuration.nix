@@ -31,7 +31,6 @@
     })
 
     ./modules/nvim.nix
-    ./modules/niri.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -68,9 +67,19 @@
   };
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs;};
+    extraSpecialArgs = { inherit inputs; };
     users = {
       "nixos" = import ./home.nix;
+    };
+  };
+
+  programs.git.config = {
+    init = {
+      defaultBranch = "main";
+    };
+    user = {
+      name = "m1";
+      email = "m1@mail.spoodythe.one";
     };
   };
 
@@ -91,6 +100,23 @@
     };
   };
   documentation.man.generateCaches = false;
+
+  # Minimal TUI displaymanager for loggin in and launching hyprland
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd niri";
+        user = "nixos";
+      };
+
+      # First session auto starts hyprland
+      initial_session = {
+        command = "/run/current-system/sw/bin/niri";
+        user = "nixos";
+      };
+    };
+  };
 
   nix = {
     channel.enable = false;
