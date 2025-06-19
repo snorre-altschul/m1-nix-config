@@ -6,6 +6,14 @@
   ...
 }:
 {
+  imports = [
+    ./tofi
+    ./waybar
+    ./dunst.nix
+  ];
+
+  services.blueman-applet.enable = true;
+
   programs.niri.settings = with inputs.niri-flake.lib.kdl; {
     debug.render-drm-device = "/dev/dri/renderD128";
 
@@ -40,8 +48,11 @@
     };
 
     spawn-at-startup = [
-      { command = [ "waybar" ]; }
+      { command = [ "${lib.getExe config.programs.waybar.package}" ]; }
+      { command = [ "${lib.getExe pkgs.xwayland-satellite}" ]; }
     ];
+
+    environment.DISPLAY = ":0";
 
     prefer-no-csd = true;
 

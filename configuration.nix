@@ -31,6 +31,8 @@
     })
 
     ./modules/nvim.nix
+    ./modules/bluetooth.nix
+    ./modules/docker.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -49,6 +51,11 @@
     withRust = true;
   };
 
+  hardware.graphics.enable = true;
+
+  tibs.enable = true;
+  boot.initrd.systemd.enable = true;
+
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -60,6 +67,10 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
+
+  fonts.packages = [
+    pkgs.nerd-fonts.mononoki
+  ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nixos = {

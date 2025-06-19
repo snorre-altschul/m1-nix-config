@@ -30,30 +30,34 @@
       url = "github:notashelf/basix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
-  outputs =
-    inputs@{ self, nixpkgs, ... }:
-    {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./configuration.nix
-          inputs.impermanence.nixosModules.impermanence
-          inputs.nvf.nixosModules.default
-
-          inputs.niri-flake.nixosModules.niri
-          { programs.niri.enable = true; }
-
-          inputs.nixos-apple-silicon.nixosModules.default
-          inputs.home-manager.nixosModules.default
-
-          inputs.stylix.nixosModules.stylix
-
-          inputs.nix-index-database.nixosModules.nix-index
-          { programs.nix-index-database.comma.enable = true; }
-        ];
-      };
-
-      formatter."aarch64-linux" = nixpkgs.legacyPackages.aarch64-linux.nixfmt-rfc-style;
+    tibs = {
+      url = "github:coffeeispower/tibs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+  };
+  outputs = inputs @ {nixpkgs, ...}: {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
+      modules = [
+        ./configuration.nix
+        inputs.impermanence.nixosModules.impermanence
+        inputs.nvf.nixosModules.default
+
+        inputs.tibs.nixosModules.tibs
+
+        inputs.niri-flake.nixosModules.niri
+        {programs.niri.enable = true;}
+
+        inputs.nixos-apple-silicon.nixosModules.default
+        inputs.home-manager.nixosModules.default
+
+        inputs.stylix.nixosModules.stylix
+
+        inputs.nix-index-database.nixosModules.nix-index
+        {programs.nix-index-database.comma.enable = true;}
+      ];
+    };
+
+    formatter."aarch64-linux" = nixpkgs.legacyPackages.aarch64-linux.nixfmt-rfc-style;
+  };
 }

@@ -1,0 +1,159 @@
+#mpris {
+  color: @base05;
+  background-color: @base00;
+
+  border-radius: 0 0 4pt 4pt;
+
+  padding-left: 6pt;
+  padding-right: 6pt;
+
+  margin-left: 4pt;
+  margin-right: 4pt;
+
+  transition: width 0.2s ease;
+  transition: background-color 0.1s ease;
+  transition: color 0.1s ease;
+}
+
+#mpris.spotify {
+  background: @base0B;
+  color: @base00;
+}
+
+#clock {
+  background-color: @base0C;
+  color: @base00;
+  padding-left: 6pt;
+  padding-right: 12pt;
+}
+
+#battery {
+  background-color: @base0E;
+  color: @base00;
+  padding-left: 6pt;
+  padding-right: 12pt;
+}
+
+#backlight {
+  background-color: @base06;
+  color: @base00;
+  padding-left: 6pt;
+  padding-right: 12pt;
+}
+
+#wireplumber {
+  background-color: @base08;
+  color: @base00;
+  padding-left: 6pt;
+  padding-right: 12pt;
+}
+
+#custom-power {
+  background-color: @base08;
+  color: @base00;
+  padding-left: 8pt;
+  padding-right: 12pt;
+}
+
+#power-profiles-daemon {
+  background-color: @base0E;
+  color: @base00;
+  padding-left: 8pt;
+  padding-right: 13pt;
+}
+
+#cpu {
+  background-color: @base0B;
+  color: @base00;
+  padding-left: 6pt;
+  padding-right: 6pt;
+}
+
+#memory {
+  background-color: @base0E;
+  color: @base00;
+  padding-left: 6pt;
+  padding-right: 6pt;
+}
+
+#network {
+  background-color: @base0D;
+  color: @base00;
+  padding-left: 6pt;
+  padding-right: 12pt;
+}
+
+#tray, #privacy {
+  background-color: @base00;
+  padding-left: 6pt;
+  padding-right: 6pt;
+  transition: width 0.1s ease;
+}
+
+#privacy {
+  margin-right: 2pt;
+  border-radius: 0 0 4pt 4pt;
+  transition: height 0.1s ease;
+}
+
+#tray {
+  margin-left: 2pt;
+  border-radius: 0 0 0 4pt;
+}
+
+#temperature {
+  background-color: @base0D;
+  color: @base00;
+  padding-left: 6pt;
+  padding-right: 6pt;
+  transition: background-color 0.1s linear;
+}
+
+#temperature.critical {
+  background-color: @base08;
+}
+
+#workspaces button {
+  border-radius: 0;
+  /*border-bottom: 2px solid @base0E;*/
+  border-bottom: 0px;
+  border-bottom-style: solid;
+  border-bottom-color: @base0E;
+
+  transition: color 0.1s ease;
+  transition: border-bottom 0.1s ease;
+}
+
+#workspaces button.active {
+  color: @base0E;
+  border-bottom: 2px;
+}
+
+#workspaces {
+  color: @base05;
+  background-color: @base00;
+  border-radius: 0 0 4pt 4pt;
+  padding-left: 6pt;
+  padding-right: 6pt;
+
+  border-radius: 0 0 4pt 0;
+
+  margin-right: 4pt;
+
+  transition: width 0.2s ease;
+}
+
+#window {
+  color: @base05;
+  background-color: @base00;
+  border-radius: 0 0 4pt 4pt;
+  padding-left: 6pt;
+  padding-right: 6pt;
+
+  transition: width 0.2s ease;
+  transition: background-color 0.1s ease;
+}
+
+window#waybar.empty #window {
+  background-color: transparent;
+}

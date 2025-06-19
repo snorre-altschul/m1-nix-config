@@ -9,8 +9,6 @@
   imports = [
     inputs.impermanence.nixosModules.home-manager.impermanence
     ./modules/niri.nix
-    ./modules/tofi
-    ./modules/dunst.nix
   ];
 
   home.username = "nixos";
@@ -27,6 +25,24 @@
     base16Scheme = inputs.basix.schemeData.base16.hopscotch;
     polarity = "dark";
     autoEnable = true;
+    fonts = {
+      serif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Serif";
+      };
+      sansSerif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Sans";
+      };
+      monospace = {
+        package = pkgs.nerd-fonts.mononoki;
+        name = "Mononoki Nerd Font";
+      };
+      emoji = {
+        package = pkgs.noto-fonts-emoji;
+        name = "Noto Color Emoji";
+      };
+    };
   };
 
   programs.librewolf.enable = true;
