@@ -10,6 +10,7 @@
     inputs.impermanence.nixosModules.home-manager.impermanence
     ./modules/niri.nix
     ./modules/tofi
+    ./modules/dunst.nix
   ];
 
   home.username = "nixos";
@@ -22,12 +23,10 @@
   ];
 
   stylix = {
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-soft.yaml";
+    # base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-soft.yaml";
+    base16Scheme = inputs.basix.schemeData.base16.hopscotch;
     polarity = "dark";
-    # image = ./nixos-wallpaper.png;
     autoEnable = true;
-    targets.niri.enable = true;
-    targets.tofi.enable = true;
   };
 
   programs.librewolf.enable = true;

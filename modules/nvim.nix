@@ -5,17 +5,28 @@
     settings = {
       vim.lsp = {
         enable = true;
-        servers."nil_ls" = {
+        inlayHints.enable = false;
+        lspconfig.enable = true;
+
+        mappings.format = "<F3>";
+
+        servers."*" = {
+          root_markers = [ ".git" ];
+          capabilities.textDocument.semanticTokens.multilineTokenSupport = true;
+        };
+        servers."nixd" = {
           enable = true;
           filetypes = [ "nix" ];
         };
       };
 
-      vim.theme = {
-        enable = true;
-        name = "gruvbox";
-        style = "dark";
-      };
+      vim.autocomplete.blink-cmp.enable = true;
+
+      # vim.theme = {
+      #   enable = true;
+      #   name = "gruvbox";
+      #   style = "dark";
+      # };
 
       vim.telescope.enable = true;
 
@@ -42,7 +53,22 @@
           enable = true;
           treesitter.enable = true;
         };
+
+        "ts" = {
+          enable = true;
+          extensions = {
+            ts-error-translator.enable = true;
+          };
+          extraDiagnostics.enable = true;
+        };
+        "rust".enable = true;
       };
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    nil
+    nixd
+    alejandra
+  ];
 }

@@ -37,6 +37,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
 
+  boot.extraModprobeConfig = ''
+    options hid_apple fnmode=2
+  '';
+
   # Specify path to peripheral firmware files.
   hardware.asahi = {
     enable = true;
@@ -84,6 +88,7 @@
   };
 
   stylix = {
+    enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-soft.yaml";
     autoEnable = true;
     polarity = "dark";
@@ -133,6 +138,7 @@
 
   # FUCK NANO
   programs.nano.enable = false;
+  environment.sessionVariables.EDITOR = "vim";
 
   environment.systemPackages = with pkgs; [
     neovim
