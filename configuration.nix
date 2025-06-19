@@ -24,7 +24,7 @@
 
             ".local/share/Steam"
             ".local/share/fish"
-
+            ".librewolf"
           ];
           files = [ ];
         };

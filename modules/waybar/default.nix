@@ -55,8 +55,8 @@ with config.stylix.fonts;
         modules-left = [
           "cpu"
           "memory"
-          "hyprland/workspaces"
-          "hyprland/window"
+          "niri/workspaces"
+          "niri/window"
         ];
         modules-center = [
           # "image#album-art"
