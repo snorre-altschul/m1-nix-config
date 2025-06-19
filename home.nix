@@ -9,6 +9,8 @@
   imports = [
     inputs.impermanence.nixosModules.home-manager.impermanence
     ./modules/niri.nix
+    ./modules/spotify.nix
+    ./modules/librewolf.nix
   ];
 
   home.username = "nixos";
@@ -16,12 +18,13 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  services.blueman-applet.enable = true;
+
   home.packages = with pkgs; [
 
   ];
 
   stylix = {
-    # base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-soft.yaml";
     base16Scheme = inputs.basix.schemeData.base16.hopscotch;
     polarity = "dark";
     autoEnable = true;
@@ -45,7 +48,6 @@
     };
   };
 
-  programs.librewolf.enable = true;
   programs.foot.enable = true;
 
   home.sessionVariables = {

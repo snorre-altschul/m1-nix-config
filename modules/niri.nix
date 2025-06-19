@@ -12,8 +12,6 @@
     ./dunst.nix
   ];
 
-  services.blueman-applet.enable = true;
-
   programs.niri.settings = with inputs.niri-flake.lib.kdl; {
     debug.render-drm-device = "/dev/dri/renderD128";
 

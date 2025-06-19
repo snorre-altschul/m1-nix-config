@@ -24,6 +24,7 @@
 
             ".local/share/Steam"
             ".local/share/fish"
+
           ];
           files = [ ];
         };
@@ -52,9 +53,6 @@
   };
 
   hardware.graphics.enable = true;
-
-  tibs.enable = true;
-  boot.initrd.systemd.enable = true;
 
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -113,6 +111,7 @@
     enable = true;
     shellAbbrs = {
       "nrb" = "nixos-rebuild --sudo switch --flake /etc/nixos";
+      "nd" = "nix develop";
     };
   };
   documentation.man.generateCaches = false;
@@ -155,6 +154,15 @@
     neovim
     wget
     git
+    # (muvm.overrideAttrs (old: {
+    #   buildInputs = old.buildInputs ++ [
+    #     (sommelier.overrideAttrs (old: {
+    #       doCheck = false;
+    #       buildInputs = old.buildInputs ++ [gtest];
+    #     }))
+    #   ];
+    # }))
+    muvm
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -188,5 +196,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.11"; # Did you read the comment?
-
 }

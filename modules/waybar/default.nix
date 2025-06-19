@@ -224,7 +224,7 @@ with config.stylix.fonts;
 
           player-icons = {
             # default = "";
-            spotify = "";
+            spotify_player = "";
             firefox = "󰈹";
           };
 

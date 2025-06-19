@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   boot.plymouth.enable = true;
   boot.loader.grub.timeoutStyle = "hidden";
   boot.kernelParams = [
@@ -7,5 +8,4 @@
     "quiet"
     "splash"
   ];
-  boot.initrd.systemd.enable = true;
 }
