@@ -1,3 +1,4 @@
+# TODO: Split into submodules
 {
   pkgs,
   inputs,
@@ -179,6 +180,13 @@
 
       "Mod+BracketLeft".action = consume-or-expel-window-left;
       "Mod+BracketRight".action = consume-or-expel-window-right;
+
+      "Mod+Shift+S" = {
+        hotkey-overlay.title = "Take screenshot";
+        action = screenshot {
+          show-pointer = false;
+        };
+      };
     };
   };
 }

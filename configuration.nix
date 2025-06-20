@@ -35,6 +35,7 @@
     ./modules/nvim.nix
     ./modules/bluetooth.nix
     ./modules/docker.nix
+    ./modules/plymouth.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -150,7 +151,17 @@
         "flakes"
       ];
     };
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 30d";
+    };
+    optimise = {
+      automatic = true;
+      dates = ["14:30"];
+    };
+    settings.trusted-users = ["@wheel"];
   };
+  nixpkgs.config.allowUnfree = true;
 
   # FUCK NANO
   programs.nano.enable = false;
@@ -177,6 +188,14 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+  };
+
+  security.sudo = {
+    enable = true;
+    # I know what im doing
+    extraConfig = ''
+      Defaults  lecture = never
+    '';
   };
 
   # List services that you want to enable:

@@ -1,6 +1,6 @@
-{...}: {
-  programs.steam = {
-    enable = true;
-    gamescopeSession.enable = false;
-  };
+{lib, pkgs, ...}: {
+  environment.systemPackages = with pkgs; [
+    steam
+  ];
+  nixpkgs.config.allowUnfree = true;
 }
