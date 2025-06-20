@@ -2,7 +2,7 @@
   programs.git = {
     enable = true;
     config = {
-      defaultBranch = "main";
+      init.defaultBranch = "main";
       url."https://git.spoodythe.one/".insteadOf = ["spoody:"];
       user = {
         name = "m1nix";
