@@ -160,9 +160,9 @@ with config.stylix.fonts;
         };
 
         "memory" = {
-          format = "   {percentage}%";
-          # tooltip = true;
-          # tooltip-format = "{used}/{total}GiB used\n{swapUsed}/{totalSwap}GiB swap used";
+          format = "   {percentage}% | {swapPercentage}%";
+          tooltip = true;
+          tooltip-format = "{used}GiB | {swapUsed}GiB";
         };
 
         "tray" = {

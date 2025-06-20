@@ -21,6 +21,9 @@
             ".local"
             ".cache/mesa_shader_cache"
             ".cache/mesa_shader_cache_db"
+            ".cache/spotify-player"
+            ".cache/spotifyd"
+            ".cache/nix"
 
             ".local/share/Steam"
             ".local/share/fish"
@@ -50,8 +53,10 @@
   # Specify path to peripheral firmware files.
   hardware.asahi = {
     enable = true;
+    setupAsahiSound = true;
     peripheralFirmwareDirectory = ./firmware;
     useExperimentalGPUDriver = true;
+    experimentalGPUInstallMode = "overlay";
     withRust = true;
   };
 
@@ -94,16 +99,21 @@
     };
   };
 
-  stylix = {
-    enable = true;
-    base16Scheme = (import ./stylix.nix { inherit inputs; }).base16Scheme;
-    autoEnable = true;
-    polarity = "dark";
+  stylix =
+    let
+      conf = import ./stylix.nix { inherit inputs; };
+    in
+    {
+      enable = true;
+      base16Scheme = conf.base16Scheme;
+      image = conf.image;
+      autoEnable = true;
+      polarity = "dark";
 
-    cursor.package = pkgs.bibata-cursors;
-    cursor.name = "Bibata-Modern-Ice";
-    cursor.size = 24;
-  };
+      cursor.package = pkgs.bibata-cursors;
+      cursor.name = "Bibata-Modern-Ice";
+      cursor.size = 24;
+    };
 
   programs.fish = {
     enable = true;

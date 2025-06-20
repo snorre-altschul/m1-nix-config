@@ -72,6 +72,10 @@
                 title = "JIRA";
                 url = "https://portchain.atlassian.net/jira/your-work";
               }
+              {
+                title = "slack";
+                url = "https://portchain.slack.com";
+              }
             ];
           };
         };
