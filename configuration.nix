@@ -36,6 +36,7 @@
     ./modules/bluetooth.nix
     ./modules/docker.nix
     ./modules/plymouth.nix
+    ./modules/git.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -93,16 +94,6 @@
     };
   };
 
-  programs.git.config = {
-    init = {
-      defaultBranch = "main";
-    };
-    user = {
-      name = "m1";
-      email = "m1@mail.spoodythe.one";
-    };
-  };
-
   stylix = {
     enable = true;
     base16Scheme = (import ./stylix.nix { inherit inputs; }).base16Scheme;
@@ -157,9 +148,9 @@
     };
     optimise = {
       automatic = true;
-      dates = ["14:30"];
+      dates = [ "14:30" ];
     };
-    settings.trusted-users = ["@wheel"];
+    settings.trusted-users = [ "@wheel" ];
   };
   nixpkgs.config.allowUnfree = true;
 
@@ -170,15 +161,6 @@
   environment.systemPackages = with pkgs; [
     neovim
     wget
-    git
-    # (muvm.overrideAttrs (old: {
-    #   buildInputs = old.buildInputs ++ [
-    #     (sommelier.overrideAttrs (old: {
-    #       doCheck = false;
-    #       buildInputs = old.buildInputs ++ [gtest];
-    #     }))
-    #   ];
-    # }))
     muvm
   ];
 

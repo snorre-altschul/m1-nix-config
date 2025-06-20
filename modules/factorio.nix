@@ -1,7 +1,8 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   environment.systemPackages = with pkgs; [
     (factorio.overrideAttrs (_: {
-      meta.platforms = ["aarch64-linux"];
+      meta.platforms = [ "aarch64-linux" ];
       actual = {
         candidateHashFilenames = [
           "factorio_linux_2.0.45.tar.xz"
