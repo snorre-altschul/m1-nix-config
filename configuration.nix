@@ -25,6 +25,7 @@
             ".local/share/Steam"
             ".local/share/fish"
             ".librewolf"
+            ".mozilla"
           ];
           files = [ ];
         };
@@ -63,6 +64,11 @@
     settings.General.EnableNetworkConfiguration = true;
   };
 
+  services.pipewire = {
+    pulse.enable = true;
+    alsa.enable = true;
+  };
+
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
 
@@ -74,7 +80,7 @@
   users.users.nixos = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    initialPassword = "1234";
+    hashedPassword = "$y$j9T$4kqlgDKD8.xIaomeHxoXv0$nA91xjtIbAMIK6CumO4tGY5XKofOKh4UvvkCAceDyqC";
     packages = with pkgs; [ ];
     shell = pkgs.fish;
   };
@@ -98,7 +104,7 @@
 
   stylix = {
     enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-soft.yaml";
+    base16Scheme = (import ./stylix.nix { inherit inputs; }).base16Scheme;
     autoEnable = true;
     polarity = "dark";
 
@@ -111,7 +117,7 @@
     enable = true;
     shellAbbrs = {
       "nrb" = "nixos-rebuild --sudo switch --flake /etc/nixos";
-      "nd" = "nix develop";
+      "nd" = "nix develop -c fish";
     };
   };
   documentation.man.generateCaches = false;

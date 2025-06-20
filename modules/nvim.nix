@@ -20,7 +20,26 @@
         };
       };
 
+      vim.theme.enable = true;
+
       vim.autocomplete.blink-cmp.enable = true;
+
+      vim.keymaps = [
+        {
+          key = "<leader>la";
+          mode = [ "n" ];
+          action = ''require("actions-preview").code_actions'';
+          lua = true;
+          silent = true;
+          desc = "Code action";
+        }
+      ];
+
+      vim.extraPlugins = {
+        actions-preview = {
+          package = pkgs.vimPlugins.actions-preview-nvim;
+        };
+      };
 
       # vim.theme = {
       #   enable = true;

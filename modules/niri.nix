@@ -55,23 +55,92 @@
     prefer-no-csd = true;
 
     window-rules = [
+      {
+        matches = [
+          {
+            app-id = "firefox$";
+            title = "^Picture-in-Picture$";
+          }
+        ];
+        open-floating = true;
+      }
+      {
+        geometry-corner-radius = lib.genAttrs [
+          "bottom-left"
+          "bottom-right"
+          "top-left"
+          "top-right"
+        ] (_: 4.);
+        clip-to-geometry = true;
+      }
     ];
+
+    # // Open the Firefox picture-in-picture player as floating by default.
+    # window-rule {
+    #     // This app-id regular expression will work for both:
+    #     // - host Firefox (app-id is "firefox")
+    #     // - Flatpak Firefox (app-id is "org.mozilla.firefox")
+    #     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    #     open-floating true
+    # }
 
     binds = with config.lib.niri.actions; {
       "XF86AudioRaiseVolume" = {
         action.spawn = [
           "${pkgs.wireplumber}/bin/wpctl"
-          "set-volunme"
+          "set-volume"
           "@DEFAULT_AUDIO_SINK@"
-          "0.1+"
+          "5%+"
         ];
       };
       "XF86AudioLowerVolume" = {
         action.spawn = [
           "${pkgs.wireplumber}/bin/wpctl"
-          "set-volunme"
+          "set-volume"
           "@DEFAULT_AUDIO_SINK@"
-          "0.1-"
+          "5%-"
+        ];
+      };
+      "XF86AudioMute" = {
+        action.spawn = [
+          "${pkgs.wireplumber}/bin/wpctl"
+          "set-mute"
+          "@DEFAULT_AUDIO_SINK@"
+          "toggle"
+        ];
+      };
+
+      "XF86MonBrightnessUp" = {
+        action.spawn = [
+          "${lib.getExe pkgs.brightnessctl}"
+          "s"
+          "+5%"
+        ];
+      };
+      "XF86MonBrightnessDown" = {
+        action.spawn = [
+          "${lib.getExe pkgs.brightnessctl}"
+          "s"
+          "5%-"
+        ];
+      };
+
+      "XF86AudioPrev" = {
+        action.spawn = [
+          (lib.getExe pkgs.playerctl)
+          "previous"
+        ];
+      };
+      "XF86AudioPlay" = {
+        action.spawn = [
+          (lib.getExe pkgs.playerctl)
+          "play-pause"
+        ];
+      };
+      "XF86AudioNext" = {
+        action.spawn = [
+          (lib.getExe pkgs.playerctl)
+          "next"
         ];
       };
 
@@ -94,6 +163,11 @@
         action = close-window;
       };
 
+      "Mod+V" = {
+        hotkey-overlay.title = "Toggle floating on window";
+        action = toggle-window-floating;
+      };
+
       "Mod+H".action = focus-column-left;
       "Mod+L".action = focus-column-right;
 
@@ -106,6 +180,5 @@
       "Mod+BracketLeft".action = consume-or-expel-window-left;
       "Mod+BracketRight".action = consume-or-expel-window-right;
     };
-
   };
 }

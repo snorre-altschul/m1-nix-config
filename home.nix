@@ -10,7 +10,8 @@
     inputs.impermanence.nixosModules.home-manager.impermanence
     ./modules/niri.nix
     ./modules/spotify.nix
-    ./modules/librewolf.nix
+    ./modules/firefox.nix
+    ./modules/foot.nix
   ];
 
   home.username = "nixos";
@@ -21,11 +22,11 @@
   services.blueman-applet.enable = true;
 
   home.packages = with pkgs; [
-
   ];
 
   stylix = {
-    base16Scheme = inputs.basix.schemeData.base16.hopscotch;
+    enable = true;
+    base16Scheme = (import ./stylix.nix { inherit inputs; }).base16Scheme;
     polarity = "dark";
     autoEnable = true;
     fonts = {
@@ -47,8 +48,6 @@
       };
     };
   };
-
-  programs.foot.enable = true;
 
   home.sessionVariables = {
     EDITOR = "nvim";
