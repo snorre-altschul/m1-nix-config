@@ -54,6 +54,14 @@
       };
     };
 
+  programs.distrobox = {
+    enable = true;
+    containers.gaming = {
+      image = "fedora:40";
+      additional_packages = "systemd";
+    };
+  };
+
   home.sessionVariables = {
     EDITOR = "nvim";
   };

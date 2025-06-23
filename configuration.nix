@@ -42,6 +42,26 @@
     ./modules/git.nix
   ];
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      virglrenderer = prev.virglrenderer.overrideAttrs (old: {
+        src = final.fetchurl {
+          url = "https://gitlab.freedesktop.org/asahi/virglrenderer/-/archive/asahi-20250424/virglrenderer-asahi-20250424.tar.bz2";
+          hash = "sha256-9qFOsSv8o6h9nJXtMKksEaFlDP1of/LXsg3LCRL79JM=";
+        };
+        mesonFlags = old.mesonFlags ++ [ (final.lib.mesonOption "drm-renderers" "asahi-experimental") ];
+      });
+    })
+  ];
+  boot.binfmt.emulatedSystems = [
+    "i686-linux"
+    "x86_64-linux"
+    "i386-linux"
+    "i486-linux"
+    "i586-linux"
+    "i686-linux"
+  ];
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
@@ -150,6 +170,14 @@
       experimental-features = [
         "nix-command"
         "flakes"
+      ];
+      extra-platforms = [
+        "i686-linux"
+        "x86_64-linux"
+        "i386-linux"
+        "i486-linux"
+        "i586-linux"
+        "i686-linux"
       ];
     };
     gc = {

@@ -53,6 +53,7 @@
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
       "/var/lib/iwd"
+      "/var/lib/docker"
       {
         directory = "/var/lib/colord";
         user = "colord";

@@ -19,6 +19,10 @@
 
     input = {
       keyboard = {
+        xkb = {
+          layout = "us";
+          # variant = "colemak_dh";
+        };
         repeat-delay = 300;
         repeat-rate = 50;
       };
@@ -74,6 +78,23 @@
           "top-right"
         ] (_: 4.);
         clip-to-geometry = true;
+      }
+      {
+        # Indicate screencasted windows with red colors.
+        matches = [ { is-window-cast-target = true; } ];
+
+        focus-ring = {
+          active.color = "#f38ba8";
+          inactive.color = "#7d0d2d";
+        };
+
+        border = {
+          inactive.color = "#7d0d2d";
+        };
+
+        shadow = {
+          color = "#7d0d2d70";
+        };
       }
     ];
 
@@ -167,7 +188,7 @@
         "Mod+L".action = focus-column-right;
 
         "Mod+F".action = maximize-column;
-        "Mod+Shift+F".action = expand-column-to-available-width;
+        "Mod+Shift+F".action = fullscreen-window;
 
         # Mod+BracketLeft  { consume-or-expel-window-left; }
         # Mod+BracketRight { consume-or-expel-window-right; }
@@ -180,6 +201,11 @@
           action = screenshot {
             show-pointer = false;
           };
+        };
+
+        "Mod+S" = {
+          hotkey-overlay.title = "Change dynamic screen capture target";
+          action = set-dynamic-cast-window;
         };
       }
       // (builtins.listToAttrs (
