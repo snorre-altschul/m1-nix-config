@@ -24,6 +24,14 @@
 
       vim.autocomplete.blink-cmp.enable = true;
 
+      vim.undoFile.enable = true;
+
+      vim.searchCase = "smart";
+
+      vim.visuals.fidget-nvim = {
+        enable = true;
+      };
+
       vim.keymaps = [
         {
           key = "<leader>la";
@@ -40,12 +48,6 @@
           package = pkgs.vimPlugins.actions-preview-nvim;
         };
       };
-
-      # vim.theme = {
-      #   enable = true;
-      #   name = "gruvbox";
-      #   style = "dark";
-      # };
 
       vim.telescope.enable = true;
 
@@ -71,6 +73,10 @@
         "nix" = {
           enable = true;
           treesitter.enable = true;
+          format = {
+            package = pkgs.nixfmt-rfc-style;
+            type = "nixfmt";
+          };
         };
 
         "ts" = {
@@ -82,12 +88,11 @@
         };
         "rust".enable = true;
       };
+
+      vim.extraPackages = with pkgs; [
+        nixd
+        nil
+      ];
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    nil
-    nixd
-    alejandra
-  ];
 }
