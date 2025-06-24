@@ -4,7 +4,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -29,7 +30,7 @@
             ".librewolf"
             ".mozilla"
           ];
-          files = [];
+          files = [ ];
         };
       };
     })
@@ -48,7 +49,7 @@
           url = "https://gitlab.freedesktop.org/asahi/virglrenderer/-/archive/asahi-20250424/virglrenderer-asahi-20250424.tar.bz2";
           hash = "sha256-9qFOsSv8o6h9nJXtMKksEaFlDP1of/LXsg3LCRL79JM=";
         };
-        mesonFlags = old.mesonFlags ++ [(final.lib.mesonOption "drm-renderers" "asahi-experimental")];
+        mesonFlags = old.mesonFlags ++ [ (final.lib.mesonOption "drm-renderers" "asahi-experimental") ];
       });
     })
   ];
@@ -111,32 +112,34 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nixos = {
     isNormalUser = true;
-    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     hashedPassword = "$y$j9T$4kqlgDKD8.xIaomeHxoXv0$nA91xjtIbAMIK6CumO4tGY5XKofOKh4UvvkCAceDyqC";
-    packages = with pkgs; [];
+    packages = with pkgs; [ ];
     shell = pkgs.fish;
   };
 
   home-manager = {
-    extraSpecialArgs = {inherit inputs;};
+    extraSpecialArgs = { inherit inputs; };
     users = {
       "nixos" = import ./home.nix;
     };
   };
 
-  stylix = let
-    conf = import ./stylix.nix {inherit inputs;};
-  in {
-    enable = true;
-    base16Scheme = conf.base16Scheme;
-    image = conf.image;
-    autoEnable = true;
-    polarity = "dark";
+  stylix =
+    let
+      conf = import ./stylix.nix { inherit inputs; };
+    in
+    {
+      enable = true;
+      base16Scheme = conf.base16Scheme;
+      image = conf.image;
+      autoEnable = true;
+      polarity = "dark";
 
-    cursor.package = pkgs.bibata-cursors;
-    cursor.name = "Bibata-Modern-Ice";
-    cursor.size = 24;
-  };
+      cursor.package = pkgs.bibata-cursors;
+      cursor.name = "Bibata-Modern-Ice";
+      cursor.size = 24;
+    };
 
   programs.fish = {
     enable = true;
@@ -166,7 +169,7 @@
 
   nix = {
     channel.enable = false;
-    registry = lib.mapAttrs (_: flake: {inherit flake;}) inputs;
+    registry = lib.mapAttrs (_: flake: { inherit flake; }) inputs;
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") inputs;
     settings = {
       nix-path = lib.mapAttrsToList (n: _: "${n}=flake:${n}") inputs;
@@ -189,9 +192,9 @@
     };
     optimise = {
       automatic = true;
-      dates = ["14:30"];
+      dates = [ "14:30" ];
     };
-    settings.trusted-users = ["@wheel"];
+    settings.trusted-users = [ "@wheel" ];
   };
   nixpkgs.config.allowUnfree = true;
 
