@@ -25,7 +25,6 @@
             ".cache/spotifyd"
             ".cache/nix"
 
-            ".local/share/Steam"
             ".local/share/fish"
             ".librewolf"
             ".mozilla"
@@ -51,6 +50,11 @@
         };
         mesonFlags = old.mesonFlags ++ [ (final.lib.mesonOption "drm-renderers" "asahi-experimental") ];
       });
+    })
+
+    # Asahi Audio
+    (final: _: {
+      asahi-audio = final.callPackage (import ./modules/asahi-audio.nix) { };
     })
   ];
 
@@ -79,7 +83,7 @@
   # Specify path to peripheral firmware files.
   hardware.asahi = {
     enable = true;
-    setupAsahiSound = false;
+    setupAsahiSound = true;
     peripheralFirmwareDirectory = ./firmware;
     useExperimentalGPUDriver = true;
     experimentalGPUInstallMode = "overlay";

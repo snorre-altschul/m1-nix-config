@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   programs.nvf = {
     enable = true;
@@ -21,13 +21,9 @@
       };
 
       vim.theme.enable = true;
-
       vim.autocomplete.blink-cmp.enable = true;
-
       vim.undoFile.enable = true;
-
       vim.searchCase = "smart";
-
       vim.visuals.fidget-nvim = {
         enable = true;
       };
@@ -47,9 +43,25 @@
         actions-preview = {
           package = pkgs.vimPlugins.actions-preview-nvim;
         };
+        smear-cursor = {
+          package = pkgs.vimPlugins.smear-cursor-nvim;
+          setup = # lua
+            ''
+              require("smear_cursor").setup {
+                -- stiffness = 0.5,
+                -- trailing_stiffness = 0.5,
+                -- damping = 0.67,
+                -- matrix_pixel_threshold = 0.5,
+                smear_insert_mode = false,
+                scroll_buffer_space = true,
+                legacy_computing_symbols_support = true,
+              }'';
+        };
       };
 
-      vim.telescope.enable = true;
+      vim.telescope = {
+        enable = true;
+      };
 
       vim.binds.whichKey.enable = true;
 
