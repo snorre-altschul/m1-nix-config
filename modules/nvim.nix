@@ -30,7 +30,7 @@
 
       vim.keymaps = [
         {
-          key = "<leader>la";
+          key = "<leader>a";
           mode = [ "n" ];
           action = ''require("actions-preview").code_actions'';
           lua = true;
