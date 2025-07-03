@@ -12,6 +12,7 @@
     ./modules/spotify.nix
     ./modules/firefox.nix
     ./modules/foot.nix
+    ./modules/lsd.nix
   ];
 
   home.username = "nixos";

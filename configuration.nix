@@ -39,6 +39,7 @@
     ./modules/docker.nix
     ./modules/plymouth.nix
     ./modules/git.nix
+    # ./modules/audio.nix
   ];
 
   nixpkgs.overlays = [
@@ -51,12 +52,9 @@
         mesonFlags = old.mesonFlags ++ [ (final.lib.mesonOption "drm-renderers" "asahi-experimental") ];
       });
     })
-
-    # Asahi Audio
-    (final: _: {
-      asahi-audio = final.callPackage (import ./modules/asahi-audio.nix) { };
-    })
   ];
+
+  programs.nix-ld.enable = true;
 
   boot.binfmt.emulatedSystems = [
     "i686-linux"
@@ -99,11 +97,6 @@
   networking.wireless.iwd = {
     enable = true;
     settings.General.EnableNetworkConfiguration = true;
-  };
-
-  services.pipewire = {
-    pulse.enable = true;
-    alsa.enable = true;
   };
 
   # Set your time zone.
@@ -159,13 +152,13 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd niri";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd niri-session";
         user = "nixos";
       };
 
       # First session auto starts hyprland
       initial_session = {
-        command = "/run/current-system/sw/bin/niri";
+        command = "/run/current-system/sw/bin/niri-session";
         user = "nixos";
       };
     };

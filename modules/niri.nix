@@ -22,6 +22,10 @@
         xkb = {
           layout = "us";
           # variant = "colemak_dh";
+
+          options = builtins.concatStringsSep "\n" [
+            "caps:escape"
+          ];
         };
         repeat-delay = 300;
         repeat-rate = 50;
@@ -79,23 +83,24 @@
         ] (_: 4.);
         clip-to-geometry = true;
       }
-      {
+      (let 
+        recording-color = "#ff0000";
+      in {
         # Indicate screencasted windows with red colors.
         matches = [ { is-window-cast-target = true; } ];
 
         focus-ring = {
-          active.color = "#f38ba8";
-          inactive.color = "#7d0d2d";
+          inactive.color = recording-color;
+          active.color = recording-color;
+          width = 2;
+          enable = true;
         };
 
         border = {
-          inactive.color = "#7d0d2d";
+          inactive.color = recording-color;
+          active.color = recording-color;
         };
-
-        shadow = {
-          color = "#7d0d2d70";
-        };
-      }
+      })
     ];
 
     binds =
@@ -174,6 +179,20 @@
           ];
         };
 
+        # "Mod+K" = {
+        #   hotkey-overlay.title = "Fuzzy find window";
+        #   action.spawn = [
+        #     (builtins.toString (pkgs.writeShellScript "niri-fuzzy-find.sh"
+        #       /* bash */
+        #       ''
+        #         windows=$(niri msg --json windows)
+        #         choiche=$(echo $windows | ${lib.getExe pkgs.jq} '.[] | "\(.id)) \(.app_id): \(.title)"' | tofi)
+        #         id=$(${lib.getExe pkgs.jq} -R -c "$choiche | split(\") \").0")
+        #       ''
+        #     ))
+        #   ];
+        # };
+
         "Mod+C" = {
           hotkey-overlay.title = "Close window";
           action = close-window;
@@ -207,6 +226,11 @@
           hotkey-overlay.title = "Change dynamic screen capture target";
           action = set-dynamic-cast-window;
         };
+        "Mod+W" = {
+          hotkey-overlay.title = "Change dynamic screen capture target";
+          action = set-dynamic-cast-monitor null;
+        };
+
       }
       // (builtins.listToAttrs (
         builtins.concatLists (
