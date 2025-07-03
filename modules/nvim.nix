@@ -66,6 +66,8 @@
         };
         undotree = {
           package = pkgs.vimPlugins.undotree;
+          setup = # lua
+            "vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)";
         };
         smear-cursor = {
           package = pkgs.vimPlugins.smear-cursor-nvim;
