@@ -137,6 +137,11 @@
           lsp.enable = true;
         };
 
+        "csharp" = {
+          enable = true;
+          lsp.enable = true;
+        };
+
         "bash" = {
           enable = true;
           lsp.enable = false;

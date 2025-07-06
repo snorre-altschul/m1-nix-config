@@ -13,6 +13,7 @@
     ./modules/firefox.nix
     ./modules/foot.nix
     ./modules/lsd.nix
+    ./modules/prismlauncher.nix
   ];
 
   home.username = "nixos";
