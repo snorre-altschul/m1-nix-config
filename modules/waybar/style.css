@@ -15,7 +15,7 @@
   transition: color 0.1s ease;
 }
 
-#mpris.spotify_player {
+#mpris.psst {
   background: @base0B;
   color: @base00;
 }

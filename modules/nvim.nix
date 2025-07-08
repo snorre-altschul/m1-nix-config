@@ -147,6 +147,11 @@
           lsp.enable = false;
           treesitter.enable = true;
         };
+
+        "lua" = {
+          enable = true;
+          lsp.enable = true;
+        };
       };
 
       vim.extraPackages = with pkgs; [
@@ -155,6 +160,7 @@
         fzf
         ueberzugpp
         clang-tools
+        lua-language-server
       ];
     };
   };

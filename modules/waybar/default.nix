@@ -210,7 +210,7 @@ with config.stylix.fonts;
             then
                # remove image
                echo "/tmp/invalid.tiff";
-               # spotify is dead, we should die to.
+               # spotify is dead, we should die too.
                exit
             fi
             echo "/tmp/cover.jpeg"
@@ -224,7 +224,7 @@ with config.stylix.fonts;
 
           player-icons = {
             # default = "";
-            spotify_player = "";
+            psst = "";
             firefox = "󰈹";
           };
 
