@@ -27,6 +27,8 @@
             ".local/share/fish"
             ".librewolf"
             ".mozilla"
+
+            "/var/lib/postgresql"
           ];
           files = [ ];
         };
@@ -35,11 +37,16 @@
 
     ./modules/nvim.nix
     ./modules/bluetooth.nix
-    ./modules/docker.nix
+    # ./modules/docker.nix
+    ./modules/eba-postgres.nix
     ./modules/plymouth.nix
     ./modules/git.nix
     # ./modules/audio.nix
   ];
+
+  programs.kdeconnect = {
+    enable = true;
+  };
 
   nixpkgs.overlays = [
     (final: prev: {

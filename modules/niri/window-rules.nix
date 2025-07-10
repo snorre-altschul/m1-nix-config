@@ -40,5 +40,33 @@
         };
       }
     )
+    {
+      matches = [
+        {
+          app-id = "^org.kde.polkit-kde-authentication-agent-1$";
+        }
+      ];
+
+      open-floating = true;
+      open-focused = true;
+      block-out-from = "screen-capture";
+    }
+    {
+      matches = [
+        {
+          title = "^Extension: (Bitwarden Password Manager) - Bitwarden — Mozilla Firefox$";
+        }
+      ];
+      block-out-from = "screen-capture";
+    }
+    {
+      matches = [
+        {
+          title = "^.* - Immich — Mozilla Firefox$";
+          app-id = "^firefox$";
+        }
+      ];
+      block-out-from = "screen-capture";
+    }
   ];
 }

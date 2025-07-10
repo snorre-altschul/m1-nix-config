@@ -22,7 +22,7 @@
         "WebBrowser"
       ];
     }
-  ) (lib.attrsets.filterAttrs (name: _: !(name == "default")) config.programs.firefox.profiles);
+  ) (builtins.removeAttrs config.programs.firefox.profiles [ "default" ]);
 
   stylix.targets.${package} = {
     enable = true;
