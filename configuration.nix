@@ -21,8 +21,7 @@
             ".local"
             ".cache/mesa_shader_cache"
             ".cache/mesa_shader_cache_db"
-            ".cache/spotify-player"
-            ".cache/spotifyd"
+            ".cache/Psst"
             ".cache/nix"
 
             ".local/share/fish"

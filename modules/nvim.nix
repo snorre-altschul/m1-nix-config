@@ -148,6 +148,12 @@
           treesitter.enable = true;
         };
 
+        "markdown" = {
+          enable = true;
+          lsp.enable = false;
+          treesitter.enable = true;
+        };
+
         "lua" = {
           enable = true;
           lsp.enable = true;

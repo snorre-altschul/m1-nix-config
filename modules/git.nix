@@ -6,7 +6,7 @@
       init.defaultBranch = "main";
       url."forgejo@git.spoodythe.one:".insteadOf = [ "spoody:" ];
       user = {
-        name = "m1nix";
+        name = "spoody";
         email = "m1nix@mail.spoodythe.one";
       };
     };
