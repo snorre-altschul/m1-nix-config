@@ -8,7 +8,7 @@
 {
   imports = [
     inputs.impermanence.nixosModules.home-manager.impermanence
-    ./modules/niri.nix
+    ./modules/niri
     ./modules/spotify.nix
     ./modules/firefox.nix
     ./modules/foot.nix
