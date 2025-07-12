@@ -12,6 +12,9 @@
     # ./apple-silicon-support
     (import ./delete-on-boot.nix {
       inherit lib;
+      persistExtraDirectories = [
+        "/var/lib/postgresql"
+      ];
       users = {
         "nixos" = {
           directories = [
@@ -27,8 +30,6 @@
             ".local/share/fish"
             ".librewolf"
             ".mozilla"
-
-            "/var/lib/postgresql"
           ];
           files = [ ];
         };
@@ -37,28 +38,27 @@
 
     ./modules/nvim.nix
     ./modules/bluetooth.nix
-    # ./modules/docker.nix
     ./modules/eba-postgres.nix
     ./modules/plymouth.nix
     ./modules/git.nix
-    # ./modules/audio.nix
+    ./modules/factorio.nix
   ];
 
   programs.kdeconnect = {
     enable = true;
   };
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      virglrenderer = prev.virglrenderer.overrideAttrs (old: {
-        src = final.fetchurl {
-          url = "https://gitlab.freedesktop.org/asahi/virglrenderer/-/archive/asahi-20250424/virglrenderer-asahi-20250424.tar.bz2";
-          hash = "sha256-9qFOsSv8o6h9nJXtMKksEaFlDP1of/LXsg3LCRL79JM=";
-        };
-        mesonFlags = old.mesonFlags ++ [ (final.lib.mesonOption "drm-renderers" "asahi-experimental") ];
-      });
-    })
-  ];
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     virglrenderer = prev.virglrenderer.overrideAttrs (old: {
+  #       src = final.fetchurl {
+  #         url = "https://gitlab.freedesktop.org/asahi/virglrenderer/-/archive/asahi-20250424/virglrenderer-asahi-20250424.tar.bz2";
+  #         hash = "sha256-9qFOsSv8o6h9nJXtMKksEaFlDP1of/LXsg3LCRL79JM=";
+  #       };
+  #       mesonFlags = old.mesonFlags ++ [ (final.lib.mesonOption "drm-renderers" "asahi-experimental") ];
+  #     });
+  #   })
+  # ];
 
   programs.nix-ld.enable = true;
 

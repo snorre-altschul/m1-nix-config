@@ -54,7 +54,7 @@
     {
       matches = [
         {
-          title = "^Extension: (Bitwarden Password Manager) - Bitwarden — Mozilla Firefox$";
+          title = "^Extension: \(Bitwarden Password Manager\) - Bitwarden — Mozilla Firefox$";
         }
       ];
       block-out-from = "screen-capture";

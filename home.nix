@@ -24,6 +24,7 @@
   services.blueman-applet.enable = true;
 
   home.packages = with pkgs; [
+    gimp3
   ];
 
   stylix =
