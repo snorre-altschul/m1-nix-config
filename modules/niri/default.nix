@@ -1,8 +1,8 @@
-# TODO: Split into submodules
 {
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 {

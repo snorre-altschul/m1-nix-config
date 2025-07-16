@@ -26,6 +26,7 @@
             ".cache/mesa_shader_cache_db"
             ".cache/Psst"
             ".cache/nix"
+            ".factorio"
 
             ".local/share/fish"
             ".librewolf"
@@ -48,17 +49,18 @@
     enable = true;
   };
 
-  # nixpkgs.overlays = [
-  #   (final: prev: {
-  #     virglrenderer = prev.virglrenderer.overrideAttrs (old: {
-  #       src = final.fetchurl {
-  #         url = "https://gitlab.freedesktop.org/asahi/virglrenderer/-/archive/asahi-20250424/virglrenderer-asahi-20250424.tar.bz2";
-  #         hash = "sha256-9qFOsSv8o6h9nJXtMKksEaFlDP1of/LXsg3LCRL79JM=";
-  #       };
-  #       mesonFlags = old.mesonFlags ++ [ (final.lib.mesonOption "drm-renderers" "asahi-experimental") ];
-  #     });
-  #   })
-  # ];
+  nixpkgs.overlays = [
+    (final: prev: {
+      virglrenderer = prev.virglrenderer.overrideAttrs (old: {
+        src = final.fetchurl {
+          url = "https://gitlab.freedesktop.org/asahi/virglrenderer/-/archive/asahi-20250424/virglrenderer-asahi-20250424.tar.bz2";
+          hash = "sha256-9qFOsSv8o6h9nJXtMKksEaFlDP1of/LXsg3LCRL79JM=";
+        };
+        mesonFlags = old.mesonFlags ++ [ (final.lib.mesonOption "drm-renderers" "asahi-experimental") ];
+      });
+    })
+    inputs.niri-flake.overlays.niri
+  ];
 
   programs.nix-ld.enable = true;
 
@@ -162,13 +164,18 @@
         user = "nixos";
       };
 
-      # First session auto starts hyprland
+      # First session auto starts niri
       initial_session = {
-        command = "/run/current-system/sw/bin/niri-session";
+        command = "${config.programs.niri.package}/bin/niri-session";
         user = "nixos";
       };
     };
   };
+
+  # Fine. I'll do it myself
+  programs.niri.package = pkgs.niri-stable.overrideAttrs (super: {
+    patches = super.patches ++ [ ./modules/niri/dwt-msg.patch ];
+  });
 
   nix = {
     channel.enable = false;
