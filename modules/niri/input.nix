@@ -16,7 +16,7 @@
     touchpad = {
       tap = true;
       natural-scroll = true;
-      dwt = false;
+      dwt = true;
     };
     focus-follows-mouse = {
       enable = true;

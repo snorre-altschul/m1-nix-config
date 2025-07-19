@@ -133,6 +133,14 @@
         action = set-dynamic-cast-monitor null;
       };
 
+      "Mod+Shift+Q" = {
+        action.spawn = [
+          "sh"
+          "-c"
+          "kill -9 $(niri msg --json pick-window | ${lib.getExe pkgs.jq} '.pid')"
+        ];
+      };
+
     }
     // (builtins.listToAttrs (
       builtins.concatLists (

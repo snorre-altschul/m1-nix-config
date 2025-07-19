@@ -42,7 +42,7 @@
     ./modules/eba-postgres.nix
     ./modules/plymouth.nix
     ./modules/git.nix
-    ./modules/factorio.nix
+    # ./modules/factorio.nix
   ];
 
   programs.kdeconnect = {

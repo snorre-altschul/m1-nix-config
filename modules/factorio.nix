@@ -16,7 +16,7 @@
                   comment = "A game in which you build and maintain factories.";
                   exec = lib.getExe (
                     pkgs.writeShellScriptBin ".factorio-wrapped" ''
-                      PATH=$PATH:${pkgs.box64}/bin ${lib.getExe pkgs.muvm} --emu=box factorio
+                      SDL_VIDEODRIVER=wayland PATH=$PATH:${pkgs.box64}/bin ${lib.getExe pkgs.muvm} --emu=box ${lib.getExe pkgs.mangohud} factorio
                     ''
                   );
                   icon = "factorio";
@@ -27,12 +27,14 @@
               builtins.concatStringsSep "\n" (
                 (lib.lists.dropEnd 3 installPhase') ++ [ "ln -s ${desktopItem}/share/applications $out/share/" ]
               );
-            buildInputs = super.buildInputs ++ (with pkgs; [
-              box64
-              muvm
-              mangohud
-              gamemode
-            ]);
+            buildInputs =
+              super.buildInputs
+              ++ (with pkgs; [
+                box64
+                muvm
+                mangohud
+                gamemode
+              ]);
             meta.platforms = [ "aarch64-linux" ];
           });
     })

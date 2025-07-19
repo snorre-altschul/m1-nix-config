@@ -1,5 +1,5 @@
 diff --git a/niri-ipc/src/lib.rs b/niri-ipc/src/lib.rs
-index 7fbd8cd5..dd00a6f4 100644
+index 7fbd8cd5..e41a58e5 100644
 --- a/niri-ipc/src/lib.rs
 +++ b/niri-ipc/src/lib.rs
 @@ -68,6 +68,8 @@ pub enum Request {
@@ -7,7 +7,7 @@ index 7fbd8cd5..dd00a6f4 100644
      /// Request information about connected outputs.
      Outputs,
 +    /// Request information about connected outputs.
-+    Inputs { dwt: bool },
++    Inputs { dwt: Option<bool> },
      /// Request information about workspaces.
      Workspaces,
      /// Request information about open windows.
@@ -20,7 +20,7 @@ index 7fbd8cd5..dd00a6f4 100644
      Workspaces(Vec<Workspace>),
      /// Information about open windows.
 diff --git a/src/cli.rs b/src/cli.rs
-index 933712c2..617b23d8 100644
+index 933712c2..bb84390e 100644
 --- a/src/cli.rs
 +++ b/src/cli.rs
 @@ -63,6 +63,11 @@ pub enum Sub {
@@ -29,21 +29,21 @@ index 933712c2..617b23d8 100644
      Outputs,
 +    /// List connected outputs.
 +    Inputs {
-+        #[arg()]
-+        dwt: bool,
++        #[arg(long)]
++        dwt: Option<bool>,
 +    },
      /// List workspaces.
      Workspaces,
      /// List open windows.
 diff --git a/src/ipc/client.rs b/src/ipc/client.rs
-index 5ddefd3b..9c0c0ada 100644
+index 5ddefd3b..62875ed6 100644
 --- a/src/ipc/client.rs
 +++ b/src/ipc/client.rs
 @@ -18,6 +18,7 @@ pub fn handle_msg(msg: Msg, json: bool) -> anyhow::Result<()> {
      let request = match &msg {
          Msg::Version => Request::Version,
          Msg::Outputs => Request::Outputs,
-+        Msg::Inputs { dwt } => Request::Inputs { dwt: *dwt },
++        Msg::Inputs { dwt } => Request::Inputs { dwt: dwt.clone() },
          Msg::FocusedWindow => Request::FocusedWindow,
          Msg::FocusedOutput => Request::FocusedOutput,
          Msg::PickWindow => Request::PickWindow,
@@ -55,13 +55,13 @@ index 5ddefd3b..9c0c0ada 100644
 +            let Response::Inputs = response else {
 +                bail!("unexpected response: expected Inputs, got {response:?}");
 +            };
-+            println!("Set dwt to {dwt}");
++            println!("Set dwt to {dwt:?}");
 +        }
          Msg::FocusedWindow => {
              let Response::FocusedWindow(window) = response else {
                  bail!("unexpected response: expected FocusedWindow, got {response:?}");
 diff --git a/src/ipc/server.rs b/src/ipc/server.rs
-index cbcf3f67..554fa9fc 100644
+index cbcf3f67..6afc359f 100644
 --- a/src/ipc/server.rs
 +++ b/src/ipc/server.rs
 @@ -1,3 +1,4 @@
@@ -69,14 +69,19 @@ index cbcf3f67..554fa9fc 100644
  use std::cell::RefCell;
  use std::collections::HashSet;
  use std::ffi::OsStr;
-@@ -276,6 +277,14 @@ async fn process(ctx: &ClientCtx, request: Request) -> Reply {
+@@ -276,6 +277,19 @@ async fn process(ctx: &ClientCtx, request: Request) -> Reply {
              let outputs = ipc_outputs.values().cloned().map(|o| (o.name.clone(), o));
              Response::Outputs(outputs.collect())
          }
 +        Request::Inputs { dwt } => {
++            let dwt = if let Some(dwt) = dwt {
++                dwt
++            } else {
++                return Ok(Response::Inputs);
++            };
 +            ctx.event_loop.insert_idle(move |state| {
 +                for device in state.niri.devices.iter() {
-+                    device.config_dwt_set_enabled(dwt);
++                    let _ = device.config_dwt_set_enabled(dwt);
 +                }
 +            });
 +            Response::Inputs
