@@ -221,6 +221,7 @@ with config.stylix.fonts;
 
         "mpris" = {
           format = "{status_icon} {player_icon}  {dynamic}";
+          dynamic-length = 50;
 
           player-icons = {
             # default = "";
