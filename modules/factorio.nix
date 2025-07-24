@@ -16,7 +16,7 @@
                   comment = "A game in which you build and maintain factories.";
                   exec = lib.getExe (
                     pkgs.writeShellScriptBin ".factorio-wrapped" ''
-                      SDL_VIDEODRIVER=wayland PATH=$PATH:${pkgs.box64}/bin ${lib.getExe pkgs.muvm} --emu=box ${lib.getExe pkgs.mangohud} factorio
+                      SDL_VIDEODRIVER=wayland PATH=$PATH:${pkgs.box64}/bin ${lib.getExe pkgs.muvm} --emu=box ${pkgs.mangohud}/bin/mangohud factorio
                     ''
                   );
                   icon = "factorio";

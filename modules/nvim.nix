@@ -4,13 +4,13 @@
   # Only enable T*pescr*pt language server in work profile
   specialisation.work.configuration = {
     programs.nvf.settings.vim.languages = {
-        "ts" = {
-          enable = true;
-          extensions = {
-            ts-error-translator.enable = true;
-          };
-          extraDiagnostics.enable = true;
+      "ts" = {
+        enable = true;
+        extensions = {
+          ts-error-translator.enable = true;
         };
+        extraDiagnostics.enable = true;
+      };
     };
   };
 
@@ -124,6 +124,21 @@
         scrolloff = 8;
       };
 
+      vim.autocmds = [
+        {
+          enable = true;
+          command = # vim
+            ''lua vim.highlight.on_yank{higroup='IncSearch', timeout=100}'';
+          event = [
+            "TextYankPost"
+          ];
+          pattern = [
+            "*"
+            "silent!"
+          ];
+        }
+      ];
+
       vim.languages = {
         enableFormat = true;
         enableTreesitter = true;
@@ -147,6 +162,11 @@
         "csharp" = {
           enable = true;
           lsp.enable = true;
+          lsp.package = [
+            "csharp-ls"
+            "-l"
+            "error"
+          ];
         };
 
         "bash" = {
