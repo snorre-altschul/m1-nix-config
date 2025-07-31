@@ -141,6 +141,22 @@
         ];
       };
 
+      "F12" = {
+        action.spawn = [
+          "sh"
+          "-c"
+          ''niri msg inputs --dwt true && ${pkgs.libnotify}/bin/notify-send "Touchpad disabled while typing"''
+        ];
+      };
+
+      "F11" = {
+        action.spawn = [
+          "sh"
+          "-c"
+          ''niri msg inputs --dwt false && ${pkgs.libnotify}/bin/notify-send "Touchpad enabled always"''
+        ];
+      };
+
     }
     // (builtins.listToAttrs (
       builtins.concatLists (

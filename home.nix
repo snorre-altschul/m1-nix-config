@@ -14,6 +14,7 @@
     ./modules/foot.nix
     ./modules/lsd.nix
     ./modules/prismlauncher.nix
+    ./modules/cemu.nix
   ];
 
   home.username = "nixos";
