@@ -8,6 +8,19 @@
   lib,
   ...
 }:
+let
+  defaultApplications = desktop: {
+    "text/html" = "${desktop}";
+    "text/xml" = "${desktop}";
+    "application/vnd.mozilla.xul+xml" = "${desktop}";
+    "application/xhtml+xml" = "${desktop}";
+    "application/pdf" = "${desktop}";
+    "x-scheme-handler/http" = "${desktop}";
+    "x-scheme-handler/https" = "${desktop}";
+    "x-scheme-handler/about" = "${desktop}";
+    "x-scheme-handler/unknown" = "${desktop}";
+  };
+in
 {
   xdg.desktopEntries = lib.attrsets.mapAttrs' (
     profileName: value:
@@ -30,6 +43,13 @@
       "default"
       "work"
     ];
+  };
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = defaultApplications (
+      if config.specialisation != { } then "${package}.desktop" else "${name} - work profile.desktop"
+    );
   };
 
   programs.firefox = {
