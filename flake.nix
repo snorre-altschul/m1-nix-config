@@ -34,6 +34,10 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{
@@ -61,6 +65,9 @@
           inputs.home-manager.nixosModules.default
 
           inputs.stylix.nixosModules.stylix
+
+          inputs.agenix.nixosModules.default
+          { environment.systemPackages = [ inputs.agenix.packages."aarch64-linux".default ]; }
 
           inputs.nix-index-database.nixosModules.nix-index
           { programs.nix-index-database.comma.enable = true; }

@@ -1,15 +1,16 @@
 { pkgs, config, ... }:
 {
-
   # Only enable T*pescr*pt language server in work profile
   specialisation.work.configuration = {
-    programs.nvf.settings.vim.languages = {
-      "ts" = {
-        enable = true;
-        extensions = {
-          ts-error-translator.enable = true;
+    programs.nvf.settings.vim = {
+      languages = {
+        "ts" = {
+          enable = true;
+          extensions = {
+            ts-error-translator.enable = true;
+          };
+          extraDiagnostics.enable = true;
         };
-        extraDiagnostics.enable = true;
       };
     };
   };

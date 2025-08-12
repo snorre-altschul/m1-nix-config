@@ -26,7 +26,7 @@
             ".cache/mesa_shader_cache_db"
             ".cache/Psst"
             ".cache/nix"
-            ".factorio"
+            # ".factorio"
 
             ".local/share/fish"
             ".librewolf"
@@ -42,23 +42,17 @@
     ./modules/eba-postgres.nix
     ./modules/plymouth.nix
     ./modules/git.nix
-    ./modules/factorio.nix
+    # ./modules/factorio.nix
+    ./modules/agenix.nix
   ];
+
+  boot.supportedFilesystems = [ "ntfs" ];
 
   programs.kdeconnect = {
     enable = true;
   };
 
   nixpkgs.overlays = [
-    (final: prev: {
-      virglrenderer = prev.virglrenderer.overrideAttrs (old: {
-        src = final.fetchurl {
-          url = "https://gitlab.freedesktop.org/asahi/virglrenderer/-/archive/asahi-20250424/virglrenderer-asahi-20250424.tar.bz2";
-          hash = "sha256-9qFOsSv8o6h9nJXtMKksEaFlDP1of/LXsg3LCRL79JM=";
-        };
-        mesonFlags = old.mesonFlags ++ [ (final.lib.mesonOption "drm-renderers" "asahi-experimental") ];
-      });
-    })
     inputs.niri-flake.overlays.niri
   ];
 
@@ -93,8 +87,12 @@
     peripheralFirmwareDirectory = ./firmware;
     useExperimentalGPUDriver = true;
     experimentalGPUInstallMode = "overlay";
-    withRust = true;
   };
+  hardware.graphics.package = lib.mkForce (
+    config.hardware.asahi.pkgs.mesa-asahi-edge.overrideAttrs (old: {
+      mesonFlags = builtins.filter (x: !(lib.hasPrefix "-Dgallium-mediafoundation" x)) old.mesonFlags;
+    })
+  );
 
   hardware.graphics.enable = true;
 
@@ -154,6 +152,29 @@
     };
   };
   documentation.man.generateCaches = false;
+
+  specialisation."work".configuration = {
+    programs.fish.shellAbbrs."nrb" =
+      lib.mkForce "nixos-rebuild --sudo switch --flake /etc/nixos --specialisation work";
+    home-manager.users."nixos".xdg.mimeApps = {
+      enable = true;
+      defaultApplications =
+        let
+          defaultApplications = desktop: {
+            "text/html" = "${desktop}";
+            "text/xml" = "${desktop}";
+            "application/vnd.mozilla.xul+xml" = "${desktop}";
+            "application/xhtml+xml" = "${desktop}";
+            "application/pdf" = "${desktop}";
+            "x-scheme-handler/http" = "${desktop}";
+            "x-scheme-handler/https" = "${desktop}";
+            "x-scheme-handler/about" = "${desktop}";
+            "x-scheme-handler/unknown" = "${desktop}";
+          };
+        in
+        defaultApplications ("Firefox - work profile.desktop");
+    };
+  };
 
   # Minimal TUI displaymanager for loggin in and launching hyprland
   services.greetd = {
@@ -216,6 +237,7 @@
     neovim
     wget
     muvm
+    fluffychat
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
