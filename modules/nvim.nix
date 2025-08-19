@@ -39,6 +39,8 @@
         };
       };
 
+      vim.enableLuaLoader = true;
+
       vim.theme = {
         enable = true;
         name = "catppuccin";
@@ -57,7 +59,22 @@
         enable = true;
       };
 
-      vim.autocomplete.blink-cmp.enable = true;
+      vim.autocomplete.blink-cmp = {
+        enable = true;
+        setupOpts = {
+          keyword.range = "full";
+          accept.auto_brackets = true;
+          completion = {
+            list.selection = {
+              preselect = false;
+              auto_insert = true;
+            };
+            ghost_text.enable = false;
+          };
+          signature.enable = false;
+        };
+      };
+
       vim.undoFile.enable = true;
       vim.searchCase = "smart";
       vim.visuals.fidget-nvim = {

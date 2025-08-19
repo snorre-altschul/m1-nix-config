@@ -16,8 +16,17 @@
             width = 66;
           };
         };
+        user_gutter_width = 15;
         message_user_color = true;
         username_display = "displayname";
+        users = {
+          "@gags5:spoodythe.one" = {
+            color = "light-red";
+          };
+          "@conduit:spoodythe.one" = {
+            color = "green";
+          };
+        };
       };
     };
   };
