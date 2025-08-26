@@ -85,21 +85,11 @@
     enable = true;
     setupAsahiSound = true;
     peripheralFirmwareDirectory = ./firmware;
-    useExperimentalGPUDriver = true;
-    experimentalGPUInstallMode = "overlay";
   };
-  hardware.graphics.package = lib.mkForce (
-    config.hardware.asahi.pkgs.mesa-asahi-edge.overrideAttrs (old: {
-      mesonFlags = builtins.filter (x: !(lib.hasPrefix "-Dgallium-mediafoundation" x)) old.mesonFlags;
-    })
-  );
 
   hardware.graphics.enable = true;
 
-  # networking.hostName = "nixos"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.hostName = "nixos";
   networking.wireless.iwd = {
     enable = true;
     settings.General.EnableNetworkConfiguration = true;
@@ -215,6 +205,12 @@
         "i486-linux"
         "i586-linux"
         "i686-linux"
+      ];
+      substituters = [
+        "https://nix-community.cachix.org"
+      ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
     gc = {
