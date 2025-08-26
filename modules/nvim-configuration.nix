@@ -62,6 +62,13 @@
     enable = true;
   };
 
+  vim.notes.todo-comments = {
+    enable = true;
+    mappings = {
+      trouble = null;
+    };
+  };
+
   vim.keymaps = [
     {
       key = "<leader>la";
@@ -103,6 +110,28 @@
     setupOpts.defaults.path_display = [
       "smart"
       "truncate"
+    ];
+    extensions = [
+      {
+        name = "lsp_handlers";
+        packages = [
+          (pkgs.vimUtils.buildVimPlugin {
+            name = "telescope-lsp-handlers";
+            src = pkgs.fetchFromGitHub {
+              owner = "gbrlsnchs";
+              repo = "telescope-lsp-handlers.nvim";
+              rev = "de02085d6af1633942549a238bc7a5524fa9b201";
+              sha256 = "sha256-AgwzHr2UmwwqzlXlmQPLxdf6+EX6frvA2FJ/aJKSN3w=";
+            };
+          })
+        ];
+        setup = {
+          code_action = {
+            telescope = pkgs.lib.generators.mkLuaInline "require('telescope.themes').get_dropdown({})";
+
+          };
+        };
+      }
     ];
   };
 
