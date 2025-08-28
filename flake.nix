@@ -78,11 +78,12 @@
       apps = eachSystem (pkgs: rec {
         "nvim" = {
           type = "app";
-          program = pkgs.lib.getExe
-            (inputs.nvf.lib.nvim.neovimConfiguration {
-              inherit pkgs;
-              modules = [ (import ./modules/nvim-configuration.nix { inherit pkgs; }) ];
-            }).neovim;
+          program =
+            pkgs.lib.getExe
+              (inputs.nvf.lib.nvim.neovimConfiguration {
+                inherit pkgs;
+                modules = [ (import ./modules/nvim-configuration.nix { inherit pkgs; }) ];
+              }).neovim;
         };
         default = nvim;
       });
