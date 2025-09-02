@@ -103,6 +103,13 @@
             legacy_computing_symbols_support = true,
           }'';
     };
+    render-markdown = {
+      package = pkgs.vimPlugins.render-markdown-nvim;
+      setup = # lua
+        ''
+          require("render-markdown").setup {}
+        '';
+    };
   };
 
   vim.telescope = {
@@ -222,5 +229,7 @@
     ueberzugpp
     clang-tools
     lua-language-server
+    ripgrep
+    fd
   ];
 }
