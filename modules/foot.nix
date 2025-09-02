@@ -6,6 +6,7 @@
       main = {
         pad = "4x4";
       };
+      security.osc52 = "enabled";
     };
   };
 
