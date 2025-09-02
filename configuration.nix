@@ -40,7 +40,6 @@
     ./modules/nvim.nix
     ./modules/bluetooth.nix
     ./modules/eba-postgres.nix
-    ./modules/plymouth.nix
     ./modules/git.nix
     # ./modules/factorio.nix
     ./modules/agenix.nix
@@ -233,7 +232,6 @@
     neovim
     wget
     muvm
-    fluffychat
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
