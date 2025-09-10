@@ -70,6 +70,7 @@
     matchCredentials = true;
   });
   services.qemuGuest.enable = true;
+  boot.m1n1CustomLogo = ./m1n1-bootloader-splash.png;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -82,7 +83,6 @@
   # Specify path to peripheral firmware files.
   hardware.asahi = {
     enable = true;
-    setupAsahiSound = true;
     peripheralFirmwareDirectory = ./firmware;
   };
 
@@ -170,7 +170,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri-session";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd ${config.programs.niri.package}/bin/niri-session";
         user = "nixos";
       };
 
@@ -182,7 +182,7 @@
     };
   };
 
-  # Fine. I'll do it myself
+  # Needs to be here to override system package and not home-manager package
   programs.niri.package = pkgs.niri-stable.overrideAttrs (super: {
     patches = super.patches ++ [ ./modules/niri/dwt-msg.patch ];
   });

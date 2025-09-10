@@ -220,6 +220,12 @@
       enable = true;
       lsp.enable = true;
     };
+
+    "typst" = {
+      enable = true;
+      lsp.enable = true;
+      treesitter.enable = true;
+    };
   };
 
   vim.extraPackages = with pkgs; [
@@ -231,5 +237,6 @@
     lua-language-server
     ripgrep
     fd
+    wl-clipboard
   ];
 }

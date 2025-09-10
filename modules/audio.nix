@@ -1,17 +1,9 @@
 { pkgs, lib, ... }:
 {
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-    wireplumber.enable = true;
-  };
+  hardware.asahi.setupAsahiSound = true;
 
-  environment.systemPackages = [
-    pkgs.asahi-audio
-  ];
+  services.pipewire.configPackages = lib.mkForce [ ];
+  services.pipewire.wireplumber.configPackages = lib.mkForce [ ];
 
-  hardware.asahi.setupAsahiSound = lib.mkForce false;
+  environment.systemPackages = [ pkgs.asahi-audio ];
 }

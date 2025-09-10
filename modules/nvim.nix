@@ -6,6 +6,7 @@
       languages = {
         "ts" = {
           enable = true;
+          treesitter.enable = true;
           extensions = {
             ts-error-translator.enable = true;
           };
