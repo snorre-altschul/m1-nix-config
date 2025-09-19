@@ -101,10 +101,14 @@
     pkgs.nerd-fonts.mononoki
   ];
 
+  programs.ydotool = {
+    enable = true;
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nixos = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "ydotool" ]; # Enable ‘sudo’ for the user.
     hashedPassword = "$y$j9T$4kqlgDKD8.xIaomeHxoXv0$nA91xjtIbAMIK6CumO4tGY5XKofOKh4UvvkCAceDyqC";
     packages = with pkgs; [ ];
     shell = pkgs.fish;
@@ -161,7 +165,7 @@
             "x-scheme-handler/unknown" = "${desktop}";
           };
         in
-        defaultApplications ("Firefox - work profile.desktop");
+        lib.mkForce (defaultApplications ("Firefox - work profile.desktop"));
     };
   };
 

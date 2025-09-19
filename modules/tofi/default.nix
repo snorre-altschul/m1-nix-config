@@ -19,7 +19,7 @@
     # padding-left = "35%";
     # padding-right = "30%";
     result-spacing = 16;
-    num-results = 7;
+    num-results = 6;
     prompt-background-padding = 5;
     # text-cursor-tyle = "underscore";
     text-cursor-corner-radius = 1;
