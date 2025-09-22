@@ -52,6 +52,7 @@
           search.default = "ddg";
           search.privateDefault = "ddg";
           search.force = true;
+          extensions.force = true;
         };
       in
       {
@@ -108,6 +109,15 @@
           };
         in
         {
+          "browser.ml.chat.enabled" = lock-false;
+          "browser.ml.chat.page.footerBadg" = lock-false;
+          "browser.ml.chat.page.menuBadge" = lock-false;
+          "browser.ml.chat.shortcut" = lock-false;
+          "browser.ml.chat.shortcuts.custo" = lock-false;
+          "browser.ml.chat.sideba" = lock-false;
+          "browser.ml.checkForMemory" = lock-false;
+          "browser.ml.enabl" = lock-false;
+          "browser.ml.linkPreview.shif" = lock-false;
           "cookiebanners.service.mode.privateBrowsing" = 2; # Block cookie banners in private browsing
           "cookiebanners.service.mode" = 2; # Block cookie banners
           "network.cookie.lifetimePolicy" = 0;
