@@ -9,6 +9,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./modules/boot
     # ./apple-silicon-support
     (import ./delete-on-boot.nix {
       inherit lib;
@@ -32,7 +33,9 @@
             ".librewolf"
             ".mozilla"
           ];
-          files = [ ];
+          files = [
+            ".config/application_default_credentials.json"
+          ];
         };
       };
     })
@@ -43,9 +46,8 @@
     ./modules/git.nix
     # ./modules/factorio.nix
     ./modules/agenix.nix
+    (import ./modules/ydotool.nix "nixos")
   ];
-
-  boot.supportedFilesystems = [ "ntfs" ];
 
   programs.kdeconnect = {
     enable = true;
@@ -56,29 +58,6 @@
   ];
 
   programs.nix-ld.enable = true;
-
-  boot.binfmt.emulatedSystems = [
-    "i686-linux"
-    "x86_64-linux"
-    "i386-linux"
-    "i486-linux"
-    "i586-linux"
-    "i686-linux"
-  ];
-  boot.binfmt.registrations = lib.genAttrs config.boot.binfmt.emulatedSystems (system: {
-    fixBinary = true;
-    matchCredentials = true;
-  });
-  services.qemuGuest.enable = true;
-  boot.m1n1CustomLogo = ./m1n1-bootloader-splash.png;
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = false;
-
-  boot.extraModprobeConfig = ''
-    options hid_apple fnmode=2
-  '';
 
   # Specify path to peripheral firmware files.
   hardware.asahi = {
@@ -95,20 +74,17 @@
   };
 
   # Set your time zone.
-  time.timeZone = "Europe/Copenhagen";
+  time.timeZone = lib.mkDefault "Europe/Copenhagen";
+  services.automatic-timezoned.enable = true;
 
   fonts.packages = [
     pkgs.nerd-fonts.mononoki
   ];
 
-  programs.ydotool = {
-    enable = true;
-  };
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nixos = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "ydotool" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     hashedPassword = "$y$j9T$4kqlgDKD8.xIaomeHxoXv0$nA91xjtIbAMIK6CumO4tGY5XKofOKh4UvvkCAceDyqC";
     packages = with pkgs; [ ];
     shell = pkgs.fish;
@@ -211,9 +187,11 @@
       ];
       substituters = [
         "https://nix-community.cachix.org"
+        "https://nixos-apple-silicon.cachix.org"
       ];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "nixos-apple-silicon.cachix.org-1:8psDu5SA5dAD7qA0zMy5UT292TxeEPzIz8VVEr2Js20="
       ];
     };
     gc = {

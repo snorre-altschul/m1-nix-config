@@ -27,6 +27,7 @@
 
   home.packages = with pkgs; [
     gimp3
+    mpv
   ];
 
   stylix =

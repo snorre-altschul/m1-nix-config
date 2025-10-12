@@ -112,6 +112,25 @@
     };
   };
 
+  vim.debugger.nvim-dap = {
+    enable = true;
+    ui.enable = true;
+    sources = {
+      lldb =
+        #lua
+        ''
+          require("dap").adapters.codelldb = {
+            type = "server",
+            port = "''${port}",
+            executable = {
+              command = "${pkgs.lldb}/bin/lldb-dap",
+              args = { "--port", "''${port}" },
+            },
+          }
+        '';
+    };
+  };
+
   vim.telescope = {
     enable = true;
     setupOpts.defaults.path_display = [
@@ -194,15 +213,15 @@
       lsp.enable = true;
     };
 
-    "csharp" = {
-      enable = true;
-      lsp.enable = true;
-      lsp.package = [
-        "csharp-ls"
-        "-l"
-        "error"
-      ];
-    };
+    # "csharp" = {
+    #   enable = true;
+    #   lsp.enable = true;
+    #   lsp.package = [
+    #     "csharp-ls"
+    #     "-l"
+    #     "error"
+    #   ];
+    # };
 
     "bash" = {
       enable = true;
@@ -222,6 +241,12 @@
     };
 
     "typst" = {
+      enable = true;
+      lsp.enable = true;
+      treesitter.enable = true;
+    };
+
+    "qml" = {
       enable = true;
       lsp.enable = true;
       treesitter.enable = true;
