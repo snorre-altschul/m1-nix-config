@@ -141,7 +141,7 @@
         ];
       };
 
-      "F12" = {
+      "Mod+F12" = {
         action.spawn = [
           "sh"
           "-c"
@@ -149,7 +149,7 @@
         ];
       };
 
-      "F11" = {
+      "Mod+F11" = {
         action.spawn = [
           "sh"
           "-c"

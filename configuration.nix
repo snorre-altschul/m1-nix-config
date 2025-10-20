@@ -176,6 +176,7 @@
       experimental-features = [
         "nix-command"
         "flakes"
+        "pipe-operators"
       ];
       extra-platforms = [
         "i686-linux"
