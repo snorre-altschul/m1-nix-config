@@ -105,8 +105,8 @@
         action = toggle-window-floating;
       };
 
-      "Mod+H".action = focus-column-left;
-      "Mod+L".action = focus-column-right;
+      "Mod+Q".action = focus-column-left;
+      "Mod+E".action = focus-column-right;
 
       "Mod+F".action = maximize-column;
       "Mod+Shift+F".action = fullscreen-window;
@@ -124,12 +124,12 @@
         };
       };
 
-      "Mod+S" = {
-        hotkey-overlay.title = "Change dynamic screen capture target";
+      "Mod+W" = {
+        hotkey-overlay.title = "Dynamic screen capture window";
         action = set-dynamic-cast-window;
       };
-      "Mod+W" = {
-        hotkey-overlay.title = "Change dynamic screen capture target";
+      "Mod+S" = {
+        hotkey-overlay.title = "Dynamic screen capture screen";
         action = set-dynamic-cast-monitor null;
       };
 
