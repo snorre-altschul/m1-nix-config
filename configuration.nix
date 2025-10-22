@@ -53,6 +53,8 @@
     enable = true;
   };
 
+  zramSwap.enable = true;
+
   nixpkgs.overlays = [
     inputs.niri-flake.overlays.niri
   ];
