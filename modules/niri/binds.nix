@@ -157,6 +157,14 @@
         ];
       };
 
+      "Mod+L" = {
+        action.spawn = [
+          "sh"
+          "-c"
+          "${lib.getExe config.programs.swaylock.package}"
+        ];
+      };
+
     }
     // (builtins.listToAttrs (
       builtins.concatLists (

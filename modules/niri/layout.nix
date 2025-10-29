@@ -1,12 +1,11 @@
 { ... }:
 {
   programs.niri.settings.layout = {
-    gaps = 8;
+    gaps = 5;
 
     preset-column-widths = [
-      { proportion = 1. / 3.; }
       { proportion = 1. / 2.; }
-      { proportion = 2. / 3.; }
+      { proportion = 1. / 2.; }
     ];
 
     border = {

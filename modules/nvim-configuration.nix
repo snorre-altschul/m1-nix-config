@@ -14,6 +14,14 @@
       root_markers = [ ".git" ];
       capabilities.textDocument.semanticTokens.multilineTokenSupport = true;
     };
+
+    servers."nil" = {
+      nix.flake = {
+        "autoArchive" = true;
+        "autoEvalInputs" = true;
+      };
+    };
+
     servers."nixd" = {
       enable = true;
       filetypes = [ "nix" ];

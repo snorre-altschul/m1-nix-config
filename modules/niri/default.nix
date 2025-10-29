@@ -34,6 +34,9 @@ in
       "${lib.getExe config.programs.swaylock.package}"
     ];
 
+    clipboard.disable-primary = true;
+    input.workspace-auto-back-and-forth = true;
+
     environment.DISPLAY = ":0";
     prefer-no-csd = true;
   };
