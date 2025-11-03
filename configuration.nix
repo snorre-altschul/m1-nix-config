@@ -165,7 +165,7 @@
   };
 
   # Needs to be here to override system package and not home-manager package
-  programs.niri.package = pkgs.niri-stable.overrideAttrs (super: {
+  programs.niri.package = pkgs.niri.overrideAttrs (super: {
     patches = super.patches ++ [ ./modules/niri/dwt-msg.patch ];
   });
 
@@ -216,7 +216,6 @@
   environment.systemPackages = with pkgs; [
     neovim
     wget
-    muvm
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

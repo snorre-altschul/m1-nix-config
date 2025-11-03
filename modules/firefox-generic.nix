@@ -34,7 +34,7 @@
 
   programs.firefox = {
     enable = true;
-    package = pkgs."${package}-wayland";
+    package = pkgs."${package}";
 
     profiles =
       let
@@ -327,10 +327,10 @@
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/youtube-anti-translate/latext.xpi";
           installation_mode = "force_installed";
         };
-        "vimium-c@gdh1995.cn" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-c/latest.xpi";
-          installation_mode = "force_installed";
-        };
+        # "vimium-c@gdh1995.cn" = {
+        #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-c/latest.xpi";
+        #   installation_mode = "force_installed";
+        # };
       };
     };
   };
