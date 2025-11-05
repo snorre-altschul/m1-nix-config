@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   vim.lsp = {
     enable = true;
     inlayHints.enable = false;
@@ -11,7 +10,7 @@
     };
 
     servers."*" = {
-      root_markers = [ ".git" ];
+      root_markers = [".git"];
       capabilities.textDocument.semanticTokens.multilineTokenSupport = true;
     };
 
@@ -24,7 +23,7 @@
 
     servers."nixd" = {
       enable = true;
-      filetypes = [ "nix" ];
+      filetypes = ["nix"];
     };
   };
 
@@ -80,7 +79,7 @@
   vim.keymaps = [
     {
       key = "<leader>la";
-      mode = [ "n" ];
+      mode = ["n"];
       action = ''require("actions-preview").code_actions'';
       lua = true;
       silent = true;
@@ -94,12 +93,14 @@
     };
     undotree = {
       package = pkgs.vimPlugins.undotree;
-      setup = # lua
+      setup =
+        # lua
         "vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)";
     };
     smear-cursor = {
       package = pkgs.vimPlugins.smear-cursor-nvim;
-      setup = # lua
+      setup =
+        # lua
         ''
           require("smear_cursor").setup {
             -- stiffness = 0.5,
@@ -113,7 +114,8 @@
     };
     render-markdown = {
       package = pkgs.vimPlugins.render-markdown-nvim;
-      setup = # lua
+      setup =
+        # lua
         ''
           require("render-markdown").setup {}
         '';
@@ -162,7 +164,6 @@
         setup = {
           code_action = {
             telescope = pkgs.lib.generators.mkLuaInline "require('telescope.themes').get_dropdown({})";
-
           };
         };
       }
@@ -189,7 +190,8 @@
   vim.autocmds = [
     {
       enable = true;
-      command = # vim
+      command =
+        # vim
         ''lua vim.highlight.on_yank{higroup='IncSearch', timeout=100}'';
       event = [
         "TextYankPost"
@@ -209,8 +211,8 @@
       enable = true;
       treesitter.enable = true;
       format = {
-        package = pkgs.nixfmt-rfc-style;
-        type = "nixfmt";
+        package = pkgs.alejandra;
+        type = "alejandra";
       };
     };
 
@@ -251,6 +253,10 @@
     "typst" = {
       enable = true;
       lsp.enable = true;
+      format = {
+        package = pkgs.typstyle;
+        type = "typstyle";
+      };
       treesitter.enable = true;
     };
 

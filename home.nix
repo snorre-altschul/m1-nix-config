@@ -1,11 +1,8 @@
 {
   pkgs,
   inputs,
-  lib,
-  config,
   ...
-}:
-{
+}: {
   imports = [
     inputs.impermanence.nixosModules.home-manager.impermanence
     ./modules/niri
@@ -30,35 +27,33 @@
     mpv
   ];
 
-  stylix =
-    let
-      conf = import ./stylix.nix { inherit inputs; };
-    in
-    {
-      enable = true;
-      base16Scheme = conf.base16Scheme;
-      image = conf.image;
-      polarity = "dark";
-      autoEnable = true;
-      fonts = {
-        serif = {
-          package = pkgs.dejavu_fonts;
-          name = "DejaVu Serif";
-        };
-        sansSerif = {
-          package = pkgs.dejavu_fonts;
-          name = "DejaVu Sans";
-        };
-        monospace = {
-          package = pkgs.nerd-fonts.mononoki;
-          name = "Mononoki Nerd Font";
-        };
-        emoji = {
-          package = pkgs.noto-fonts-color-emoji;
-          name = "Noto Color Emoji";
-        };
+  stylix = let
+    conf = import ./stylix.nix {inherit inputs;};
+  in {
+    enable = true;
+    inherit (conf) base16Scheme;
+    inherit (conf) image;
+    polarity = "dark";
+    autoEnable = true;
+    fonts = {
+      serif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Serif";
+      };
+      sansSerif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Sans";
+      };
+      monospace = {
+        package = pkgs.nerd-fonts.mononoki;
+        name = "Mononoki Nerd Font";
+      };
+      emoji = {
+        package = pkgs.noto-fonts-color-emoji;
+        name = "Noto Color Emoji";
       };
     };
+  };
 
   home.sessionVariables = {
     EDITOR = "nvim";

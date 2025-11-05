@@ -39,53 +39,50 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs =
-    inputs@{
-      nixpkgs,
-      treefmt-nix,
-      systems,
-      ...
-    }:
-    let
-      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
-      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
-    in
-    {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./configuration.nix
-          inputs.impermanence.nixosModules.impermanence
-          inputs.nvf.nixosModules.default
+  outputs = inputs @ {
+    nixpkgs,
+    treefmt-nix,
+    systems,
+    ...
+  }: let
+    eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+    treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+  in {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
+      modules = [
+        ./configuration.nix
+        inputs.impermanence.nixosModules.impermanence
+        inputs.nvf.nixosModules.default
 
-          inputs.niri-flake.nixosModules.niri
-          { programs.niri.enable = true; }
+        inputs.niri-flake.nixosModules.niri
+        {programs.niri.enable = true;}
 
-          inputs.nixos-apple-silicon.nixosModules.default
-          inputs.home-manager.nixosModules.default
+        inputs.nixos-apple-silicon.nixosModules.default
+        inputs.home-manager.nixosModules.default
 
-          inputs.stylix.nixosModules.stylix
+        inputs.stylix.nixosModules.stylix
 
-          inputs.agenix.nixosModules.default
-          { environment.systemPackages = [ inputs.agenix.packages."aarch64-linux".default ]; }
+        inputs.agenix.nixosModules.default
+        {environment.systemPackages = [inputs.agenix.packages."aarch64-linux".default];}
 
-          inputs.nix-index-database.nixosModules.nix-index
-          { programs.nix-index-database.comma.enable = true; }
-        ];
-      };
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
-
-      apps = eachSystem (pkgs: rec {
-        "nvim" = {
-          type = "app";
-          program =
-            pkgs.lib.getExe
-              (inputs.nvf.lib.nvim.neovimConfiguration {
-                inherit pkgs;
-                modules = [ (import ./modules/nvim-configuration.nix { inherit pkgs; }) ];
-              }).neovim;
-        };
-        default = nvim;
-      });
+        inputs.nix-index-database.nixosModules.nix-index
+        {programs.nix-index-database.comma.enable = true;}
+      ];
     };
+    formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+
+    apps = eachSystem (pkgs: rec {
+      "nvim" = {
+        type = "app";
+        program =
+          pkgs.lib.getExe
+          (inputs.nvf.lib.nvim.neovimConfiguration {
+            inherit pkgs;
+            modules = [(import ./modules/nvim-configuration.nix {inherit pkgs;})];
+          }).neovim;
+      };
+      default = nvim;
+    });
+  };
 }

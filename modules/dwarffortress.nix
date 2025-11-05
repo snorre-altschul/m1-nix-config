@@ -1,5 +1,4 @@
-{ pkgs, fetchUrl, ... }@inputs:
-{
+{pkgs, ...}: {
   nixpkgs.config.allowUnsupportedSystem = true;
   home.packages = [
     # (

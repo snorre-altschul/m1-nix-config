@@ -2,13 +2,8 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
-}:
-let
-  swayidle-time = 600;
-in
-{
+}: {
   imports = [
     ../tofi
     ../waybar
@@ -26,8 +21,8 @@ in
     debug.render-drm-device = "/dev/dri/renderD128";
 
     spawn-at-startup = [
-      { command = [ "${lib.getExe config.programs.waybar.package}" ]; }
-      { command = [ "${lib.getExe pkgs.xwayland-satellite}" ]; }
+      {command = ["${lib.getExe config.programs.waybar.package}"];}
+      {command = ["${lib.getExe pkgs.xwayland-satellite}"];}
     ];
 
     switch-events.lid-close.action.spawn = [

@@ -1,12 +1,10 @@
 {
   lib,
-  persistExtraDirectories ? [ ],
-  persistExtraFiles ? [ ],
+  persistExtraDirectories ? [],
+  persistExtraFiles ? [],
   users,
-  extraConfig ? { },
   ...
-}:
-{
+}: {
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     # Prepare temporary folder
     mkdir /btrfs_tmp
@@ -46,31 +44,33 @@
   fileSystems."/persist".neededForBoot = true;
   environment.persistence."/persist/system" = {
     hideMounts = true;
-    directories = [
-      "/etc/nixos"
-      "/var/log"
-      "/var/lib/bluetooth"
-      "/var/lib/nixos"
-      "/var/lib/systemd/coredump"
-      "/var/lib/iwd"
-      "/var/lib/docker"
-      {
-        directory = "/var/lib/colord";
-        user = "colord";
-        group = "colord";
-        mode = "u=rwx, g=rx, o=";
-      }
-    ]
-    ++ persistExtraDirectories;
+    directories =
+      [
+        "/etc/nixos"
+        "/var/log"
+        "/var/lib/bluetooth"
+        "/var/lib/nixos"
+        "/var/lib/systemd/coredump"
+        "/var/lib/iwd"
+        "/var/lib/docker"
+        {
+          directory = "/var/lib/colord";
+          user = "colord";
+          group = "colord";
+          mode = "u=rwx, g=rx, o=";
+        }
+      ]
+      ++ persistExtraDirectories;
 
-    files = [
-      "/etc/machine-id"
-      "/etc/ssh/ssh_host_rsa_key"
-      "/etc/ssh/ssh_host_ed25519_key"
-      "/etc/ssh/ssh_host_rsa_key.pub"
-      "/etc/ssh/ssh_host_ed25519_key.pub"
-    ]
-    ++ persistExtraFiles;
+    files =
+      [
+        "/etc/machine-id"
+        "/etc/ssh/ssh_host_rsa_key"
+        "/etc/ssh/ssh_host_ed25519_key"
+        "/etc/ssh/ssh_host_rsa_key.pub"
+        "/etc/ssh/ssh_host_ed25519_key.pub"
+      ]
+      ++ persistExtraFiles;
 
     inherit users;
   };

@@ -1,6 +1,9 @@
-{ lib, config, ... }:
 {
-  boot.supportedFilesystems = [ "ntfs" ];
+  lib,
+  config,
+  ...
+}: {
+  boot.supportedFilesystems = ["ntfs"];
 
   boot.binfmt.emulatedSystems = [
     "i686-linux"
@@ -10,7 +13,7 @@
     "i586-linux"
     "i686-linux"
   ];
-  boot.binfmt.registrations = lib.genAttrs config.boot.binfmt.emulatedSystems (system: {
+  boot.binfmt.registrations = lib.genAttrs config.boot.binfmt.emulatedSystems (_system: {
     fixBinary = true;
     matchCredentials = true;
   });

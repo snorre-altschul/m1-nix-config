@@ -2,22 +2,18 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-  config,
   lib,
-  pkgs,
   modulesPath,
   ...
-}:
-
-{
+}: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = [ "usb_storage" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
+  boot.initrd.availableKernelModules = ["usb_storage"];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = [];
+  boot.extraModulePackages = [];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/0d1439b2-2f08-403a-baf2-7b57513342a0";
@@ -29,8 +25,7 @@
     ];
   };
 
-  boot.initrd.luks.devices."cryptroot".device =
-    "/dev/disk/by-uuid/05aff299-343b-4cf7-ae20-78cff907ba23";
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/05aff299-343b-4cf7-ae20-78cff907ba23";
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/0d1439b2-2f08-403a-baf2-7b57513342a0";
@@ -62,7 +57,7 @@
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/684a1b30-1e9c-4aca-92eb-3c4d8148cd0b"; }
+    {device = "/dev/disk/by-uuid/684a1b30-1e9c-4aca-92eb-3c4d8148cd0b";}
   ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

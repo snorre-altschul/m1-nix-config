@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+_: {
   programs.swaylock = {
     enable = true;
     # package = pkgs.swaylock-fancy;

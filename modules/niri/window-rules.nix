@@ -1,5 +1,4 @@
-{ inputs, lib, ... }:
-{
+{lib, ...}: {
   programs.niri.settings.window-rules = [
     {
       matches = [
@@ -22,10 +21,9 @@
     (
       let
         recording-color = "#ff0000";
-      in
-      {
+      in {
         # Indicate screencasted windows with red colors.
-        matches = [ { is-window-cast-target = true; } ];
+        matches = [{is-window-cast-target = true;}];
 
         focus-ring = {
           inactive.color = recording-color;

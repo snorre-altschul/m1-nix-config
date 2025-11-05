@@ -3,10 +3,8 @@
   lib,
   pkgs,
   ...
-}:
-{
-  programs.niri.settings.binds =
-    with config.lib.niri.actions;
+}: {
+  programs.niri.settings.binds = with config.lib.niri.actions;
     {
       "XF86AudioRaiseVolume" = {
         action.spawn = [
@@ -69,7 +67,7 @@
 
       "Mod+Return" = {
         hotkey-overlay.title = "Open terminal";
-        action.spawn = [ "${lib.getExe pkgs.foot}" ];
+        action.spawn = ["${lib.getExe pkgs.foot}"];
       };
 
       "Mod+D" = {
@@ -165,22 +163,23 @@
           "${lib.getExe config.programs.swaylock.package}"
         ];
       };
-
     }
     // (builtins.listToAttrs (
       builtins.concatLists (
         builtins.genList (
-          i: with config.lib.niri.actions; [
-            (lib.attrsets.nameValuePair "Mod+${toString i}" {
-              hotkey-overlay.title = "Switch to workspace ${toString i}";
-              action = focus-workspace i;
-            })
-            (lib.attrsets.nameValuePair "Mod+Shift+${toString i}" {
-              hotkey-overlay.title = "Switch to workspace ${toString i}";
-              action.move-column-to-workspace = i;
-            })
-          ]
-        ) 10
+          i:
+            with config.lib.niri.actions; [
+              (lib.attrsets.nameValuePair "Mod+${toString i}" {
+                hotkey-overlay.title = "Switch to workspace ${toString i}";
+                action = focus-workspace i;
+              })
+              (lib.attrsets.nameValuePair "Mod+Shift+${toString i}" {
+                hotkey-overlay.title = "Switch to workspace ${toString i}";
+                action.move-column-to-workspace = i;
+              })
+            ]
+        )
+        10
       )
     ));
 }

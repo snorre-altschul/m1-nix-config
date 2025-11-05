@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   services.spotifyd = {
     enable = true;
     settings = {
@@ -13,7 +12,7 @@
     enable = true;
     settings.copy_command = {
       command = "wl-copy";
-      args = [ ];
+      args = [];
     };
   };
 }

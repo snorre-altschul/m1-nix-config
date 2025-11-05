@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{inputs, ...}: {
   programs.niri.settings.input = with inputs.niri-flake.lib.kdl; {
     keyboard = {
       xkb = {

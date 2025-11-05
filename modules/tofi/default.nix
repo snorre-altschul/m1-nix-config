@@ -3,11 +3,10 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   programs.tofi.enable = true;
-  programs.tofi.package = pkgs.tofi.overrideAttrs (old: {
-    patches = [ ./fix_centering.patch ];
+  programs.tofi.package = pkgs.tofi.overrideAttrs (_old: {
+    patches = [./fix_centering.patch];
   });
 
   programs.tofi.settings = {
@@ -28,7 +27,7 @@
     # font-size = lib.mkForce 18;
   };
 
-  home.activation.regenerateTofiCache = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.regenerateTofiCache = lib.hm.dag.entryAfter ["writeBoundary"] ''
     tofi_cache=${config.xdg.cacheHome}/tofi-drun
     [[ -f "$tofi_cache" ]] && rm "$tofi_cache"
   '';

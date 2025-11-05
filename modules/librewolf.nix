@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     (import ./firefox-generic.nix {
       name = "Librewolf";

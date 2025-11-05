@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   specialisation.work.configuration = {
     virtualisation.docker = {
       enable = true;

@@ -4,16 +4,16 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   services.dunst = {
-
     waylandDisplay = "wayland-1";
 
     package = pkgs.dunst.overrideAttrs (old: {
-      makeflags = old.makeFlags ++ [
-        "X11=0"
-      ];
+      makeflags =
+        old.makeFlags
+        ++ [
+          "X11=0"
+        ];
     });
 
     enable = true;
@@ -55,13 +55,12 @@
 
         stack_duplicates = false;
         show_indicators = false;
-
       };
 
       urgency_critical.background = lib.mkForce config.lib.stylix.colors.withHashtag.base08;
 
       # Otherwise spotify songs dont have an image when the change song notification appears
-      "[spotify-album-art-waybar]" = lib.mkIf (config.services.spotifyd.enable == true) {
+      "[spotify-album-art-waybar]" = lib.mkIf config.services.spotifyd.enable {
         appname = "Spotify";
         script = builtins.toString (
           pkgs.writeShellScript "album_art.sh" ''

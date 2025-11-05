@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   programs.iamb = {
     enable = true;
     settings = {

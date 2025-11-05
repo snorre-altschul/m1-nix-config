@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   boot.plymouth.enable = true;
   boot.loader.grub.timeoutStyle = "hidden";
   boot.kernelParams = [

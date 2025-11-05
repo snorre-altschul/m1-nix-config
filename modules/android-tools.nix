@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Install android tools
   environment.systemPackages = with pkgs; [
     android-tools

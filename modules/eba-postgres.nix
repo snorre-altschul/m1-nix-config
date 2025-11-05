@@ -1,9 +1,8 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   specialisation.work.configuration = {
     services.postgresql = {
       enable = true;
-      ensureDatabases = [ "connect" ];
+      ensureDatabases = ["connect"];
       enableTCPIP = true;
       ensureUsers = [
         {
@@ -20,7 +19,7 @@
         local all       all     trust
         host  all       all     all         trust
       '';
-      extensions = ps: with ps; [ postgis ];
+      extensions = ps: with ps; [postgis];
     };
   };
 }

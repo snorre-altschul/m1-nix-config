@@ -5,8 +5,7 @@
   ...
 }:
 with config.lib.stylix.colors.withHashtag;
-with config.stylix.fonts;
-{
+with config.stylix.fonts; {
   stylix.targets.waybar.enable = false;
 
   services.playerctld.enable = true;
@@ -46,7 +45,7 @@ with config.stylix.fonts;
     settings = {
       test = {
         layer = "top";
-        output = [ "eDP-1" ];
+        output = ["eDP-1"];
         position = "top";
 
         width = 1462;
