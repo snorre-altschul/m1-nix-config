@@ -6,7 +6,7 @@
 }: {
   imports = [
     ../tofi
-    ../waybar
+    ../waybar/old
     ../dunst.nix
     ../swaybg.nix
     ../swaylock.nix
