@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   # Only enable T*pescr*pt language server in work profile
   specialisation.work.configuration = {
     programs.nvf.settings.vim = {
@@ -18,6 +22,6 @@
   stylix.targets.nvf.enable = false;
   programs.nvf = {
     enable = true;
-    settings = import ./nvim-configuration.nix {inherit pkgs;};
+    settings = import ./nvim-configuration.nix {inherit pkgs lib;};
   };
 }

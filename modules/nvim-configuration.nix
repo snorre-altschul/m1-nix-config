@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   vim.lsp = {
     enable = true;
     inlayHints.enable = false;
@@ -203,6 +207,13 @@
     }
   ];
 
+  # shit broken
+  # vim.formatter.conform-nvim.formatters.<formatter_name>.command
+  # vim.formatter.conform-nvim.formatters = {
+  #   "alejandra".command = lib.getExe pkgs.alejandra;
+  # };
+  vim.formatter.conform-nvim.enable = lib.mkForce false;
+
   vim.languages = {
     enableFormat = true;
     enableTreesitter = true;
@@ -210,10 +221,6 @@
     "nix" = {
       enable = true;
       treesitter.enable = true;
-      format = {
-        package = pkgs.alejandra;
-        type = "alejandra";
-      };
     };
 
     "rust".enable = true;
@@ -221,6 +228,31 @@
     "clang" = {
       enable = true;
       lsp.enable = true;
+    };
+
+    "ts" = {
+      enable = true;
+      lsp.enable = true;
+      treesitter.enable = true;
+      extraDiagnostics.enable = true;
+    };
+
+    "svelte" = {
+      enable = true;
+      lsp.enable = true;
+      treesitter.enable = true;
+      extraDiagnostics.enable = true;
+    };
+
+    "tailwind" = {
+      enable = true;
+      lsp.enable = true;
+    };
+
+    "css" = {
+      enable = true;
+      lsp.enable = true;
+      treesitter.enable = true;
     };
 
     # "csharp" = {
@@ -253,10 +285,6 @@
     "typst" = {
       enable = true;
       lsp.enable = true;
-      format = {
-        package = pkgs.typstyle;
-        type = "typstyle";
-      };
       treesitter.enable = true;
     };
 
