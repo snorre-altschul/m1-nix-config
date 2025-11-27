@@ -4,7 +4,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -12,7 +13,7 @@
     # ./apple-silicon-support
     (import ./delete-on-boot.nix {
       inherit lib;
-      persistExtraDirectories = [];
+      persistExtraDirectories = [ ];
       users = {
         "nixos" = {
           directories = [
@@ -30,7 +31,7 @@
             ".librewolf"
             ".mozilla"
           ];
-          files = [];
+          files = [ ];
         };
       };
     })
@@ -55,6 +56,10 @@
   };
 
   hardware.graphics.enable = true;
+  # Lock mesa to fix firefox crashes
+  hardware.graphics.package =
+    assert pkgs.mesa.version == "25.3.0"; # Once the regression is fixed this should error
+    inputs.nixpkgs-mesa.legacyPackages.${pkgs.stdenv.system}.mesa;
 
   networking.hostName = "nixos";
   networking.wireless.iwd = {
@@ -73,32 +78,34 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nixos = {
     isNormalUser = true;
-    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     hashedPassword = "$y$j9T$4kqlgDKD8.xIaomeHxoXv0$nA91xjtIbAMIK6CumO4tGY5XKofOKh4UvvkCAceDyqC";
-    packages = with pkgs; [];
+    packages = with pkgs; [ ];
     shell = pkgs.fish;
   };
 
   home-manager = {
-    extraSpecialArgs = {inherit inputs;};
+    extraSpecialArgs = { inherit inputs; };
     users = {
       "nixos" = import ./home.nix;
     };
   };
 
-  stylix = let
-    conf = import ./stylix.nix {inherit inputs;};
-  in {
-    enable = true;
-    inherit (conf) base16Scheme;
-    inherit (conf) image;
-    autoEnable = true;
-    polarity = "dark";
+  stylix =
+    let
+      conf = import ./stylix.nix { inherit inputs; };
+    in
+    {
+      enable = true;
+      inherit (conf) base16Scheme;
+      inherit (conf) image;
+      autoEnable = true;
+      polarity = "dark";
 
-    cursor.package = pkgs.bibata-cursors;
-    cursor.name = "Bibata-Modern-Ice";
-    cursor.size = 24;
-  };
+      cursor.package = pkgs.bibata-cursors;
+      cursor.name = "Bibata-Modern-Ice";
+      cursor.size = 24;
+    };
 
   programs.fish = {
     enable = true;
@@ -114,19 +121,20 @@
       lib.mkForce "nixos-rebuild --sudo switch --flake /etc/nixos --specialisation work";
     home-manager.users."nixos".xdg.mimeApps = {
       enable = true;
-      defaultApplications = let
-        defaultApplications = desktop: {
-          "text/html" = "${desktop}";
-          "text/xml" = "${desktop}";
-          "application/vnd.mozilla.xul+xml" = "${desktop}";
-          "application/xhtml+xml" = "${desktop}";
-          "application/pdf" = "${desktop}";
-          "x-scheme-handler/http" = "${desktop}";
-          "x-scheme-handler/https" = "${desktop}";
-          "x-scheme-handler/about" = "${desktop}";
-          "x-scheme-handler/unknown" = "${desktop}";
-        };
-      in
+      defaultApplications =
+        let
+          defaultApplications = desktop: {
+            "text/html" = "${desktop}";
+            "text/xml" = "${desktop}";
+            "application/vnd.mozilla.xul+xml" = "${desktop}";
+            "application/xhtml+xml" = "${desktop}";
+            "application/pdf" = "${desktop}";
+            "x-scheme-handler/http" = "${desktop}";
+            "x-scheme-handler/https" = "${desktop}";
+            "x-scheme-handler/about" = "${desktop}";
+            "x-scheme-handler/unknown" = "${desktop}";
+          };
+        in
         lib.mkForce (defaultApplications "Firefox - work profile.desktop");
     };
   };
@@ -150,7 +158,7 @@
 
   # Needs to be here to override system package and not home-manager package
   programs.niri.package = pkgs.niri.overrideAttrs (super: {
-    patches = super.patches ++ [./modules/niri/dwt-msg.patch];
+    patches = super.patches ++ [ ./modules/niri/dwt-msg.patch ];
   });
 
   # FUCK NANO

@@ -20,9 +20,11 @@
   services.qemuGuest.enable = true;
   boot.m1n1CustomLogo = ./m1n1-bootloader-splash.png;
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  # Use grub bootloader
+  stylix.targets.grub.enable = false;
+
   boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader.grub.efiInstallAsRemovable = true;
 
   boot.extraModprobeConfig = ''
     options hid_apple fnmode=2

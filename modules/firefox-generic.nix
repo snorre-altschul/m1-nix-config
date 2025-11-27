@@ -107,6 +107,39 @@
           status = "locked";
         };
       in {
+        "browser.ml.chat.enabled" = lock-false;
+        "browser.ml.chat.page.footerBadg" = lock-false;
+        "browser.ml.chat.page.menuBadge" = lock-false;
+        "browser.ml.chat.shortcut" = lock-false;
+        "browser.ml.chat.shortcuts.custo" = lock-false;
+        "browser.ml.chat.sideba" = lock-false;
+        "browser.ml.checkForMemory" = lock-false;
+        "browser.ml.enabl" = lock-false;
+        "browser.ml.linkPreview.shif" = lock-false;
+        "cookiebanners.service.mode.privateBrowsing" = 2; # Block cookie banners in private browsing
+        "cookiebanners.service.mode" = 2; # Block cookie banners
+        "network.cookie.lifetimePolicy" = 0;
+        "privacy.clearOnShutdown.cookies" = false;
+        "privacy.clearOnShutdown.history" = false;
+        "privacy.donottrackheader.enabled" = true;
+        "privacy.fingerprintingProtection" = false;
+        "privacy.resistFingerprinting" = true;
+        "privacy.trackingprotection.emailtracking.enabled" = true;
+        "privacy.trackingprotection.enabled" = true;
+        "privacy.trackingprotection.fingerprinting.enabled" = false;
+        "privacy.trackingprotection.socialtracking.enabled" = true;
+        "browser.download.useDownloadDir" = true;
+        "signon.autofillForms" = false;
+        "signon.generation.enabled" = false;
+        "signon.backup.enabled" = false;
+        "signon.usernameOnlyForm.enabled" = false;
+        "signon.rememberSignons" = false;
+        "signon.schemeUpgrades" = false;
+        "signon.showAutoCompleteFooter" = false;
+        "signon.privateBrowsingCapture.enabled" = false;
+        "signon.passwordEditCapture.enabled" = false;
+        "signon.capture.inputChanges.enabled" = false;
+    
         "services.sync.prefs.sync.browser.ml.chat.enabled" = lock-false;
         "services.sync.prefs.sync.browser.ml.chat.page.footerBadge" = lock-false;
         "services.sync.prefs.sync.browser.ml.chat.page.menuBadge" = lock-false;
@@ -315,7 +348,11 @@
         };
         # FUCK youtube ai translated titles
         "{458160b9-32eb-0f0c-8_d1-89ad3bdeb9dc}" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/youtube-anti-translate/latext.xpi";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/youtube-anti-translate/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        "user-agent-switcher@ninetailed.ninja" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/uaswitcher/latest.xpi";
           installation_mode = "force_installed";
         };
         # "vimium-c@gdh1995.cn" = {

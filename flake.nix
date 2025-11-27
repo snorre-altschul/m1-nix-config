@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-mesa.url = "github:NixOS/nixpkgs/c5ae371f1a6a7fd27823";
     impermanence.url = "github:nix-community/impermanence";
     nvf = {
       url = "github:notashelf/nvf/v0.8";
@@ -11,7 +12,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-apple-silicon = {
@@ -38,6 +39,12 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    minecraft-plymouth = {
+      url = "github:nikp123/minecraft-plymouth-theme";
+    };
+    minecraft-grub = {
+      url = "github:Lxtharia/minegrub-world-sel-theme";
+    };
   };
   outputs = inputs @ {
     nixpkgs,
@@ -62,6 +69,9 @@
         inputs.home-manager.nixosModules.default
 
         inputs.stylix.nixosModules.stylix
+
+        inputs.minecraft-grub.nixosModules.default
+        inputs.minecraft-plymouth.nixosModules.default
 
         inputs.agenix.nixosModules.default
         {environment.systemPackages = [inputs.agenix.packages."aarch64-linux".default];}

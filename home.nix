@@ -25,6 +25,7 @@
   home.packages = with pkgs; [
     gimp3
     mpv
+    signal-desktop
   ];
 
   stylix = let
