@@ -1,7 +1,7 @@
 _: {
   specialisation.work.configuration = {
     virtualisation.docker = {
-      enable = false;
+      enable = true;
       storageDriver = "btrfs";
       enableOnBoot = false;
     };

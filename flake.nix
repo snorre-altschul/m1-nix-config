@@ -39,12 +39,6 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    minecraft-plymouth = {
-      url = "github:nikp123/minecraft-plymouth-theme";
-    };
-    minecraft-grub = {
-      url = "github:Lxtharia/minegrub-world-sel-theme";
-    };
   };
   outputs = inputs @ {
     nixpkgs,
@@ -69,9 +63,6 @@
         inputs.home-manager.nixosModules.default
 
         inputs.stylix.nixosModules.stylix
-
-        inputs.minecraft-grub.nixosModules.default
-        inputs.minecraft-plymouth.nixosModules.default
 
         inputs.agenix.nixosModules.default
         {environment.systemPackages = [inputs.agenix.packages."aarch64-linux".default];}

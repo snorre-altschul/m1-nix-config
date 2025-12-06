@@ -25,7 +25,7 @@
             ".cache/mesa_shader_cache_db"
             ".cache/Psst"
             ".cache/nix"
-            # ".factorio"
+            ".config/Signal"
 
             ".local/share/fish"
             ".librewolf"
@@ -41,6 +41,7 @@
     ./modules/git.nix
     # ./modules/factorio.nix
     ./modules/agenix.nix
+    ./modules/direnv.nix
     ./nix.nix
     (import ./modules/ydotool.nix "nixos")
   ];
