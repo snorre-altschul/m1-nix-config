@@ -59,7 +59,7 @@
   hardware.graphics.enable = true;
   # Lock mesa to fix firefox crashes
   hardware.graphics.package =
-    assert pkgs.mesa.version == "25.3.0"; # Once the regression is fixed this should error
+    assert pkgs.mesa.version == "25.3.1"; # Once the regression is fixed this should error
     inputs.nixpkgs-mesa.legacyPackages.${pkgs.stdenv.system}.mesa;
 
   networking.hostName = "nixos";
