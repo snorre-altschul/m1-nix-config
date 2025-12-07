@@ -57,7 +57,10 @@
         inputs.nvf.nixosModules.default
 
         inputs.niri-flake.nixosModules.niri
-        {programs.niri.enable = true;}
+        {
+          programs.niri.enable = true;
+          niri-flake.cache.enable = false;
+        }
 
         inputs.nixos-apple-silicon.nixosModules.default
         inputs.home-manager.nixosModules.default
