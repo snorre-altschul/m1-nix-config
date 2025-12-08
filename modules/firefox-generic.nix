@@ -139,7 +139,7 @@
         "signon.privateBrowsingCapture.enabled" = false;
         "signon.passwordEditCapture.enabled" = false;
         "signon.capture.inputChanges.enabled" = false;
-    
+
         "services.sync.prefs.sync.browser.ml.chat.enabled" = lock-false;
         "services.sync.prefs.sync.browser.ml.chat.page.footerBadge" = lock-false;
         "services.sync.prefs.sync.browser.ml.chat.page.menuBadge" = lock-false;
