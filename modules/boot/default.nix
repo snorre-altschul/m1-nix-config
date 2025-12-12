@@ -1,8 +1,4 @@
-{
-  lib,
-  config,
-  ...
-}: {
+_: {
   boot.supportedFilesystems = ["ntfs"];
 
   boot.binfmt.emulatedSystems = [
@@ -13,20 +9,17 @@
     "i586-linux"
     "i686-linux"
   ];
-  boot.binfmt.registrations = lib.genAttrs config.boot.binfmt.emulatedSystems (_system: {
-    fixBinary = true;
-    matchCredentials = true;
-  });
-  services.qemuGuest.enable = true;
+  # boot.binfmt.registrations = lib.genAttrs config.boot.binfmt.emulatedSystems (_system: {
+  #   fixBinary = true;
+  #   matchCredentials = true;
+  # });
+  # services.qemuGuest.enable = true;
   boot.m1n1CustomLogo = ./m1n1-bootloader-splash.png;
 
-  # Use grub bootloader
-  stylix.targets.grub.enable = false;
-
+  # Use systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.grub.enable = false;
   boot.loader.efi.canTouchEfiVariables = false;
-  boot.loader.grub.efiInstallAsRemovable = true;
-
-  boot.loader.grub.timeoutStyle = "hidden";
 
   boot.extraModprobeConfig = ''
     options hid_apple fnmode=2

@@ -25,6 +25,7 @@
             ".cache/Psst"
             ".cache/nix"
             ".config/Signal"
+            ".config/vesktop"
 
             ".local/share/fish"
             ".librewolf"
@@ -38,9 +39,14 @@
     ./modules/nvim.nix
     ./modules/bluetooth.nix
     ./modules/git.nix
-    # ./modules/factorio.nix
     ./modules/agenix.nix
     ./modules/direnv.nix
+    # (import ./modules/factorio.nix {
+    #   inherit pkgs;
+    #   inherit (pkgs) stdenv;
+    # })
+    ./modules/podman.nix
+    ./modules/distrobox.nix
     ./nix.nix
     (import ./modules/ydotool.nix "nixos")
   ];

@@ -24,6 +24,7 @@
     gimp3
     mpv
     signal-desktop
+    vesktop
   ];
 
   stylix = let

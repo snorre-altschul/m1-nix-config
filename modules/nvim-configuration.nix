@@ -1,8 +1,6 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: let
+  inherit (pkgs) lib;
+in {
   vim.lsp = {
     enable = true;
     inlayHints.enable = false;
