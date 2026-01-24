@@ -4,13 +4,13 @@
   ...
 }: {
   imports = [
-    inputs.impermanence.nixosModules.home-manager.impermanence
     ./modules/niri
     ./modules/spotify.nix
     ./modules/firefox.nix
     ./modules/foot.nix
     ./modules/lsd.nix
     ./modules/iamb.nix
+    ./modules/prismlauncher.nix
   ];
 
   home.username = "nixos";
@@ -22,10 +22,19 @@
 
   home.packages = with pkgs; [
     gimp3
-    mpv
     signal-desktop
     vesktop
   ];
+
+  programs.mpv = {
+    enable = true;
+    profiles.youtube = {
+      "ytdl-format" = "bestvideo[height<=?1080]+bestaudio/best";
+      "slang" = "en";
+      "sub-auto" = "fuzzy";
+      "ytdl-raw-options" = "ignore-config=,sub-lang=en,write-sub=,write-auto-sub=";
+    };
+  };
 
   stylix = let
     conf = import ./stylix.nix {inherit inputs;};

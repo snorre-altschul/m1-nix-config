@@ -2,9 +2,9 @@
   name,
   package,
 }: {
-  pkgs,
   config,
   lib,
+  inputs,
   ...
 }: {
   xdg.desktopEntries = lib.attrsets.mapAttrs' (
@@ -32,7 +32,7 @@
 
   programs.firefox = {
     enable = true;
-    package = pkgs."${package}";
+    package = inputs.nixpkgs-mesa.legacyPackages.aarch64-linux."${package}";
 
     profiles = let
       mkProfile = {
@@ -106,6 +106,7 @@
           Value = false;
           status = "locked";
         };
+        fingerprinting = false;
       in {
         "browser.ml.chat.enabled" = lock-false;
         "browser.ml.chat.page.footerBadg" = lock-false;
@@ -114,6 +115,7 @@
         "browser.ml.chat.shortcuts.custo" = lock-false;
         "browser.ml.chat.sideba" = lock-false;
         "browser.ml.checkForMemory" = lock-false;
+        "browser.ml.enable" = lock-false;
         "browser.ml.enabl" = lock-false;
         "browser.ml.linkPreview.shif" = lock-false;
         "cookiebanners.service.mode.privateBrowsing" = 2; # Block cookie banners in private browsing
@@ -123,10 +125,10 @@
         "privacy.clearOnShutdown.history" = false;
         "privacy.donottrackheader.enabled" = true;
         "privacy.fingerprintingProtection" = false;
-        "privacy.resistFingerprinting" = true;
+        "privacy.resistFingerprinting" = fingerprinting;
         "privacy.trackingprotection.emailtracking.enabled" = true;
         "privacy.trackingprotection.enabled" = true;
-        "privacy.trackingprotection.fingerprinting.enabled" = false;
+        "privacy.trackingprotection.fingerprinting.enabled" = fingerprinting;
         "privacy.trackingprotection.socialtracking.enabled" = true;
         "browser.download.useDownloadDir" = true;
         "signon.autofillForms" = false;
@@ -152,8 +154,8 @@
         "services.sync.prefs.sync.cookiebanners.service.mode.privateBrowsing" = 2; # Block cookie banners in private browsing
         "services.sync.prefs.sync.cookiebanners.service.mode" = 2; # Block cookie banners
         "services.sync.prefs.sync.network.cookie.lifetimePolicy" = 0;
-        "services.sync.prefs.sync.privacy.fingerprintingProtection" = false;
-        "services.sync.prefs.sync.privacy.resistFingerprinting" = true;
+        "services.sync.prefs.sync.privacy.fingerprintingProtection" = fingerprinting;
+        "services.sync.prefs.sync.privacy.resistFingerprinting" = fingerprinting;
         "services.sync.prefs.sync.privacy.trackingprotection.emailtracking.enabled" = true;
         "services.sync.prefs.sync.privacy.trackingprotection.socialtracking.enabled" = true;
         "services.sync.prefs.sync.signon.backup.enabled" = false;
@@ -286,7 +288,7 @@
         "services.sync.prefs.sync.privacy.sanitize.sanitizeOnShutdown" = false;
         "services.sync.prefs.sync.privacy.trackingprotection.cryptomining.enabled" = true;
         "services.sync.prefs.sync.privacy.trackingprotection.enabled" = false;
-        "services.sync.prefs.sync.privacy.trackingprotection.fingerprinting.enabled" = true;
+        "services.sync.prefs.sync.privacy.trackingprotection.fingerprinting.enabled" = fingerprinting;
         "services.sync.prefs.sync.privacy.trackingprotection.pbmode.enabled" = false;
         "services.sync.prefs.sync.privacy.userContext.enabled" = false;
         "services.sync.prefs.sync.privacy.userContext.newTabContainerOnLeftClick.enabled" = false;

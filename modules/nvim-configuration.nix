@@ -43,6 +43,18 @@ in {
       enable = true;
     };
     images.image-nvim.enable = true;
+    images.img-clip = {
+      enable = true;
+      setupOpts = {
+        keys = [
+          {
+            _1 = "<leader>p";
+            _2 = "<cmd>PasteImage<cr>";
+            desc = "Paste image from system clipboard";
+          }
+        ];
+      };
+    };
   };
 
   vim.dashboard.alpha = {

@@ -62,10 +62,6 @@
   };
 
   hardware.graphics.enable = true;
-  # Lock mesa to fix firefox crashes
-  hardware.graphics.package = assert pkgs.mesa.version == "25.3.1"; # Once the regression is fixed this should error
-  
-    inputs.nixpkgs-mesa.legacyPackages.${pkgs.stdenv.system}.mesa;
 
   networking.hostName = "nixos";
   networking.wireless.iwd = {
@@ -180,6 +176,7 @@
     enable = true;
     enableSSHSupport = true;
   };
+  programs.ssh.forwardX11 = true;
 
   security.sudo = {
     enable = true;
