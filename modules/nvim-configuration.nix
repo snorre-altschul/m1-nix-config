@@ -42,17 +42,27 @@ in {
       setupOpts.image_support = true;
       enable = true;
     };
-    images.image-nvim.enable = true;
+    images.image-nvim.enable = false;
+    images.image-nvim.setupOpts = {
+      integrations = {
+        markdown = {
+          onlyRenderAtCursor = true;
+        };
+        typst = {
+          enable = false;
+        };
+      };
+    };
     images.img-clip = {
       enable = true;
       setupOpts = {
-        keys = [
-          {
-            _1 = "<leader>p";
-            _2 = "<cmd>PasteImage<cr>";
-            desc = "Paste image from system clipboard";
-          }
-        ];
+        # keys = [
+        #   {
+        #     _1 = "<leader>p";
+        #     _2 = "<cmd>PasteImage<cr>";
+        #     desc = "Paste image from system clipboard";
+        #   }
+        # ];
       };
     };
   };
@@ -98,6 +108,14 @@ in {
       lua = true;
       silent = true;
       desc = "Code action";
+    }
+    {
+      key = "<C-p>";
+      mode = ["n" "i"];
+      action = "<cmd>PasteImage<cr>";
+      lua = false;
+      silent = false;
+      desc = "Paste image from clipboard";
     }
   ];
 
@@ -303,6 +321,12 @@ in {
       lsp.enable = true;
       treesitter.enable = true;
     };
+
+    "python" = {
+      enable = true;
+      lsp.enable = true;
+      treesitter.enable = true;
+    };
   };
 
   vim.extraPackages = with pkgs; [
@@ -315,5 +339,6 @@ in {
     ripgrep
     fd
     wl-clipboard
+    imagemagick
   ];
 }

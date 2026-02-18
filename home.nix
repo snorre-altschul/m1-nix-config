@@ -8,6 +8,7 @@
     ./modules/spotify.nix
     ./modules/firefox.nix
     ./modules/foot.nix
+    # ./modules/kitty.nix
     ./modules/lsd.nix
     ./modules/iamb.nix
     ./modules/prismlauncher.nix

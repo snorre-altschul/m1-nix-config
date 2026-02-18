@@ -67,7 +67,7 @@
 
       "Mod+Return" = {
         hotkey-overlay.title = "Open terminal";
-        action.spawn = ["${lib.getExe pkgs.foot}"];
+        action.spawn = ["${lib.getExe config.programs.foot.package}"];
       };
 
       "Mod+D" = {

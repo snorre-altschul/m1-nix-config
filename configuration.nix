@@ -143,7 +143,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd ${config.programs.niri.package}/bin/niri-session";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd /run/current-system/sw/bin/nice -20 ${config.programs.niri.package}/bin/niri-session";
         user = "nixos";
       };
 
