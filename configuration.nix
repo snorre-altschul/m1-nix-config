@@ -48,6 +48,7 @@
     ./modules/podman.nix
     ./modules/distrobox.nix
     ./nix.nix
+    ./modules/auto-update.nix
     (import ./modules/ydotool.nix "nixos")
   ];
 

@@ -6,7 +6,37 @@
   lib,
   inputs,
   ...
-}: {
+}: let
+  profiles = ["default" "work"];
+in {
+  # Automatically install textfox theme
+  imports = [inputs.textfox.homeManagerModules.default];
+  textfox = with config.stylix.base16Scheme.palette; {
+    enable = true;
+    inherit profiles;
+    config = {
+      background.color = base00;
+      border = {
+        color = base0A;
+        width = "1px";
+        transition = "0.2s ease";
+        radius = "3px";
+      };
+
+      displayTitles = false;
+      bookmarks.alignment = "left";
+
+      font = {
+        family = config.stylix.fonts.monospace.name;
+        size = "15px";
+        accent = base0F;
+      };
+
+      textTransform = "uppercase";
+      extraConfig = "/* custom css here */";
+    };
+  };
+
   xdg.desktopEntries = lib.attrsets.mapAttrs' (
     profileName: _value:
       lib.attrsets.nameValuePair "${name} - ${profileName} profile" {
@@ -24,10 +54,7 @@
 
   stylix.targets.${package} = {
     enable = true;
-    profileNames = [
-      "default"
-      "work"
-    ];
+    profileNames = profiles;
   };
 
   programs.firefox = {
@@ -45,6 +72,7 @@
           "youtube".metaData.hidden = true;
           "wikipedia".metaData.hidden = true;
           "reddit".metaData.hidden = true;
+          "perplexity".metaData.hidden = true;
         };
         search.default = "ddg";
         search.privateDefault = "ddg";
@@ -64,20 +92,20 @@
           id = 1;
           name = "work";
           settings = {
-            "browser.newtabpage.pinned" = [
-              {
-                title = "GitHub";
-                url = "https://github.com/portchain/eba";
-              }
-              {
-                title = "JIRA";
-                url = "https://portchain.atlassian.net/jira/your-work";
-              }
-              {
-                title = "slack";
-                url = "https://portchain.slack.com";
-              }
-            ];
+            # "browser.newtabpage.pinned" = [
+            #   {
+            #     title = "GitHub";
+            #     url = "https://github.com/portchain/eba";
+            #   }
+            #   {
+            #     title = "JIRA";
+            #     url = "https://portchain.atlassian.net/jira/your-work";
+            #   }
+            #   {
+            #     title = "slack";
+            #     url = "https://portchain.slack.com";
+            #   }
+            # ];
           };
         };
     };
@@ -108,6 +136,9 @@
         };
         fingerprinting = false;
       in {
+        "javascript.options.baselinejit" = lock-false;
+        "javascript.options.ion" = lock-false;
+        "javascript.options.asmjs" = lock-false;
         "browser.ml.chat.enabled" = lock-false;
         "browser.ml.chat.page.footerBadg" = lock-false;
         "browser.ml.chat.page.menuBadge" = lock-false;
@@ -357,10 +388,14 @@
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/uaswitcher/latest.xpi";
           installation_mode = "force_installed";
         };
-        # "vimium-c@gdh1995.cn" = {
-        #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-c/latest.xpi";
-        #   installation_mode = "force_installed";
-        # };
+        "vimium-c@gdh1995.cn" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-c/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        "FirefoxColor@mozilla.com" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/firefox_color/latest.xpi";
+          installation_mode = "force_installed";
+        };
       };
     };
   };

@@ -15,6 +15,11 @@
     border-width = 1;
     outline-width = 0;
     corner-radius = 4;
+
+    border-color = lib.mkForce config.stylix.base16Scheme.palette.base0A;
+    outline-color = lib.mkForce config.stylix.base16Scheme.palette.base0A;
+    selection-match-color = lib.mkForce config.stylix.base16Scheme.palette.base09;
+
     # padding-left = "35%";
     # padding-right = "30%";
     result-spacing = 16;

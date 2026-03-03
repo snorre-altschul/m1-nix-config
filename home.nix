@@ -12,6 +12,7 @@
     ./modules/lsd.nix
     ./modules/iamb.nix
     ./modules/prismlauncher.nix
+    # ./modules/obsidian.nix
   ];
 
   home.username = "nixos";

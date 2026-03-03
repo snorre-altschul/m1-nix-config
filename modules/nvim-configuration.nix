@@ -31,6 +31,40 @@ in {
 
   vim.enableLuaLoader = true;
 
+  vim.notes.neorg = {
+    enable = true;
+    setupOpts = {
+      load = {
+        "core.defaults".enable = true;
+        "core.concealer" = {
+          enable = true;
+          config = {
+            folds = false;
+            icon_preset = "diamond";
+          };
+        };
+        "core.dirman" = {
+          enable = true;
+          config.workspaces."main" = "~/Documents/notes";
+        };
+        "core.latex.renderer".enable = true;
+        # "core.completion" = {
+        #   enable = true;
+        #   config.engine.module_name = "external.lsp-completion";
+        # };
+        # "external.interim-ls" = {
+        #   enable = true;
+        #   config = {
+        #     completion_provider = true;
+        #     documentation = true;
+        #   };
+        # };
+      };
+    };
+    treesitter.enable = true;
+  };
+  vim.options.conceallevel = 3;
+
   vim.theme = {
     enable = true;
     name = "catppuccin";
@@ -42,7 +76,7 @@ in {
       setupOpts.image_support = true;
       enable = true;
     };
-    images.image-nvim.enable = false;
+    images.image-nvim.enable = true;
     images.image-nvim.setupOpts = {
       integrations = {
         markdown = {
