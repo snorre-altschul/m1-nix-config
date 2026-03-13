@@ -42,6 +42,14 @@
         frame_width = 1;
         gap_size = 0;
 
+        dmenu =
+          [
+            (lib.getExe config.programs.tofi.package)
+            "--prompt-text"
+            "Dunst:"
+          ]
+          |> lib.escapeShellArgs;
+
         seperator_color = "auto";
 
         sort = "yes";
@@ -52,6 +60,8 @@
         vertical_alignment = "center";
 
         ellipsize = "middle";
+
+        mouse_right_click = "context_all";
 
         stack_duplicates = false;
         show_indicators = false;

@@ -396,6 +396,10 @@ in {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/firefox_color/latest.xpi";
           installation_mode = "force_installed";
         };
+        "@crw-extension-firefox" = {
+          install_url = "https://github.com/FULU-Foundation/CRW-Extension/releases/download/v1.0.31/firefox-extension.zip";
+          installation_mode = "force_installed";
+        };
       };
     };
   };

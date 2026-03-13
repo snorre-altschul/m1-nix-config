@@ -73,9 +73,8 @@
       "Mod+D" = {
         hotkey-overlay.title = "Run program with Tofi";
         action.spawn = [
-          "sh"
-          "-c"
-          "${config.programs.tofi.package}/bin/tofi-drun | sh"
+          "${config.programs.tofi.package}/bin/tofi-drun"
+          "--drun-launch=true"
         ];
       };
 
@@ -134,32 +133,39 @@
 
       "Mod+Shift+Q" = {
         action.spawn = [
-          "sh"
-          "-c"
-          "kill -9 $(niri msg --json pick-window | ${lib.getExe pkgs.jq} '.pid')"
+          (pkgs.writeShellScript "kill-window"
+            # bash
+            "kill -9 $(niri msg --json pick-window | ${lib.getExe pkgs.jq} '.pid')"
+            |> toString)
         ];
       };
 
       "Mod+F12" = {
         action.spawn = [
-          "sh"
-          "-c"
-          ''niri msg inputs --dwt true && ${pkgs.libnotify}/bin/notify-send "Touchpad disabled while typing"''
+          (pkgs.writeShellScript "disable-touchpad"
+            # bash
+            ''
+              niri msg inputs --dwt true
+              ${pkgs.libnotify}/bin/notify-send "Touchpad disabled while typing"
+            ''
+            |> toString)
         ];
       };
 
       "Mod+F11" = {
         action.spawn = [
-          "sh"
-          "-c"
-          ''niri msg inputs --dwt false && ${pkgs.libnotify}/bin/notify-send "Touchpad enabled always"''
+          (pkgs.writeShellScript "enable-touchpad"
+            # bash
+            ''
+              niri msg inputs --dwt false
+              ${pkgs.libnotify}/bin/notify-send "Touchpad enabled always"
+            ''
+            |> toString)
         ];
       };
 
       "Mod+L" = {
         action.spawn = [
-          "sh"
-          "-c"
           "${lib.getExe config.programs.swaylock.package}"
         ];
       };

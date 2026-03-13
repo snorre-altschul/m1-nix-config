@@ -22,17 +22,12 @@ in {
         "autoEvalInputs" = true;
       };
     };
-
-    servers."nixd" = {
-      enable = true;
-      filetypes = ["nix"];
-    };
   };
 
   vim.enableLuaLoader = true;
 
   vim.notes.neorg = {
-    enable = true;
+    enable = false;
     setupOpts = {
       load = {
         "core.defaults".enable = true;
@@ -43,6 +38,7 @@ in {
             icon_preset = "diamond";
           };
         };
+        "core.integrations.image" = true;
         "core.dirman" = {
           enable = true;
           config.workspaces."main" = "~/Documents/notes";
@@ -78,9 +74,13 @@ in {
     };
     images.image-nvim.enable = true;
     images.image-nvim.setupOpts = {
+      backend = lib.mkForce "ueberzug";
+      extensions = {
+        render-markdown-nvim.enable = true;
+      };
       integrations = {
         markdown = {
-          onlyRenderAtCursor = true;
+          enable = true;
         };
         typst = {
           enable = false;
@@ -108,9 +108,15 @@ in {
   vim.autocomplete.blink-cmp = {
     enable = true;
     setupOpts = {
-      keyword.range = "full";
+      keymap.preset = "super-tab";
+      keyword.range = "prefix";
       accept.auto_brackets = true;
       completion = {
+        trigger.show_on_trigger_character = true;
+        menu.draw.columns = {
+          _type = "lua-inline";
+          expr = ''{ { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } }'';
+        };
         list.selection = {
           preselect = false;
           auto_insert = true;
@@ -145,7 +151,10 @@ in {
     }
     {
       key = "<C-p>";
-      mode = ["n" "i"];
+      mode = [
+        "n"
+        "i"
+      ];
       action = "<cmd>PasteImage<cr>";
       lua = false;
       silent = false;
@@ -177,14 +186,6 @@ in {
             scroll_buffer_space = true,
             legacy_computing_symbols_support = true,
           }'';
-    };
-    render-markdown = {
-      package = pkgs.vimPlugins.render-markdown-nvim;
-      setup =
-        # lua
-        ''
-          require("render-markdown").setup {}
-        '';
     };
   };
 
@@ -245,6 +246,16 @@ in {
   vim.treesitter = {
     enable = true;
     highlight.enable = true;
+    context = {
+      enable = true;
+      setupOpts = {
+        # max_lines = 3;
+        multiline_threshold = 3;
+      };
+    };
+    grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+      latex
+    ];
   };
 
   vim.options = {
@@ -258,7 +269,7 @@ in {
       enable = true;
       command =
         # vim
-        ''lua vim.highlight.on_yank{higroup='IncSearch', timeout=100}'';
+        "lua vim.hl.on_yank{higroup='IncSearch', timeout=100}";
       event = [
         "TextYankPost"
       ];
@@ -283,6 +294,7 @@ in {
     "nix" = {
       enable = true;
       treesitter.enable = true;
+      lsp.enable = true;
     };
 
     "rust".enable = true;
@@ -335,8 +347,18 @@ in {
 
     "markdown" = {
       enable = true;
-      lsp.enable = false;
+      lsp.enable = true;
       treesitter.enable = true;
+      extensions.markview-nvim = {
+        enable = true;
+        setupOpts = {
+          typst = {
+            enable = true;
+            subscripts.enable = true;
+            superscripts.enable = true;
+          };
+        };
+      };
     };
 
     "lua" = {
@@ -364,10 +386,10 @@ in {
   };
 
   vim.extraPackages = with pkgs; [
-    nixd
     nil
     fzf
     ueberzugpp
+    imagemagick
     clang-tools
     lua-language-server
     ripgrep

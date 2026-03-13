@@ -52,7 +52,16 @@
     (import ./modules/ydotool.nix "nixos")
   ];
 
-  zramSwap.enable = true;
+  # zram can apparently interfere with unified gpu memory on asahi linux
+  # zramSwap.enable = true;
+
+  # use zswap instead
+  boot.kernelParams = [
+    "zswap.enabled=1" # enables zswap
+    "zswap.compressor=zstd" # compression algorithm
+    "zswap.max_pool_percent=20" # maximum percentage of RAM that zswap is allowed to use
+    "zswap.shrinker_enabled=1" # whether to shrink the pool proactively on high memory pressure
+  ];
 
   programs.nix-ld.enable = true;
 
@@ -74,9 +83,12 @@
   time.timeZone = lib.mkDefault "Europe/Copenhagen";
   services.automatic-timezoned.enable = true;
 
-  fonts.packages = [
-    pkgs.nerd-fonts.mononoki
-  ];
+  # Automatically install all stylix font packages
+  fonts.packages =
+    config.home-manager.users
+    |> builtins.attrValues
+    |> map (user: user.stylix.fonts.packages)
+    |> builtins.concatLists;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nixos = {
@@ -115,7 +127,7 @@
       "nd" = "nix develop -c fish";
     };
   };
-  documentation.man.generateCaches = false;
+  documentation.man.cache.enable = false;
 
   specialisation."work".configuration = {
     programs.fish.shellAbbrs."nrb" =

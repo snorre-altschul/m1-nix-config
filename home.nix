@@ -48,16 +48,18 @@
     autoEnable = true;
     fonts = {
       serif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Serif";
+        package = pkgs.noto-fonts;
+        name = "Noto Serif";
       };
       sansSerif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Sans";
+        package = pkgs.noto-fonts;
+        name = "Noto Sans";
       };
       monospace = {
         package = pkgs.nerd-fonts.mononoki;
         name = "Mononoki Nerd Font";
+        # package = pkgs.nerd-fonts.fira-code;
+        # name = "Fira Code Nerd Font";
       };
       emoji = {
         package = pkgs.noto-fonts-color-emoji;

@@ -84,7 +84,7 @@
           pkgs.lib.getExe
           (inputs.nvf.lib.nvim.neovimConfiguration {
             inherit pkgs;
-            modules = [(import ./modules/nvim-configuration.nix {inherit pkgs;})];
+            modules = [(import ./modules/nvim-configuration.nix {inherit pkgs inputs;})];
           }).neovim;
       };
       default = nvim;
