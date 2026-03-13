@@ -77,16 +77,12 @@
     };
     formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
 
-    apps = eachSystem (pkgs: rec {
-      "nvim" = {
-        type = "app";
-        program =
-          pkgs.lib.getExe
-          (inputs.nvf.lib.nvim.neovimConfiguration {
-            inherit pkgs;
-            modules = [(import ./modules/nvim-configuration.nix {inherit pkgs inputs;})];
-          }).neovim;
-      };
+    packages = eachSystem (pkgs: rec {
+      "nvim" =
+        (inputs.nvf.lib.nvim.neovimConfiguration {
+          inherit pkgs;
+          modules = [(import ./modules/nvim-configuration.nix {inherit pkgs inputs;})];
+        }).neovim;
       default = nvim;
     });
   };
