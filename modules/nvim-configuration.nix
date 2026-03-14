@@ -280,13 +280,6 @@ in {
     }
   ];
 
-  # shit broken
-  # vim.formatter.conform-nvim.formatters.<formatter_name>.command
-  # vim.formatter.conform-nvim.formatters = {
-  #   "alejandra".command = lib.getExe pkgs.alejandra;
-  # };
-  vim.formatter.conform-nvim.enable = lib.mkForce false;
-
   vim.languages = {
     enableFormat = true;
     enableTreesitter = true;
@@ -294,6 +287,10 @@ in {
     "nix" = {
       enable = true;
       treesitter.enable = true;
+      format = {
+        enable = true;
+        type = ["alejandra"];
+      };
       lsp.enable = true;
     };
 
@@ -386,7 +383,6 @@ in {
   };
 
   vim.extraPackages = with pkgs; [
-    nil
     fzf
     ueberzugpp
     imagemagick
