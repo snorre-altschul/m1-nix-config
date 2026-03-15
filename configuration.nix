@@ -41,6 +41,7 @@
     ./modules/git.nix
     ./modules/agenix.nix
     ./modules/direnv.nix
+    ./modules/libvirtd.nix
     # (import ./modules/factorio.nix {
     #   inherit pkgs;
     #   inherit (pkgs) stdenv;
