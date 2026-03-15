@@ -22,6 +22,7 @@ _: {
   boot.loader.efi.canTouchEfiVariables = false;
   boot.loader.grub.efiInstallAsRemovable = true;
   boot.loader.grub.timeoutStyle = "hidden";
+  boot.loader.grub.configurationLimit = 5;
 
   boot.extraModprobeConfig = ''
     options hid_apple fnmode=2
