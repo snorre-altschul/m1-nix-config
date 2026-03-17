@@ -326,15 +326,11 @@ in {
       treesitter.enable = true;
     };
 
-    # "csharp" = {
-    #   enable = true;
-    #   lsp.enable = true;
-    #   lsp.package = [
-    #     "csharp-ls"
-    #     "-l"
-    #     "error"
-    #   ];
-    # };
+    "csharp" = {
+      enable = true;
+      lsp.enable = true;
+      treesitter.enable = true;
+    };
 
     "bash" = {
       enable = true;
