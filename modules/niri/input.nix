@@ -17,6 +17,10 @@
       natural-scroll = true;
       dwt = true;
     };
+    mouse = {
+      accel-profile = "flat";
+      accel-speed = 0.2;
+    };
     focus-follows-mouse = {
       enable = true;
       max-scroll-amount = "10%";

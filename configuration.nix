@@ -46,8 +46,9 @@
     #   inherit pkgs;
     #   inherit (pkgs) stdenv;
     # })
-    ./modules/podman.nix
-    ./modules/distrobox.nix
+    # ./modules/podman.nix
+    # ./modules/distrobox.nix
+    ./modules/docker.nix
     ./nix.nix
     ./modules/auto-update.nix
     (import ./modules/ydotool.nix "nixos")
@@ -83,6 +84,7 @@
   # Set your time zone.
   time.timeZone = lib.mkDefault "Europe/Copenhagen";
   services.automatic-timezoned.enable = true;
+  services.avahi.enable = true;
 
   # Automatically install all stylix font packages
   fonts.packages =

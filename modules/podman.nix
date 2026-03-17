@@ -4,5 +4,5 @@ _: {
     dockerCompat = true;
   };
 
-  # boot.binfmt.emulatedSystems = ["x86_64-linux"];
+  boot.binfmt.emulatedSystems = ["x86_64-linux"];
 }
