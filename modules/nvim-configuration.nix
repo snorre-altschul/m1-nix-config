@@ -346,7 +346,7 @@ in {
         enable = true;
         setupOpts = {
           typst = {
-            enable = true;
+            enable = false;
             subscripts.enable = true;
             superscripts.enable = true;
           };
@@ -366,6 +366,12 @@ in {
     };
 
     "qml" = {
+      enable = true;
+      lsp.enable = true;
+      treesitter.enable = true;
+    };
+
+    "yaml" = {
       enable = true;
       lsp.enable = true;
       treesitter.enable = true;

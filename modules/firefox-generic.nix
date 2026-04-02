@@ -33,7 +33,15 @@ in {
       };
 
       textTransform = "uppercase";
-      extraConfig = "/* custom css here */";
+      extraConfig =
+        # css
+        ''
+          menu,
+          menuitem,
+          menucaption {
+            color: white;
+          }
+        '';
     };
   };
 

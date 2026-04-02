@@ -23,6 +23,7 @@
     spawn-at-startup = [
       {command = ["${lib.getExe config.programs.waybar.package}"];}
       {command = ["${lib.getExe pkgs.xwayland-satellite}"];}
+      {command = ["sh" "${lib.getExe pkgs.ydotool} mousemove -- 9999 9999"];}
     ];
 
     switch-events.lid-close.action.spawn = [

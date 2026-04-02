@@ -83,7 +83,7 @@
 
   # Set your time zone.
   time.timeZone = lib.mkDefault "Europe/Copenhagen";
-  services.automatic-timezoned.enable = true;
+  # services.automatic-timezoned.enable = true;
   services.avahi.enable = true;
 
   # Automatically install all stylix font packages

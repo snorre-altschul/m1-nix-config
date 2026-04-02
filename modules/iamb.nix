@@ -1,4 +1,4 @@
-_: {
+{pkgs, ...}: {
   programs.iamb = {
     enable = true;
     settings = {
@@ -29,4 +29,8 @@ _: {
       };
     };
   };
+
+  home.packages = with pkgs; [
+    feh
+  ];
 }
