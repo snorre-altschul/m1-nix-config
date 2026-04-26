@@ -16,10 +16,21 @@ in {
       capabilities.textDocument.semanticTokens.multilineTokenSupport = true;
     };
 
-    servers."nil" = {
-      nix.flake = {
-        "autoArchive" = true;
-        "autoEvalInputs" = true;
+    servers = {
+      "yaml-language-server" = {
+        settings.yaml = {
+          format.enable = true;
+          validation = true;
+          schemaStore.enable = true;
+          hover = true;
+          completion = true;
+        };
+      };
+      "nil" = {
+        nix.flake = {
+          "autoArchive" = true;
+          "autoEvalInputs" = true;
+        };
       };
     };
   };
@@ -332,6 +343,13 @@ in {
       treesitter.enable = true;
     };
 
+    "fsharp" = {
+      enable = true;
+      lsp.enable = true;
+      treesitter.enable = true;
+      format.enable = true;
+    };
+
     "bash" = {
       enable = true;
       lsp.enable = false;
@@ -394,5 +412,6 @@ in {
     fd
     wl-clipboard
     imagemagick
+    fantomas
   ];
 }

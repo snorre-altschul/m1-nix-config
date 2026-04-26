@@ -117,9 +117,6 @@
       "Mod+Shift+S" = {
         hotkey-overlay.title = "Take screenshot";
         action.screenshot = [];
-        # action = screenshot {
-        #   show-pointer = false;
-        # };
       };
 
       "Mod+W" = {
