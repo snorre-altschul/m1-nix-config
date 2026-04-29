@@ -183,6 +183,20 @@ in {
         # lua
         "vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)";
     };
+    fasto-highlighting = {
+      package = pkgs.vimUtils.buildVimPlugin {
+        pname = "fasto-vim";
+        version = "0.0.1";
+        src = pkgs.fetchFromGitHub {
+          # https://github.com/martinmch/fasto-vim
+          owner = "martinmch";
+          repo = "fasto-vim";
+          rev = "dc73cbd1a025055bba36943c97ad208f003e9810";
+          hash = "sha256-zpQuo7SMbMsi/0IK/fmYeRbvvuyf7hHqzhpFOOz/pGw=";
+        };
+        meta.homepage = "https://github.com/martinmch/fasto-vim";
+      };
+    };
     smear-cursor = {
       package = pkgs.vimPlugins.smear-cursor-nvim;
       setup =
