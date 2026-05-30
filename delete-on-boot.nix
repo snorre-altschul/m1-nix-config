@@ -5,10 +5,10 @@
   users,
   ...
 }: {
-  boot.initrd.postDeviceCommands =
-    lib.mkAfter
-    # bash
-    ''
+  boot.initrd.systemd.services = {
+    enable = true;
+    requiredBy = ["cryptsetup.target"];
+    script = ''
       # Prepare temporary folder
       mkdir /btrfs_tmp
 
@@ -42,6 +42,7 @@
       btrfs subvolume create /btrfs_tmp/root
       umount /btrfs_tmp
     '';
+  };
 
   # Dont nuke all the files. We wanna keep something
   fileSystems."/persist".neededForBoot = true;
