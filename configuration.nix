@@ -12,7 +12,9 @@
     # ./apple-silicon-support
     (import ./delete-on-boot.nix {
       inherit lib;
-      persistExtraDirectories = [];
+      persistExtraDirectories = [
+        "/var/lib/netbird"
+      ];
       users = {
         "nixos" = {
           directories = [
@@ -26,6 +28,7 @@
             ".cache/nix"
             ".config/Signal"
             ".config/vesktop"
+            ".config/Yubico"
 
             ".local/share/fish"
             ".librewolf"
@@ -39,8 +42,10 @@
     ./modules/nvim.nix
     ./modules/bluetooth.nix
     ./modules/git.nix
+    ./modules/netbird.nix
     ./modules/agenix.nix
     ./modules/direnv.nix
+    ./modules/yubikey.nix
     ./modules/libvirtd.nix
     # (import ./modules/factorio.nix {
     #   inherit pkgs;
@@ -121,7 +126,16 @@
     cursor.package = pkgs.bibata-cursors;
     cursor.name = "Bibata-Modern-Ice";
     cursor.size = 24;
+
+    fonts.sizes.terminal = 10;
   };
+
+  # networking.hosts = {
+  #   "212.227.209.24" = [
+  #     "traefik.spoodythe.one"
+  #     "auth.deprived.dev"
+  #   ];
+  # };
 
   programs.fish = {
     enable = true;

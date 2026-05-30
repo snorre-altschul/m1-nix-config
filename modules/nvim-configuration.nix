@@ -1,6 +1,8 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   inherit (pkgs) lib;
-in {
+in
+{
   vim.lsp = {
     enable = true;
     inlayHints.enable = false;
@@ -12,7 +14,7 @@ in {
     };
 
     servers."*" = {
-      root_markers = [".git"];
+      root_markers = [ ".git" ];
       capabilities.textDocument.semanticTokens.multilineTokenSupport = true;
     };
 
@@ -83,7 +85,7 @@ in {
       setupOpts.image_support = true;
       enable = true;
     };
-    images.image-nvim.enable = true;
+    images.image-nvim.enable = false;
     images.image-nvim.setupOpts = {
       backend = lib.mkForce "ueberzug";
       extensions = {
@@ -154,7 +156,7 @@ in {
   vim.keymaps = [
     {
       key = "<leader>la";
-      mode = ["n"];
+      mode = [ "n" ];
       action = ''require("actions-preview").code_actions'';
       lua = true;
       silent = true;
@@ -182,20 +184,6 @@ in {
       setup =
         # lua
         "vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)";
-    };
-    fasto-highlighting = {
-      package = pkgs.vimUtils.buildVimPlugin {
-        pname = "fasto-vim";
-        version = "0.0.1";
-        src = pkgs.fetchFromGitHub {
-          # https://github.com/martinmch/fasto-vim
-          owner = "martinmch";
-          repo = "fasto-vim";
-          rev = "dc73cbd1a025055bba36943c97ad208f003e9810";
-          hash = "sha256-zpQuo7SMbMsi/0IK/fmYeRbvvuyf7hHqzhpFOOz/pGw=";
-        };
-        meta.homepage = "https://github.com/martinmch/fasto-vim";
-      };
     };
     smear-cursor = {
       package = pkgs.vimPlugins.smear-cursor-nvim;
@@ -314,7 +302,7 @@ in {
       treesitter.enable = true;
       format = {
         enable = true;
-        type = ["alejandra"];
+        type = [ "alejandra" ];
       };
       lsp.enable = true;
     };

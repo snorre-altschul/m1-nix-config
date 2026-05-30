@@ -78,6 +78,7 @@
     formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
 
     packages = eachSystem (pkgs: rec {
+      kernel = inputs.nixos-apple-silicon.packages.${pkgs.stdenv.system}.linux-asahi;
       "nvim" =
         (inputs.nvf.lib.nvim.neovimConfiguration {
           inherit pkgs;
