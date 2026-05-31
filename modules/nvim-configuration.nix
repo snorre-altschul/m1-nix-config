@@ -1,8 +1,6 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   inherit (pkgs) lib;
-in
-{
+in {
   vim.lsp = {
     enable = true;
     inlayHints.enable = false;
@@ -14,7 +12,7 @@ in
     };
 
     servers."*" = {
-      root_markers = [ ".git" ];
+      root_markers = [".git"];
       capabilities.textDocument.semanticTokens.multilineTokenSupport = true;
     };
 
@@ -156,7 +154,7 @@ in
   vim.keymaps = [
     {
       key = "<leader>la";
-      mode = [ "n" ];
+      mode = ["n"];
       action = ''require("actions-preview").code_actions'';
       lua = true;
       silent = true;
@@ -302,7 +300,7 @@ in
       treesitter.enable = true;
       format = {
         enable = true;
-        type = [ "alejandra" ];
+        type = ["alejandra"];
       };
       lsp.enable = true;
     };

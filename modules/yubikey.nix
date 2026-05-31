@@ -1,5 +1,10 @@
-{pkgs,lib,config,...}: {
-  services.udev.packages = [ pkgs.yubikey-personalization ];
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
+  services.udev.packages = [pkgs.yubikey-personalization];
 
   programs.gnupg.agent = {
     enable = true;
@@ -19,5 +24,5 @@
     };
   };
 
-  boot.initrd.luks.devices."cryptroot".crypttabExtraOpts = [ "fido2-device=auto" ];
+  boot.initrd.luks.devices."cryptroot".crypttabExtraOpts = ["fido2-device=auto"];
 }

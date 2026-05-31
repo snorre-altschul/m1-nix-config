@@ -1,5 +1,4 @@
 {
-  lib,
   persistExtraDirectories ? [],
   persistExtraFiles ? [],
   users,
