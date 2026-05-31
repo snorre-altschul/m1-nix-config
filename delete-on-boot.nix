@@ -5,9 +5,17 @@
   users,
   ...
 }: {
-  boot.initrd.systemd.services = {
+  boot.initrd.systemd.services."clean-root" = {
+    description = "Impermanence delete files";
     enable = true;
-    requiredBy = ["cryptsetup.target"];
+    before = ["sysroot.mount"];
+    after = ["cryptsetup.target"];
+    requires = ["cryptsetup.target"];
+    wantedBy = ["initrd.target"];
+    unitConfig.DefaultDependencies = false;
+    serviceConfig = {
+      Type = "oneshot";
+    };
     script = ''
       # Prepare temporary folder
       mkdir /btrfs_tmp

@@ -67,7 +67,8 @@ in {
 
   programs.firefox = {
     enable = true;
-    package = inputs.nixpkgs-mesa.legacyPackages.aarch64-linux."${package}";
+    # package = inputs.nixpkgs-mesa.legacyPackages.aarch64-linux."${package}";
+    configPath = ".mozilla/firefox";
 
     profiles = let
       mkProfile = {
@@ -142,21 +143,37 @@ in {
           Value = false;
           status = "locked";
         };
+        blocked = {
+          Value = "blocked";
+          status = "locked";
+        };
         fingerprinting = false;
       in {
         "javascript.options.baselinejit" = lock-false;
         "javascript.options.ion" = lock-false;
         "javascript.options.asmjs" = lock-false;
         "browser.ml.chat.enabled" = lock-false;
-        "browser.ml.chat.page.footerBadg" = lock-false;
+        "browser.ml.chat.page.footerBadge" = lock-false;
         "browser.ml.chat.page.menuBadge" = lock-false;
         "browser.ml.chat.shortcut" = lock-false;
-        "browser.ml.chat.shortcuts.custo" = lock-false;
-        "browser.ml.chat.sideba" = lock-false;
+        "browser.ml.chat.shortcuts" = lock-false;
+        "browser.ml.chat.shortcuts.custom" = lock-false;
+        "browser.ml.chat.sidebar" = lock-false;
         "browser.ml.checkForMemory" = lock-false;
         "browser.ml.enable" = lock-false;
-        "browser.ml.enabl" = lock-false;
-        "browser.ml.linkPreview.shif" = lock-false;
+        "browser.ml.linkPreview.shift" = lock-false;
+        "browser.ml.linkPreview.enabled" = lock-false;
+        "browser.ml.linkPreview.optin" = lock-false;
+        "browser.ml.pageAssist.enabled" = lock-false;
+
+        "browser.ai.control.default" = blocked;
+        "browser.ai.control.linkPreviewKeyPoints" = blocked;
+        "browser.ai.control.pdfjsAltText" = blocked;
+        "browser.ai.control.sidebarChatbot" = blocked;
+        "browser.ai.control.smartTabGroups" = blocked;
+        "browser.ai.control.smartWindow" = blocked;
+        "browser.ai.control.translations" = blocked;
+
         "cookiebanners.service.mode.privateBrowsing" = 2; # Block cookie banners in private browsing
         "cookiebanners.service.mode" = 2; # Block cookie banners
         "network.cookie.lifetimePolicy" = 0;

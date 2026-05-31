@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  config,
   ...
 }: {
   imports = [
@@ -67,6 +68,7 @@
       };
     };
   };
+  gtk.gtk4.theme = config.gtk.theme;
 
   home.sessionVariables = {
     EDITOR = "nvim";

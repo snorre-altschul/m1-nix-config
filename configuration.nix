@@ -47,6 +47,7 @@
     ./modules/direnv.nix
     ./modules/yubikey.nix
     ./modules/libvirtd.nix
+    ./modules/plymouth.nix
     # (import ./modules/factorio.nix {
     #   inherit pkgs;
     #   inherit (pkgs) stdenv;

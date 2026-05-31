@@ -314,7 +314,7 @@ in
       lsp.enable = true;
     };
 
-    "ts" = {
+    "typescript" = {
       enable = true;
       lsp.enable = true;
       treesitter.enable = true;
@@ -326,11 +326,6 @@ in
       lsp.enable = true;
       treesitter.enable = true;
       extraDiagnostics.enable = true;
-    };
-
-    "tailwind" = {
-      enable = true;
-      lsp.enable = true;
     };
 
     "css" = {
