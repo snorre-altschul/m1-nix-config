@@ -67,7 +67,7 @@ in {
 
   programs.firefox = {
     enable = true;
-    # package = inputs.nixpkgs-mesa.legacyPackages.aarch64-linux."${package}";
+    package = inputs.nixpkgs-mesa.legacyPackages.aarch64-linux."${package}";
     configPath = ".mozilla/firefox";
 
     profiles = let

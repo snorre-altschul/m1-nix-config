@@ -29,6 +29,7 @@
             ".config/Signal"
             ".config/vesktop"
             ".config/Yubico"
+            ".config/sublime-merge"
 
             ".local/share/fish"
             ".librewolf"
@@ -42,12 +43,14 @@
     ./modules/nvim.nix
     ./modules/bluetooth.nix
     ./modules/git.nix
-    ./modules/netbird.nix
+    # ./modules/netbird.nix
     ./modules/agenix.nix
     ./modules/direnv.nix
     ./modules/yubikey.nix
     ./modules/libvirtd.nix
     ./modules/plymouth.nix
+    ./modules/steam.nix
+    ./remote-builds.nix
     # (import ./modules/factorio.nix {
     #   inherit pkgs;
     #   inherit (pkgs) stdenv;
@@ -198,7 +201,9 @@
   environment.systemPackages = with pkgs; [
     neovim
     wget
+    sublime-merge
   ];
+  nixpkgs.config.allowUnfree = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

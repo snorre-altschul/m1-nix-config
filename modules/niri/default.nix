@@ -35,5 +35,6 @@
 
     environment.DISPLAY = ":0";
     prefer-no-csd = true;
+    screenshot-path = null;
   };
 }
