@@ -50,7 +50,6 @@
     ./modules/libvirtd.nix
     ./modules/plymouth.nix
     ./modules/steam.nix
-    ./remote-builds.nix
     # (import ./modules/factorio.nix {
     #   inherit pkgs;
     #   inherit (pkgs) stdenv;
