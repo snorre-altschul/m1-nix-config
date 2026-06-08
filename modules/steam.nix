@@ -1,6 +1,13 @@
-{pkgs, inputs, ...}: let 
+{
+  pkgs,
+  inputs,
+  ...
+}: let
   muvm-steam = inputs.muvm-steam.packages."aarch64-linux";
-  x86_64-packages = import inputs.nixpkgs {system = "x86_64-linux"; config.allowUnfree = true;};
+  x86_64-packages = import inputs.nixpkgs {
+    system = "x86_64-linux";
+    config.allowUnfree = true;
+  };
 in {
   environment.systemPackages = with pkgs; [
     x86_64-packages.steam
