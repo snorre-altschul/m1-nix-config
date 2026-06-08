@@ -24,5 +24,9 @@
     };
   };
 
-  boot.initrd.luks.devices."cryptroot".crypttabExtraOpts = ["fido2-device=auto"];
+  boot.initrd.luks.devices."cryptroot".crypttabExtraOpts = [
+    "fido2-device=auto" # use fido2 for unlocking if possible
+    "token-timeout=10" # wait 10s before prompting for password
+  ];
+  boot.initrd.luks.fido2Support = false; # systemd handles fido
 }
