@@ -271,16 +271,13 @@ memory_poll_seconds = 10
 network_poll_seconds = 10
 
 [theme]
-builtin = "Ayu"
-community_palette = "Gruvbox Material"
-custom_palette = "stylix"
 mode = "dark"
 source = "wallpaper"
-wallpaper_scheme = "m3-content"
+wallpaper_scheme = "soft"
 
-    [theme.templates]
-    builtin_ids = [ "gtk4", "niri", "qt" ]
-    enable_community_templates = false
+[theme.templates]
+builtin_ids = [ "gtk4", "niri", "qt" ]
+enable_community_templates = false
 
 [wallpaper]
 directory = "/home/nixos/.local/wallpapers"
@@ -289,21 +286,6 @@ directory_light = "/home/nixos/.local/wallpapers"
 edge_smoothness = 0.0
 transition = [ "disc", "stripes" ]
 transition_on_startup = true
-
-    [wallpaper.default]
-    path = "/home/nixos/.local/wallpapers/cube.png"
-
-    [wallpaper.last]
-    path = "/home/nixos/.local/wallpapers/cube.png"
-
-    [wallpaper.monitors.eDP-1]
-    path = "/home/nixos/.local/wallpapers/cube.png"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/nixos/.local/wallpapers/cube.png"
-    theme_mode = "dark"
-    wallpaper_scheme = "m3-content"
 
 [widget.active_window]
 title_scroll = "on_hover"
