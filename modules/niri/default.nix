@@ -1,15 +1,15 @@
 {
   pkgs,
   lib,
-  config,
   ...
 }: {
   imports = [
-    ../tofi
-    ../waybar/old
-    ../dunst.nix
-    ../swaybg.nix
-    ../swaylock.nix
+    # ../tofi
+    # ../waybar/old
+    # ../dunst.nix
+    # ../swaybg.nix
+    # ../swaylock.nix
+    ../noctalia-shell
 
     ./input.nix
     ./layout.nix
@@ -21,13 +21,15 @@
     debug.render-drm-device = "/dev/dri/renderD128";
 
     spawn-at-startup = [
-      {command = ["${lib.getExe config.programs.waybar.package}"];}
       {command = ["${lib.getExe pkgs.xwayland-satellite}"];}
       {command = ["sh" "${lib.getExe pkgs.ydotool} mousemove -- 9999 9999"];}
     ];
 
     switch-events.lid-close.action.spawn = [
-      "${lib.getExe config.programs.swaylock.package}"
+      "noctalia"
+      "msg"
+      "session"
+      "lock"
     ];
 
     clipboard.disable-primary = true;

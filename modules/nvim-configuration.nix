@@ -70,7 +70,6 @@ in {
     };
     treesitter.enable = true;
   };
-  vim.options.conceallevel = 3;
 
   vim.theme = {
     enable = true;
@@ -197,6 +196,28 @@ in {
             scroll_buffer_space = true,
             legacy_computing_symbols_support = true,
           }'';
+    };
+    godotdev-nvim = let
+      package = pkgs.vimUtils.buildVimPlugin rec {
+        pname = "godotdev.nvim";
+        version = "0.8.2";
+        src = pkgs.fetchFromGitHub {
+          owner = "Mathijs-Bakker";
+          repo = "godotdev.nvim";
+          tag = version;
+          hash = "sha256-XD6XddvCYjc6Sco7b6QBgfZ1xd9+aYpdsUuPH5HbZE8=";
+        };
+        buildInputs = [pkgs.csharp-ls];
+      };
+    in {
+      inherit package;
+      setup =
+        # lua
+        ''
+          require("godotdev").setup({
+            csharp = true
+          })
+        '';
     };
   };
 
@@ -335,6 +356,7 @@ in {
     "csharp" = {
       enable = true;
       lsp.enable = true;
+      lsp.servers = ["omnisharp"];
       treesitter.enable = true;
     };
 

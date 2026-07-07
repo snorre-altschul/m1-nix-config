@@ -73,8 +73,10 @@
       "Mod+D" = {
         hotkey-overlay.title = "Run program with Tofi";
         action.spawn = [
-          "${config.programs.tofi.package}/bin/tofi-drun"
-          "--drun-launch=true"
+          "noctalia"
+          "msg"
+          "panel-toggle"
+          "launcher"
         ];
       };
 
@@ -163,7 +165,10 @@
 
       "Mod+L" = {
         action.spawn = [
-          "${lib.getExe config.programs.swaylock.package}"
+          "noctalia"
+          "msg"
+          "session"
+          "lock"
         ];
       };
     }

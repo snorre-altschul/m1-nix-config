@@ -43,13 +43,13 @@
     ./modules/nvim.nix
     ./modules/bluetooth.nix
     ./modules/git.nix
-    # ./modules/netbird.nix
+    ./modules/netbird.nix
     ./modules/agenix.nix
     ./modules/direnv.nix
     ./modules/yubikey.nix
     ./modules/libvirtd.nix
     ./modules/plymouth.nix
-    ./modules/steam.nix
+    # ./modules/steam.nix
     # (import ./modules/factorio.nix {
     #   inherit pkgs;
     #   inherit (pkgs) stdenv;
@@ -87,6 +87,10 @@
   networking.wireless.iwd = {
     enable = true;
     settings.General.EnableNetworkConfiguration = true;
+  };
+
+  services.upower = {
+    enable = true;
   };
 
   # Set your time zone.

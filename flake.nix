@@ -40,7 +40,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     textfox.url = "github:adriankarlen/textfox";
-    muvm-steam.url = "github:dramforever/nixos-muvm-steam";
+    noctalia.url = "github:noctalia-dev/noctalia";
   };
   outputs = inputs @ {
     nixpkgs,

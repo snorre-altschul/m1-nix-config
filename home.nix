@@ -13,6 +13,7 @@
     ./modules/iamb.nix
     ./modules/prismlauncher.nix
     # ./modules/obsidian.nix
+    inputs.noctalia.homeModules.default
   ];
 
   home.username = "nixos";
