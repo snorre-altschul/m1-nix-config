@@ -130,11 +130,11 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-widget-00000000000000
         background_opacity = 0.88
         background_radius = 32.0
         input_opacity = 1.0
-        input_radius = 6.0
+        input_radius = 16.0
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
-        show_password_hint = true
+        show_password_hint = false
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
     box_height = 176.0
@@ -275,9 +275,9 @@ mode = "dark"
 source = "wallpaper"
 wallpaper_scheme = "soft"
 
-[theme.templates]
-builtin_ids = [ "gtk4", "niri", "qt" ]
-enable_community_templates = false
+    [theme.templates]
+    builtin_ids = [ "gtk4", "ghostty", "niri", "qt" ]
+    enable_community_templates = false
 
 [wallpaper]
 directory = "/home/nixos/.local/wallpapers"
@@ -286,6 +286,21 @@ directory_light = "/home/nixos/.local/wallpapers"
 edge_smoothness = 0.0
 transition = [ "disc", "stripes" ]
 transition_on_startup = true
+
+    [wallpaper.default]
+    path = "/home/nixos/.local/wallpapers/abstract-lambda.png"
+
+    [wallpaper.last]
+    path = "/home/nixos/.local/wallpapers/abstract-lambda.png"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/nixos/.local/wallpapers/abstract-lambda.png"
+
+    [[wallpaper.favorite]]
+    palette_source = "wallpaper"
+    path = "/home/nixos/.local/wallpapers/abstract-lambda.png"
+    theme_mode = "dark"
+    wallpaper_scheme = "soft"
 
 [widget.active_window]
 title_scroll = "on_hover"

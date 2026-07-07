@@ -9,6 +9,7 @@
     enable = true;
     server.enable = true;
     settings = {
+      colors-dark.alpha = config.stylix.opacity.terminal;
       main = {
         pad = "4x4";
         term = "xterm-256color";
