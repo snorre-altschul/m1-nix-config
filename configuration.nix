@@ -79,6 +79,7 @@
   hardware.asahi = {
     enable = true;
     peripheralFirmwareDirectory = ./firmware;
+    extractPeripheralFirmware = true;
   };
   hardware.sensor.iio.enable = true; # required for asahi 6.19 firmware update
   hardware.graphics.enable = true;
