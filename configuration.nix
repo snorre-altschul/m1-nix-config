@@ -80,7 +80,7 @@
     enable = true;
     peripheralFirmwareDirectory = ./firmware;
   };
-
+  hardware.sensor.iio.enable = true; # required for asahi 6.19 firmware update
   hardware.graphics.enable = true;
 
   networking.hostName = "nixos";
