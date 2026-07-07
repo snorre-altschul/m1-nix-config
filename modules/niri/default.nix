@@ -1,8 +1,10 @@
 {
   pkgs,
   lib,
+  config,
   ...
-}: {
+}:
+{
   imports = [
     # ../tofi
     # ../waybar/old
@@ -17,13 +19,27 @@
     ./binds.nix
   ];
 
+  xdg.configFile."niri/config.kdl".text =
+    # kdl
+    ''
+      include "nix-generated-config.kdl"
+      include optional=true "noctalia.kdl"
+    '';
+  xdg.configFile.niri-config.target = lib.mkForce "niri/nix-generated-config.kdl";
+
   programs.niri.settings = {
     debug.render-drm-device = "/dev/dri/renderD128";
 
     spawn-at-startup = [
-      {command = ["${lib.getExe pkgs.xwayland-satellite}"];}
-      {command = ["sh" "${lib.getExe pkgs.ydotool} mousemove -- 9999 9999"];}
+      {
+        command = [
+          "sh"
+          "${lib.getExe pkgs.ydotool} mousemove -- 9999 9999"
+        ];
+      }
     ];
+
+    xwayland-satellite.enable = true;
 
     switch-events.lid-close.action.spawn = [
       "noctalia"

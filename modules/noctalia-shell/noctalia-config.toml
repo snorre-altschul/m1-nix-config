@@ -20,6 +20,7 @@ end = [
     "control-center"
 ]
 font_family = "Mononoki Nerd Font Mono"
+font_weight = 400
 margin_edge = 0
 margin_ends = 0
 padding = 6
@@ -85,7 +86,7 @@ behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
     [idle.behavior.lock]
     action = "lock"
     enabled = true
-    timeout = 120.0
+    timeout = 130.0
 
     [idle.behavior.lock-and-suspend]
     action = "lock_and_suspend"
@@ -95,7 +96,7 @@ behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
     [idle.behavior.screen-off]
     action = "screen_off"
     enabled = true
-    timeout = 130.0
+    timeout = 120.0
 
 [location]
 address = "Copenhagen"
@@ -181,12 +182,21 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-widget-00000000000000
         background = false
         title = "Login"
 
+[nightlight]
+enabled = true
+
 [notification]
 layer = "overlay"
 
 [osd]
 background_opacity = 0.92999997921288013
 position = "top_right"
+
+[plugin_settings."noctalia/wallhaven"]
+browser_open_near_click = true
+
+[plugins]
+enabled = []
 
 [shell]
 corner_radius_scale = 0.5000000074505806
@@ -235,6 +245,7 @@ polkit_agent = true
 
     [[shell.session.actions]]
     action = "lock_and_suspend"
+    command = "systemctl suspend"
     countdown_seconds = 0.0
     enabled = true
     shortcut = "3"
@@ -260,11 +271,16 @@ memory_poll_seconds = 10
 network_poll_seconds = 10
 
 [theme]
-builtin = "Nord"
+builtin = "Ayu"
 community_palette = "Gruvbox Material"
+custom_palette = "stylix"
 mode = "dark"
-source = "builtin"
+source = "wallpaper"
 wallpaper_scheme = "m3-content"
+
+    [theme.templates]
+    builtin_ids = [ "gtk4", "niri", "qt" ]
+    enable_community_templates = false
 
 [wallpaper]
 directory = "/home/nixos/.local/wallpapers"
@@ -275,13 +291,19 @@ transition = [ "disc", "stripes" ]
 transition_on_startup = true
 
     [wallpaper.default]
-    path = "/home/nixos/.local/wallpapers/abstract-lambda.png"
+    path = "/home/nixos/.local/wallpapers/cube.png"
 
     [wallpaper.last]
-    path = "/home/nixos/.local/wallpapers/abstract-lambda.png"
+    path = "/home/nixos/.local/wallpapers/cube.png"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/nixos/.local/wallpapers/abstract-lambda.png"
+    path = "/home/nixos/.local/wallpapers/cube.png"
+
+    [[wallpaper.favorite]]
+    palette_source = "wallpaper"
+    path = "/home/nixos/.local/wallpapers/cube.png"
+    theme_mode = "dark"
+    wallpaper_scheme = "m3-content"
 
 [widget.active_window]
 title_scroll = "on_hover"
@@ -304,3 +326,7 @@ show_label = false
 [widget.tray]
 drawer = false
 hidden = [ "blueman" ]
+
+[widget.workspaces]
+active_pill_size = 1.6500000000000001
+display = "none"

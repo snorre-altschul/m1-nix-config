@@ -28,6 +28,7 @@
             ".cache/nix"
             ".config/Signal"
             ".config/vesktop"
+            ".config/Element"
             ".config/Yubico"
             ".config/sublime-merge"
 
@@ -98,6 +99,8 @@
   time.timeZone = lib.mkDefault "Europe/Copenhagen";
   # services.automatic-timezoned.enable = true;
   services.avahi.enable = true;
+
+  i18n.defaultLocale = "en_EU.UTF-8";
 
   # Automatically install all stylix font packages
   fonts.packages =

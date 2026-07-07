@@ -11,6 +11,7 @@
     # ./modules/kitty.nix
     ./modules/lsd.nix
     ./modules/iamb.nix
+    ./modules/element.nix
     ./modules/prismlauncher.nix
     # ./modules/obsidian.nix
     inputs.noctalia.homeModules.default
@@ -39,6 +40,7 @@
     };
   };
 
+
   stylix = let
     conf = import ./stylix.nix {inherit inputs;};
   in {
@@ -47,6 +49,11 @@
     inherit (conf) image;
     polarity = "dark";
     autoEnable = true;
+    targets = {
+      gtk.enable = false;
+      qt.enable = false;
+      niri.enable = false;
+    };
     fonts = {
       serif = {
         package = pkgs.noto-fonts;

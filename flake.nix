@@ -41,6 +41,7 @@
     };
     textfox.url = "github:adriankarlen/textfox";
     noctalia.url = "github:noctalia-dev/noctalia";
+    enEULocale.url = "github:illdefined/en_EU";
   };
   outputs = inputs @ {
     nixpkgs,
@@ -78,6 +79,8 @@
 
         inputs.home-manager.nixosModules.default
         inputs.stylix.nixosModules.stylix
+
+        inputs.enEULocale.nixosModules.default
 
         inputs.agenix.nixosModules.default
         {environment.systemPackages = [inputs.agenix.packages."aarch64-linux".default];}
