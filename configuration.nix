@@ -169,7 +169,7 @@
   programs.fish = {
     enable = true;
     shellAbbrs = {
-      "nrb" = "nixos-rebuild --sudo switch --flake /etc/nixos";
+      "nrb" = "run0 nixos-rebuild switch --flake /etc/nixos";
       "nd" = "nix develop -c fish";
     };
   };
