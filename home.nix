@@ -40,7 +40,6 @@
     };
   };
 
-
   stylix = let
     conf = import ./stylix.nix {inherit inputs;};
   in {

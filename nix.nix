@@ -36,6 +36,8 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  system.tools.nixos-rebuild.enableRun0Elevation = true;
+
   nixpkgs.overlays = [
     inputs.niri-flake.overlays.niri
   ];

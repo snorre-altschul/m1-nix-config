@@ -1,10 +1,8 @@
 {
   pkgs,
   lib,
-  config,
   ...
-}:
-{
+}: {
   imports = [
     # ../tofi
     # ../waybar/old

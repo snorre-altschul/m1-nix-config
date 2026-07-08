@@ -7,7 +7,6 @@ _: {
       {proportion = 1. / 2.;}
     ];
 
-    
     border.width = 1;
     focus-ring.width = 1;
   };
