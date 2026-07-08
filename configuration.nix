@@ -76,23 +76,23 @@
 
   programs.nix-ld.enable = true;
 
-  nixpkgs.overlays = [
-    (_final: prev: {
-      uboot-asahi = prev.uboot-asahi.overrideAttrs (old: {
-        extraConfig =
-          old.extraConfig
-          + ''
-            CONFIG_SILENT_CONSOLE=y
-            CONFIG_SILENT_CONSOLE_UNTIL_ENV=y   # suppress early messages too
-            CONFIG_SILENT_U_BOOT_ONLY=y         # don't pass 'quiet' to kernel automatically
-            CONFIG_BOOTDELAY=3                  # give a window to interrupt
-            CONFIG_AUTOBOOT_KEYED=y             # require specific key, not just any key
-            CONFIG_AUTOBOOT_KEYED_CTRLC=y       # Ctrl-C as the interrupt key
-            CONFIG_AUTOBOOT_PROMPT=""           # hide the countdown message
-          '';
-      });
-    })
-  ];
+  # nixpkgs.overlays = [
+  #   (_final: prev: {
+  #     uboot-asahi = prev.uboot-asahi.overrideAttrs (old: {
+  #       extraConfig =
+  #         old.extraConfig
+  #         + ''
+  #           CONFIG_SILENT_CONSOLE=y
+  #           CONFIG_SILENT_CONSOLE_UNTIL_ENV=y   # suppress early messages too
+  #           CONFIG_SILENT_U_BOOT_ONLY=y         # don't pass 'quiet' to kernel automatically
+  #           CONFIG_BOOTDELAY=3                  # give a window to interrupt
+  #           CONFIG_AUTOBOOT_KEYED=y             # require specific key, not just any key
+  #           CONFIG_AUTOBOOT_KEYED_CTRLC=y       # Ctrl-C as the interrupt key
+  #           CONFIG_AUTOBOOT_PROMPT=""           # hide the countdown message
+  #         '';
+  #     });
+  #   })
+  # ];
   # Specify path to peripheral firmware files.
   hardware.asahi = {
     enable = true;
@@ -149,7 +149,10 @@
     inherit (conf) base16Scheme;
     inherit (conf) image;
     autoEnable = true;
-    targets.plymouth.enable = false;
+    targets = {
+      console.enable = false;
+      kmscon.enable = false;
+    };
     polarity = "dark";
 
     cursor.package = pkgs.bibata-cursors;
@@ -169,7 +172,7 @@
   programs.fish = {
     enable = true;
     shellAbbrs = {
-      "nrb" = "run0 nixos-rebuild switch --flake /etc/nixos";
+      "nrb" = "run0 --background= nixos-rebuild switch --flake /etc/nixos";
       "nd" = "nix develop -c fish";
     };
   };

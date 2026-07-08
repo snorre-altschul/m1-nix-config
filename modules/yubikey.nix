@@ -28,14 +28,7 @@
     login.u2fAuth = true;
     sudo.u2fAuth = true;
     systemd-run0.u2fAuth = true;
-    polkit-1 = {
-      u2fAuth = true;
-      rules.auth.u2f.args = lib.mkAfter [
-        "pinverification=0"
-        "userverification=1"
-        "debug"
-      ];
-    };
+    polkit1.u2fAuth = true;
     greetd.u2fAuth = true;
     swaylock = {
       u2fAuth = true;

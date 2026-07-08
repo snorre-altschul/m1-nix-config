@@ -35,6 +35,12 @@
           "${lib.getExe pkgs.ydotool} mousemove -- 9999 9999"
         ];
       }
+      {
+        command = [
+          "sh"
+          "noctalia msg volume-up; noctalia msg volume-down"
+        ];
+      }
     ];
 
     xwayland-satellite.enable = true;
