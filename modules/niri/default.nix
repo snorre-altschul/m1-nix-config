@@ -26,7 +26,7 @@
   xdg.configFile.niri-config.target = lib.mkForce "niri/nix-generated-config.kdl";
 
   programs.niri.settings = {
-    debug.render-drm-device = "/dev/dri/renderD128";
+    # debug.render-drm-device = "/dev/dri/renderD128";
 
     spawn-at-startup = [
       {

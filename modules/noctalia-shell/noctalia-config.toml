@@ -7,18 +7,7 @@ capsule = true
 capsule_thickness = 0.73999998718500137
 center = [ "workspaces" ]
 contact_shadow = true
-end = [
-    "privacy",
-    "tray",
-    "volume",
-    "brightness",
-    "battery",
-    "network",
-    "bluetooth",
-    "clipboard",
-    "notifications",
-    "control-center"
-]
+end = [ "privacy", "tray", "volume", "brightness", "battery", "network", "bluetooth", "notifications", "control-center" ]
 font_family = "Mononoki Nerd Font Mono"
 font_weight = 400
 margin_edge = 0
@@ -204,8 +193,19 @@ browser_open_near_click = true
 [plugins]
 enabled = []
 
+    [[plugins.source]]
+    kind = "git"
+    location = "https://github.com/noctalia-dev/official-plugins"
+    name = "official"
+
+    [[plugins.source]]
+    kind = "git"
+    location = "https://github.com/noctalia-dev/community-plugins"
+    name = "community"
+
 [shell]
 clipboard_auto_paste = "off"
+clipboard_enabled = false
 corner_radius_scale = 0.5000000074505806
 date_format = "%A, %Y-%m-%d"
 font_family = "Mononoki Nerd Font"

@@ -1,0 +1,47 @@
+diff --git a/common/console.c b/common/console.c
+index 48586fd2..0c31567e 100644
+--- a/common/console.c
++++ b/common/console.c
+@@ -1011,14 +1011,6 @@ static bool console_update_silent(void)
+ 
+ int console_announce_r(void)
+ {
+-#if !CONFIG_IS_ENABLED(PRE_CONSOLE_BUFFER)
+-	char buf[DISPLAY_OPTIONS_BANNER_LENGTH];
+-
+-	display_options_get_banner(false, buf, sizeof(buf));
+-
+-	console_puts_select(stdout, false, buf);
+-#endif
+-
+ 	return 0;
+ }
+ 
+diff --git a/drivers/video/video-uclass.c b/drivers/video/video-uclass.c
+index 53641fc2..c97812fc 100644
+--- a/drivers/video/video-uclass.c
++++ b/drivers/video/video-uclass.c
+@@ -636,6 +636,7 @@ static int video_post_probe(struct udevice *dev)
+ 	struct video_uc_plat *plat = dev_get_uclass_plat(dev);
+ 	struct video_uc_priv *uc_priv = uclass_get_priv(dev->uclass);
+ 	struct video_priv *priv = dev_get_uclass_priv(dev);
++  priv->quiet = true;
+ 	char name[30], drv[15], *str;
+ 	const char *drv_name = drv;
+ 	struct udevice *cons;
+diff --git a/lib/display_options.c b/lib/display_options.c
+index 2c15cc5b..65cd70a5 100644
+--- a/lib/display_options.c
++++ b/lib/display_options.c
+@@ -45,11 +45,6 @@ char *display_options_get_banner(bool newlines, char *buf, int size)
+ 
+ int display_options(void)
+ {
+-	char buf[DISPLAY_OPTIONS_BANNER_LENGTH];
+-
+-	display_options_get_banner(true, buf, sizeof(buf));
+-	printf("%s", buf);
+-
+ 	return 0;
+ }
+ 

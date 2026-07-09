@@ -17,9 +17,11 @@ _: {
   boot.m1n1CustomLogo = ./m1n1-bootloader-splash.png;
 
   # Use systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = false;
-  boot.loader.grub.enable = true;
-  boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.loader.systemd-boot.configurationLimit = 10;
+  boot.loader.grub.enable = false;
   boot.loader.grub.efiInstallAsRemovable = true;
   boot.loader.grub.timeoutStyle = "hidden";
   boot.loader.grub.configurationLimit = 5;

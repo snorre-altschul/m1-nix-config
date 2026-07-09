@@ -1,6 +1,6 @@
 _: {
   services.spotifyd = {
-    enable = true;
+    enable = false;
     settings = {
       bitrate = 160;
       volume_normalization = true;
@@ -9,7 +9,7 @@ _: {
   };
 
   programs.spotify-player = {
-    enable = true;
+    enable = false;
     settings.copy_command = {
       command = "wl-copy";
       args = [];

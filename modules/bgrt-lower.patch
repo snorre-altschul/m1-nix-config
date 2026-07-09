@@ -1,0 +1,16 @@
+diff --git a/nixos-bgrt.plymouth b/nixos-bgrt.plymouth
+index aa20b7e..afd3779 100644
+--- a/nixos-bgrt.plymouth
++++ b/nixos-bgrt.plymouth
+@@ -8,9 +8,9 @@ Font=Cantarell 20
+ ImageDir=@IMAGES@
+ 
+ DialogHorizontalAlignment=.5
+-DialogVerticalAlignment=.8
++DialogVerticalAlignment=.3
+ HorizontalAlignment=.5
+-VerticalAlignment=.8
++VerticalAlignment=.3
+ Transition=none
+ TransitionDuration=0.0
+ BackgroundStartColor=0x000000

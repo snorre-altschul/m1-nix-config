@@ -76,23 +76,37 @@
 
   programs.nix-ld.enable = true;
 
-  # nixpkgs.overlays = [
-  #   (_final: prev: {
-  #     uboot-asahi = prev.uboot-asahi.overrideAttrs (old: {
-  #       extraConfig =
-  #         old.extraConfig
-  #         + ''
-  #           CONFIG_SILENT_CONSOLE=y
-  #           CONFIG_SILENT_CONSOLE_UNTIL_ENV=y   # suppress early messages too
-  #           CONFIG_SILENT_U_BOOT_ONLY=y         # don't pass 'quiet' to kernel automatically
-  #           CONFIG_BOOTDELAY=3                  # give a window to interrupt
-  #           CONFIG_AUTOBOOT_KEYED=y             # require specific key, not just any key
-  #           CONFIG_AUTOBOOT_KEYED_CTRLC=y       # Ctrl-C as the interrupt key
-  #           CONFIG_AUTOBOOT_PROMPT=""           # hide the countdown message
-  #         '';
-  #     });
-  #   })
-  # ];
+  nixpkgs.overlays = [
+    (_final: prev: {
+      uboot-asahi = prev.uboot-asahi.overrideAttrs (old: {
+        extraConfig =
+          old.extraConfig
+          + ''
+            CONFIG_SILENT_CONSOLE=y
+            CONFIG_SILENT_CONSOLE_UPDATE_ON_SET=y
+            CONFIG_EXTRA_ENV_SETTINGS="silent=1\0"
+            CONFIG_SILENT_CONSOLE_UNTIL_ENV=y   # suppress early messages too
+            CONFIG_SILENT_U_BOOT_ONLY=y         # don't pass 'quiet' to kernel automatically
+            CONFIG_BOOTDELAY=1                  # give a window to interrupt
+            CONFIG_AUTOBOOT_KEYED=y             # require specific key, not just any key
+            CONFIG_AUTOBOOT_KEYED_CTRLC=y       # Ctrl-C as the interrupt key
+            CONFIG_AUTOBOOT_PROMPT=" "          # hide the countdown message
+            CONFIG_DISPLAY_BOARDINFO_LATE=n
+            CONFIG_DEBUG_UART=n
+            CONFIG_PREBOOT="setenv silent 1"
+            CONFIG_BANNER_PRINT=n
+            CONFIG_HIDE_LOGO_VERSION=y
+            CONFIG_SYS_CONSOLE_INFO_QUIET=y
+            CONFIG_SYS_DEVICE_NULLDEV=y
+            CONFIG_SILENT_CONSOLE_UPDATE_ON_RELOC=y
+            CONFIG_SYS_CONSOLE_INFO_QUIET=y
+            CONFIG_SPL_SILENT_CONSOLE=y
+            CONFIG_TPL_SILENT_CONSOLE=y
+            CONFIG_VIDEO_LOGO=n
+          '';
+      });
+    })
+  ];
   # Specify path to peripheral firmware files.
   hardware.asahi = {
     enable = true;
@@ -175,30 +189,31 @@
       "nrb" = "run0 --background= nixos-rebuild switch --flake /etc/nixos";
       "nd" = "nix develop -c fish";
     };
+    shellAliases.sudo = "run0 --background= ";
   };
   documentation.man.cache.enable = false;
 
-  specialisation."work".configuration = {
-    programs.fish.shellAbbrs."nrb" =
-      lib.mkForce "nixos-rebuild --sudo switch --flake /etc/nixos --specialisation work";
-    home-manager.users."nixos".xdg.mimeApps = {
-      enable = true;
-      defaultApplications = let
-        defaultApplications = desktop: {
-          "text/html" = "${desktop}";
-          "text/xml" = "${desktop}";
-          "application/vnd.mozilla.xul+xml" = "${desktop}";
-          "application/xhtml+xml" = "${desktop}";
-          "application/pdf" = "${desktop}";
-          "x-scheme-handler/http" = "${desktop}";
-          "x-scheme-handler/https" = "${desktop}";
-          "x-scheme-handler/about" = "${desktop}";
-          "x-scheme-handler/unknown" = "${desktop}";
-        };
-      in
-        lib.mkForce (defaultApplications "Firefox - work profile.desktop");
-    };
-  };
+  # specialisation."work".configuration = {
+  #   programs.fish.shellAbbrs."nrb" =
+  #     lib.mkForce "nixos-rebuild --sudo switch --flake /etc/nixos --specialisation work";
+  #   home-manager.users."nixos".xdg.mimeApps = {
+  #     enable = true;
+  #     defaultApplications = let
+  #       defaultApplications = desktop: {
+  #         "text/html" = "${desktop}";
+  #         "text/xml" = "${desktop}";
+  #         "application/vnd.mozilla.xul+xml" = "${desktop}";
+  #         "application/xhtml+xml" = "${desktop}";
+  #         "application/pdf" = "${desktop}";
+  #         "x-scheme-handler/http" = "${desktop}";
+  #         "x-scheme-handler/https" = "${desktop}";
+  #         "x-scheme-handler/about" = "${desktop}";
+  #         "x-scheme-handler/unknown" = "${desktop}";
+  #       };
+  #     in
+  #       lib.mkForce (defaultApplications "Firefox - work profile.desktop");
+  #   };
+  # };
 
   # Minimal TUI displaymanager for loggin in and launching hyprland
   services.greetd = {
@@ -241,14 +256,6 @@
     enableSSHSupport = true;
   };
   programs.ssh.forwardX11 = true;
-
-  security.sudo = {
-    enable = true;
-    # I know what im doing
-    extraConfig = ''
-      Defaults  lecture = never
-    '';
-  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
