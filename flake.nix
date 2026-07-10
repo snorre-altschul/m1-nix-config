@@ -42,6 +42,7 @@
     textfox.url = "github:adriankarlen/textfox";
     noctalia.url = "github:noctalia-dev/noctalia";
     enEULocale.url = "github:illdefined/en_EU";
+    nixos-core.url = "github:manic-systems/nixos-core/main?tag=v1.0.1";
   };
   outputs = inputs @ {
     nixpkgs,
@@ -81,6 +82,7 @@
         inputs.stylix.nixosModules.stylix
 
         inputs.enEULocale.nixosModules.default
+        inputs.nixos-core.nixosModules.default
 
         inputs.agenix.nixosModules.default
         {environment.systemPackages = [inputs.agenix.packages."aarch64-linux".default];}

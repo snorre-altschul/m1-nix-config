@@ -28,19 +28,11 @@
   programs.niri.settings = {
     # debug.render-drm-device = "/dev/dri/renderD128";
 
+    hotkey-overlay.skip-at-startup = true;
+
     spawn-at-startup = [
-      {
-        command = [
-          "sh"
-          "${lib.getExe pkgs.ydotool} mousemove -- 9999 9999"
-        ];
-      }
-      {
-        command = [
-          "sh"
-          "noctalia msg volume-up; noctalia msg volume-down"
-        ];
-      }
+      { command = [ "${lib.getExe pkgs.xwayland-satellite}" ]; }
+      { command = [ "sh" "noctalia msg volume-up; noctalia msg volume-down" ]; }
     ];
 
     xwayland-satellite.enable = true;

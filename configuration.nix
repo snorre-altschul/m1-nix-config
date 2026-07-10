@@ -50,6 +50,7 @@
     ./modules/yubikey.nix
     ./modules/libvirtd.nix
     ./modules/plymouth.nix
+    ./modules/nixos-core.nix
     # ./modules/steam.nix
     # (import ./modules/factorio.nix {
     #   inherit pkgs;

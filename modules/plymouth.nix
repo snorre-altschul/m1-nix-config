@@ -1,38 +1,36 @@
-{ pkgs, ... }:
+{pkgs,lib,...}:
 let
-  package = pkgs.stdenv.mkDerivation {
-    name = "plymouth-modern-bgrt";
-    version = "1.0.0";
-    src = pkgs.fetchFromGitea {
-      domain = "git.spoodythe.one";
-      owner = "spoody";
-      repo = "plymouth-bgrt";
-      rev = "80acc567bcc4e1d1f6bc82711768843e185421b6";
-      hash = "sha256-/ig+PbHrkC6+a0M8CywduwtbNYq2RFmnnh0mk2wr0XQ=";
-    };
-    dontConfigure = true;
-    dontBuild = true;
+  theme = pkgs.runCommand "stylix-plymouth" { } ''
+    themeDir="$out/share/plymouth/themes/stylix"
+    mkdir -p $themeDir
 
-    installPhase = ''
-      runHook preInstall
+    ${lib.getExe' pkgs.imagemagick "convert"} \
+      -background transparent \
+      -bordercolor transparent \
+      ${./boot/m1n1-bootloader-splash-128x128.png} \
+      $themeDir/logo.png
 
-      mkdir -p $out/share/plymouth/themes/plymouth-modern-bgrt
-      cp -r $src/theme/* $out/share/plymouth/themes/plymouth-modern-bgrt/
+    cp ${./plymouth.script} $themeDir/stylix.script
 
-      runHook postInstall
-    '';
-  };
+    echo "
+    [Plymouth Theme]
+    Name=Stylix
+    ModuleName=script
+
+    [script]
+    ImageDir=$themeDir
+    ScriptFile=$themeDir/stylix.script
+    " > $themeDir/stylix.plymouth
+  '';
 in
 {
   boot.plymouth.enable = true;
   boot.loader.grub.timeoutStyle = "hidden";
   boot.loader.timeout = 5;
-  boot.loader.systemd-boot.consoleMode = "max";
-  # boot.plymouth.logo = ./boot/m1n1-bootloader-splash.png;
+  boot.plymouth.logo = ./boot/m1n1-bootloader-splash-128x128.png;
+  boot.plymouth.themePackages = [theme];
+  boot.plymouth.theme = "stylix";
   stylix.targets.plymouth.enable = false;
-  boot.plymouth.themePackages = [package];
-  boot.plymouth.theme = "plymouth-modern-bgrt";
-  boot.plymouth.logo = ./plymouth-logo.png;
   boot.kernelParams = [
     "loglevel=2"
     "udev.log_priority=2"

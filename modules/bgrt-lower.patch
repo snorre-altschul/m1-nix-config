@@ -7,10 +7,10 @@ index aa20b7e..afd3779 100644
  
  DialogHorizontalAlignment=.5
 -DialogVerticalAlignment=.8
-+DialogVerticalAlignment=.3
++DialogVerticalAlignment=.5
  HorizontalAlignment=.5
 -VerticalAlignment=.8
-+VerticalAlignment=.3
++VerticalAlignment=.5
  Transition=none
  TransitionDuration=0.0
  BackgroundStartColor=0x000000

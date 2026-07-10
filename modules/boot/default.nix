@@ -14,7 +14,7 @@ _: {
   #   matchCredentials = true;
   # });
   # services.qemuGuest.enable = true;
-  boot.m1n1CustomLogo = ./m1n1-bootloader-splash.png;
+  boot.m1n1CustomLogo = ./m1n1-bootloader-splash-128x128.png;
 
   # Use systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
