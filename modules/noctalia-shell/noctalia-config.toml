@@ -6,6 +6,7 @@ background_opacity = 0.89999997988343239
 capsule = true
 capsule_thickness = 0.73999998718500137
 center = [ "workspaces" ]
+concave_edge_corners = true
 contact_shadow = true
 end = [ "privacy", "tray", "volume", "brightness", "battery", "network", "bluetooth", "notifications", "control-center" ]
 font_family = "Mononoki Nerd Font Mono"
@@ -14,12 +15,15 @@ margin_edge = 0
 margin_ends = 0
 padding = 6
 radius = 0
-radius_bottom_left = -6
-radius_bottom_right = -6
+radius_bottom_left = 6
+radius_bottom_right = 6
 radius_top_left = 0
 radius_top_right = 0
 shadow = false
 start = [ "launcher", "clock", "group:g1", "active_window" ]
+
+    [bar.default.actions]
+    middle = "none"
 
     [[bar.default.capsule_group]]
     enabled = true
@@ -112,7 +116,7 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-widget-00000000000000
     box_height = 64.0
     box_width = 416.0
     cx = 731.5
-    cy = 601.0
+    cy = 665.0
     output = "eDP-1"
     rotation = 0.0
     type = "login_box"
@@ -121,12 +125,12 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-widget-00000000000000
         background_color = "surface_variant"
         background_opacity = 0.88
         background_radius = 32.0
+        center_password_text = false
         input_opacity = 1.0
         input_radius = 16.0
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
-        show_password_hint = false
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
     box_height = 176.0
@@ -183,8 +187,9 @@ offset_x = 8
 
 [osd]
 background_opacity = 0.92999997921288013
-offset_y = 120
-position = "bottom_center"
+offset_x = 50
+offset_y = 50
+position = "top_left"
 scale = 1.1000000089406967
 
 [plugin_settings."noctalia/wallhaven"]
@@ -210,7 +215,6 @@ corner_radius_scale = 0.5000000074505806
 date_format = "%A, %Y-%m-%d"
 font_family = "Mononoki Nerd Font"
 launch_apps_as_systemd_services = true
-middle_click_opens_widget_settings = false
 niri_overview_type_to_launch_enabled = false
 offline_mode = false
 password_style = "random"
@@ -282,12 +286,15 @@ memory_poll_seconds = 10
 network_poll_seconds = 10
 
 [theme]
+builtin = "Ayu"
+community_palette = "Oxocarbon"
+custom_palette = "stylix"
 mode = "dark"
 source = "wallpaper"
 wallpaper_scheme = "soft"
 
     [theme.templates]
-    builtin_ids = [ "gtk4", "ghostty", "niri", "qt" ]
+    builtin_ids = [ "gtk3", "gtk4", "ghostty", "niri", "qt" ]
     enable_community_templates = false
 
 [wallpaper]
@@ -337,4 +344,4 @@ hidden = [ "blueman" ]
 
 [widget.workspaces]
 active_pill_size = 1.6500000000000001
-display = "none"
+show_labels = false

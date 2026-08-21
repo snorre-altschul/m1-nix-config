@@ -30,9 +30,13 @@
 
     hotkey-overlay.skip-at-startup = true;
 
+    environment = {
+      QT_QPA_PLATFORMTHEME = "qt6ct";
+    };
+
     spawn-at-startup = [
-      { command = [ "${lib.getExe pkgs.xwayland-satellite}" ]; }
-      { command = [ "sh" "noctalia msg volume-up; noctalia msg volume-down" ]; }
+      {command = ["${lib.getExe pkgs.xwayland-satellite}"];}
+      {command = ["sh" "noctalia msg volume-up; noctalia msg volume-down"];}
     ];
 
     xwayland-satellite.enable = true;

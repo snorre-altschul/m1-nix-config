@@ -399,11 +399,6 @@ in {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi";
           installation_mode = "force_installed";
         };
-        # bitwarden
-        "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
-          installation_mode = "force_installed";
-        };
         # FUCK youtube ai translated titles
         "{458160b9-32eb-0f0c-8_d1-89ad3bdeb9dc}" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/youtube-anti-translate/latest.xpi";
@@ -423,6 +418,10 @@ in {
         };
         "@crw-extension-firefox" = {
           install_url = "https://github.com/FULU-Foundation/CRW-Extension/releases/download/v1.0.31/firefox-extension.zip";
+          installation_mode = "force_installed";
+        };
+        "keepassxc-browser@keepassxc.org" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc_browser/latest.xpi";
           installation_mode = "force_installed";
         };
       };

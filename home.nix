@@ -13,6 +13,7 @@
     ./modules/iamb.nix
     ./modules/element.nix
     ./modules/prismlauncher.nix
+    ./modules/keepassxc.nix
     # ./modules/obsidian.nix
     inputs.noctalia.homeModules.default
   ];

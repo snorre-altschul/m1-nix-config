@@ -31,6 +31,8 @@
             ".config/Element"
             ".config/Yubico"
             ".config/sublime-merge"
+            ".config/mozc"
+            ".cache/keepassxc"
 
             ".local/share/fish"
             ".librewolf"
@@ -46,6 +48,7 @@
     ./modules/git.nix
     ./modules/netbird.nix
     ./modules/agenix.nix
+    ./modules/syncthing.nix
     ./modules/direnv.nix
     ./modules/yubikey.nix
     ./modules/libvirtd.nix
@@ -75,6 +78,7 @@
   ];
 
   programs.nix-ld.enable = true;
+  services.gnome.gnome-keyring.enable = lib.mkForce false;
 
   nixpkgs.overlays = [
     (_final: prev: {
@@ -131,7 +135,61 @@
   # services.automatic-timezoned.enable = true;
   services.avahi.enable = true;
 
+  qt.style = lib.mkForce "breeze";
+  qt.platformTheme = "qt5ct";
+  qt.enable = true;
+
   i18n.defaultLocale = "en_EU.UTF-8";
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5 = {
+      addons = with pkgs; [
+        fcitx5-mozc
+        fcitx5-gtk
+        fcitx5-nord
+      ];
+      waylandFrontend = true;
+      settings = {
+        addons."classicui".globalSection = {
+          Theme = "Nord-Dark";
+          DarkTheme = "Nord-Dark";
+        };
+        inputMethod = {
+          GroupOrder."0" = "Default";
+          "Groups/0" = {
+            Name = "Default";
+            "Default Layout" = "us";
+            DefaultIM = "keyboard-dk";
+          };
+          "Groups/0/Items/0" = {
+            Name = "keyboard-us";
+            Layout = "";
+          };
+          "Groups/0/Items/1" = {
+            Name = "keyboard-dk";
+            Layout = "";
+          };
+          "Groups/0/Items/2" = {
+            Name = "mozc";
+            Layout = "";
+          };
+        };
+        globalOptions = {
+          # Switch input method with super+space
+          "Hotkey/TriggerKeys" = {};
+          "Hotkey/AltTriggerKeys" = {};
+          "Hotkey/EnumerateForwardKeys" = {
+            "0" = "Super+space";
+          };
+          "Behavior/DisabledAddons" = {
+            "0" = "clipboard";
+          };
+        };
+      };
+    };
+  };
+  services.xserver.desktopManager.runXdgAutostartIfNone = true;
 
   # Automatically install all stylix font packages
   fonts.packages =
@@ -185,8 +243,11 @@
 
   programs.fish = {
     enable = true;
-    shellAbbrs = {
-      "nrb" = "run0 --background= nixos-rebuild switch --flake /etc/nixos";
+    shellAbbrs = let
+      nrb = "run0 --background= nixos-rebuild switch --flake /etc/nixos";
+    in {
+      inherit nrb;
+      "nrbb" = "nice -n 13 ${nrb}";
       "nd" = "nix develop -c fish";
     };
     shellAliases.sudo = "run0 --background= ";

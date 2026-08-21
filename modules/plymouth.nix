@@ -1,6 +1,9 @@
-{pkgs,lib,...}:
-let
-  theme = pkgs.runCommand "stylix-plymouth" { } ''
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  theme = pkgs.runCommand "stylix-plymouth" {} ''
     themeDir="$out/share/plymouth/themes/stylix"
     mkdir -p $themeDir
 
@@ -22,8 +25,7 @@ let
     ScriptFile=$themeDir/stylix.script
     " > $themeDir/stylix.plymouth
   '';
-in
-{
+in {
   boot.plymouth.enable = true;
   boot.loader.grub.timeoutStyle = "hidden";
   boot.loader.timeout = 5;

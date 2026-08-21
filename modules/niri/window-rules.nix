@@ -43,6 +43,18 @@
         {
           app-id = "^org.kde.polkit-kde-authentication-agent-1$";
         }
+        {
+          app-id = "^org.keepassxc.KeePassXC$";
+          title = "^KeePassXC - Browser Access Request$";
+        }
+        {
+          app-id = "^org.keepassxc.KeePassXC$";
+          title = "^KeePassXC - Passkey credentials$";
+        }
+        {
+          app-id = "^org.keepassxc.KeePassXC$";
+          title = "^Unlock Database - KeePassXC$";
+        }
       ];
 
       open-floating = true;
@@ -52,7 +64,7 @@
     {
       matches = [
         {
-          title = "^Extension: \(Bitwarden Password Manager\) - Bitwarden — Mozilla Firefox$";
+          app-id = "^org.keepassxc.KeePassXC$";
         }
       ];
       block-out-from = "screen-capture";
@@ -65,6 +77,16 @@
         }
       ];
       block-out-from = "screen-capture";
+    }
+    {
+      matches = [
+        {app-id = "^TheMoen$";}
+        {
+          app-id = "^org\.godotengine\.Editor$";
+          title = "\(DEBUG\)";
+        }
+      ];
+      open-floating = true;
     }
   ];
 }

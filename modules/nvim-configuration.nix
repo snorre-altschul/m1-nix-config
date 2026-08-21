@@ -207,7 +207,7 @@ in {
           tag = version;
           hash = "sha256-XD6XddvCYjc6Sco7b6QBgfZ1xd9+aYpdsUuPH5HbZE8=";
         };
-        buildInputs = [pkgs.csharp-ls];
+        buildInputs = [pkgs.csharp-ls pkgs.gdscript-formatter];
       };
     in {
       inherit package;
